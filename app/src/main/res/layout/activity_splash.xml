@@ -10,7 +10,7 @@
         android:layout_height="fill_parent"
         android:visibility="gone" />
 
-    <com.scu.miomin.keeperplus.view.CirclePageIndicator
+    <com.scu.miomin.keeperplus.ui.CirclePageIndicator
         android:id="@+id/indicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

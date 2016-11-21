@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-import com.scu.miomin.keeperplus.MainActivity;
+import com.scu.miomin.keeperplus.mvp.view.impl.LoginActivity;
 
 /**
  * Created by 莫绪旻 on 16/7/15.
@@ -39,7 +39,7 @@ public class UIHelper {
 	}
 
     public static void showHome(Activity context){
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, LoginActivity.class);
         context.startActivity(intent);
     }
 }

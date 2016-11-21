@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -21,14 +20,16 @@ import com.scu.miomin.keeperplus.constants.APPStatu;
 import com.scu.miomin.keeperplus.constants.APPString;
 import com.scu.miomin.keeperplus.core.AppStatusTracker;
 import com.scu.miomin.keeperplus.core.BaseActivity;
+import com.scu.miomin.keeperplus.ui.CirclePageIndicator;
 import com.scu.miomin.keeperplus.util.SharedPreferenceUtil;
 import com.scu.miomin.keeperplus.util.UIHelper;
-import com.scu.miomin.keeperplus.view.CirclePageIndicator;
 
 /**
  * Created by 莫绪旻 on 15/7/29.
  */
 public class SplashActivity extends BaseActivity {
+
+    private static String FIRSTTIMEUSE = "first-time-use";
 
     private Button btnHome;
     private CirclePageIndicator indicator;
@@ -52,7 +53,7 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void getContentView() {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
     }
 
@@ -63,10 +64,10 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void setUpData(Bundle savedInstanceState) {
-        Uri uri = Uri.parse("res://" + APPString.PACKAGE_NAME + "/" + R.drawable.welcome);
+        Uri uri = Uri.parse("res://" + APPString.PACKAGE_NAME + "/" + R.drawable.img_welcome);
         guideImage.setImageURI(uri);
 
-        final boolean firstTimeUse = SharedPreferenceUtil.getInstance().getBoolean("first-time-use", true);
+        final boolean firstTimeUse = SharedPreferenceUtil.getInstance().getBoolean(FIRSTTIMEUSE, true);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -75,10 +76,8 @@ public class SplashActivity extends BaseActivity {
                     fadeOut.setFillAfter(true);
                     findViewById(R.id.guideImage).startAnimation(fadeOut);
                     initGuideGallery();
-                    Log.i("miomin","first");
                 } else {
                     UIHelper.showHome(SplashActivity.this);
-                    Log.i("miomin","first");
                 }
             }
         }, 2000);
@@ -90,7 +89,7 @@ public class SplashActivity extends BaseActivity {
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferenceUtil.getInstance().putBoolean("first-time-use", false);
+                SharedPreferenceUtil.getInstance().putBoolean(FIRSTTIMEUSE, false);
                 UIHelper.showHome(SplashActivity.this);
             }
         });

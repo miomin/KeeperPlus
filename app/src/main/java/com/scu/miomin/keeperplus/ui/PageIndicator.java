@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.scu.miomin.keeperplus.view;
+package com.scu.miomin.keeperplus.ui;
 
 import android.support.v4.view.ViewPager;
 

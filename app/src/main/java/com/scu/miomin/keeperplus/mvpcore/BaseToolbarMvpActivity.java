@@ -30,8 +30,8 @@ public abstract class BaseToolbarMvpActivity<P extends BasePresenter> extends Ba
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         mvpPresenter = createPresenter();
+        super.onCreate(savedInstanceState);
         mProgressDialogHandler.setProgressCancleListener(new ProgressCancelListener() {
             @Override
             public void onCancelProgress() {

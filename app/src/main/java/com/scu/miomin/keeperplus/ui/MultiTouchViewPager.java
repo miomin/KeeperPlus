@@ -1,4 +1,4 @@
-package com.scu.miomin.keeperplus.view;
+package com.scu.miomin.keeperplus.ui;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

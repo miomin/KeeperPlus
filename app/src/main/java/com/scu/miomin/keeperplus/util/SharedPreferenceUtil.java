@@ -3,7 +3,7 @@ package com.scu.miomin.keeperplus.util;
 import android.content.Context;
 import android.content.SharedPreferences.Editor;
 
-import com.scu.miomin.keeperplus.core.ShareApplication;
+import com.scu.miomin.keeperplus.core.KeepPlusApp;
 
 /**
  * Created by 莫绪旻 on 16/7/15.
@@ -35,7 +35,7 @@ public class SharedPreferenceUtil {
     }
 
     private android.content.SharedPreferences getSp() {
-        return ShareApplication.getInstance().getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        return KeepPlusApp.getInstance().getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
     }
 
     public int getInt(String key, int def) {
