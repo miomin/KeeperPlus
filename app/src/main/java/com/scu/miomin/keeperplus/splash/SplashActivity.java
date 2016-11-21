@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.jakewharton.rxbinding.view.RxView;
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.constants.APPStatu;
 import com.scu.miomin.keeperplus.constants.APPString;
@@ -25,6 +26,11 @@ import com.scu.miomin.keeperplus.ui.CirclePageIndicator;
 import com.scu.miomin.keeperplus.util.SharedPreferenceUtil;
 import com.scu.miomin.keeperplus.util.UIHelper;
 
+import java.util.concurrent.TimeUnit;
+
+import butterknife.Bind;
+import rx.Subscriber;
+
 /**
  * Created by 莫绪旻 on 15/7/29.
  */
@@ -32,11 +38,16 @@ public class SplashActivity extends BaseActivity {
 
     private static String FIRSTTIMEUSE = "first-time-use";
 
-    private Button btnHome;
-    private CirclePageIndicator indicator;
-    private ViewPager pager;
+    @Bind(R.id.btnHome)
+    Button btnHome;
+    @Bind(R.id.indicator)
+    CirclePageIndicator indicator;
+    @Bind(R.id.guideImage)
+    SimpleDraweeView guideImage;
+    @Bind(R.id.pager)
+    ViewPager pager;
+
     private GalleryPagerAdapter adapter;
-    private SimpleDraweeView guideImage;
     private int[] images = {
             R.drawable.newer01,
             R.drawable.newer02,
@@ -60,7 +71,23 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void setUpView() {
-        guideImage = (SimpleDraweeView) findViewById(R.id.guideImage);
+        RxView.clicks(btnHome)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe(new Subscriber<Void>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(Void aVoid) {
+                        SharedPreferenceUtil.getInstance().putBoolean(FIRSTTIMEUSE, false);
+                        UIHelper.showLogin(SplashActivity.this);
+                    }
+                });
     }
 
     @Override
@@ -90,18 +117,8 @@ public class SplashActivity extends BaseActivity {
 
     private void initGuideGallery() {
         final Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fadein);
-        btnHome = (Button) findViewById(R.id.btnHome);
-        btnHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SharedPreferenceUtil.getInstance().putBoolean(FIRSTTIMEUSE, false);
-                UIHelper.showLogin(SplashActivity.this);
-            }
-        });
 
-        indicator = (CirclePageIndicator) findViewById(R.id.indicator);
         indicator.setVisibility(View.VISIBLE);
-        pager = (ViewPager) findViewById(R.id.pager);
         pager.setVisibility(View.VISIBLE);
 
         adapter = new GalleryPagerAdapter();
@@ -156,5 +173,4 @@ public class SplashActivity extends BaseActivity {
             collection.removeView((View) view);
         }
     }
-
 }
