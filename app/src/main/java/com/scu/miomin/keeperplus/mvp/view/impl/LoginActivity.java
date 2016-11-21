@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.jakewharton.rxbinding.view.RxView;
-import com.scu.miomin.keeperplus.MainActivity;
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.constants.ActivityType;
 import com.scu.miomin.keeperplus.mvp.presenter.impl.LoginPresenter;
@@ -168,6 +167,6 @@ public class LoginActivity extends BaseToolbarMvpActivity<LoginPresenter> implem
 
     @Override
     public void startMainActivity() {
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        startActivity(new Intent(LoginActivity.this, PatientHomeActivity.class));
     }
 }

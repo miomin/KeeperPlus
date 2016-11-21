@@ -120,8 +120,10 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-    </application>
+            android:name=".mvp.view.impl.PatientHomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
 
+        </activity>
+
+    </application>
 </manifest>

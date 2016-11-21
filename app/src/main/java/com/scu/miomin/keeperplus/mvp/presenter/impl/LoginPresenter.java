@@ -43,14 +43,14 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
                     public void onSuccess(LoginInfo loginInfo) {
 
                         if (loginInfo.getAccount().length() == 11) {
-                            mvpView.startMainActivity();
                             PatientBean patientBean = (PatientBean) UserMoke.getInstance().getUserByID(loginInfo.getAccount());
                             CurrentUserCache.getInstance().setCurrentUser(patientBean);
                         } else {
-                            mvpView.startMainActivity();
                             DoctorBean doctorBean = (DoctorBean) UserMoke.getInstance().getUserByID(loginInfo.getAccount());
                             CurrentUserCache.getInstance().setCurrentUser(doctorBean);
                         }
+
+                        mvpView.startMainActivity();
 
                         // 保存登录信息到SharedPerences
                         saveLoginInfo(loginInfo);

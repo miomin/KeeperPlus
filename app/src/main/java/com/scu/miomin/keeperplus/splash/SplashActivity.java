@@ -20,6 +20,7 @@ import com.scu.miomin.keeperplus.constants.APPStatu;
 import com.scu.miomin.keeperplus.constants.APPString;
 import com.scu.miomin.keeperplus.core.AppStatusTracker;
 import com.scu.miomin.keeperplus.core.BaseActivity;
+import com.scu.miomin.keeperplus.core.KeepPlusApp;
 import com.scu.miomin.keeperplus.ui.CirclePageIndicator;
 import com.scu.miomin.keeperplus.util.SharedPreferenceUtil;
 import com.scu.miomin.keeperplus.util.UIHelper;
@@ -77,7 +78,11 @@ public class SplashActivity extends BaseActivity {
                     findViewById(R.id.guideImage).startAnimation(fadeOut);
                     initGuideGallery();
                 } else {
-                    UIHelper.showHome(SplashActivity.this);
+                    if (KeepPlusApp.getInstance().AUTOLOGINSUCCEED)
+                        UIHelper.showPatientHome(SplashActivity.this);
+                    else
+                        UIHelper.showLogin(SplashActivity.this);
+                    finish();
                 }
             }
         }, 2000);
@@ -90,7 +95,7 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 SharedPreferenceUtil.getInstance().putBoolean(FIRSTTIMEUSE, false);
-                UIHelper.showHome(SplashActivity.this);
+                UIHelper.showLogin(SplashActivity.this);
             }
         });
 

@@ -10,8 +10,11 @@ import android.text.TextUtils;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.SDKOptions;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
+import com.netease.nimlib.sdk.StatusCode;
+import com.netease.nimlib.sdk.auth.AuthServiceObserver;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.uinfo.UserInfoProvider;
@@ -31,6 +34,7 @@ import com.squareup.leakcanary.LeakCanary;
 public class KeepPlusApp extends Application {
 
     private static KeepPlusApp sInstance;
+    public boolean AUTOLOGINSUCCEED = true;
 
     @Override
     public void onCreate() {
@@ -44,6 +48,18 @@ public class KeepPlusApp extends Application {
         // 创建心电图目录文件
 //        ECGDirSaveUtil.creatDirFile(this);
         initMoke();
+        observeAutoLogin();
+    }
+
+    private void observeAutoLogin() {
+        NIMClient.getService(AuthServiceObserver.class).observeOnlineStatus(
+                new Observer<StatusCode>() {
+                    @Override
+                    public void onEvent(StatusCode statusCode) {
+                        if (statusCode.wontAutoLogin())
+                            AUTOLOGINSUCCEED = false;
+                    }
+                }, true);
     }
 
     private void initMoke() {
