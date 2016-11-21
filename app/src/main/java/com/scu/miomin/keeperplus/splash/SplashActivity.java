@@ -86,6 +86,7 @@ public class SplashActivity extends BaseActivity {
                     public void onNext(Void aVoid) {
                         SharedPreferenceUtil.getInstance().putBoolean(FIRSTTIMEUSE, false);
                         UIHelper.showLogin(SplashActivity.this);
+                        finish();
                     }
                 });
     }
