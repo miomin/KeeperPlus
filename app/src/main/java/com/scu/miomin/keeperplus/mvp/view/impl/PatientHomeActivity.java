@@ -14,9 +14,9 @@ public class PatientHomeActivity extends ToolbarActivity {
 
     private com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView bottomNavigationView;
 
-    private SampleBundleFragment fragment_msg;
-    private SampleBundleFragment fragment_main;
-    private SampleBundleFragment fragment_me;
+    private HomeMsgFragment fragment_msg;
+    private HomeMsgFragment fragment_main;
+    private HomeMsgFragment fragment_me;
 
 
     private int[] image = {R.drawable.icon_msg_tab, R.drawable.icon_main_tab,
@@ -84,21 +84,21 @@ public class PatientHomeActivity extends ToolbarActivity {
 
     private void selectFragmentMsg() {
         if (fragment_msg == null)
-            fragment_msg = SampleBundleFragment.newInstance(titles[0]);
+            fragment_msg = HomeMsgFragment.newInstance(titles[0]);
         getSupportFragmentManager().beginTransaction().replace(R.id.mFragmentContainerLayout, fragment_msg).commitAllowingStateLoss();
         setUpTitle(titles[0]);
     }
 
     private void selectFragmentMain() {
         if (fragment_main == null)
-            fragment_main = SampleBundleFragment.newInstance(titles[1]);
+            fragment_main = HomeMsgFragment.newInstance(titles[1]);
         getSupportFragmentManager().beginTransaction().replace(R.id.mFragmentContainerLayout, fragment_main).commitAllowingStateLoss();
         setUpTitle(titles[1]);
     }
 
     private void selectFragmentMe() {
         if (fragment_me == null)
-            fragment_me = SampleBundleFragment.newInstance(titles[2]);
+            fragment_me = HomeMsgFragment.newInstance(titles[2]);
         getSupportFragmentManager().beginTransaction().replace(R.id.mFragmentContainerLayout, fragment_me).commitAllowingStateLoss();
         setUpTitle(titles[2]);
     }
