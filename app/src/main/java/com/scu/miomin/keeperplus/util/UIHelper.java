@@ -2,11 +2,10 @@ package com.scu.miomin.keeperplus.util;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.widget.Toast;
 
-import com.scu.miomin.keeperplus.mvp.view.impl.LoginActivity;
-import com.scu.miomin.keeperplus.mvp.view.impl.PatientHomeActivity;
+import com.scu.miomin.keeperplus.mvp.view.impl.activity.LoginActivity;
+import com.scu.miomin.keeperplus.mvp.view.impl.activity.PatientHomeActivity;
 
 /**
  * Created by 莫绪旻 on 16/7/15.
@@ -40,12 +39,10 @@ public class UIHelper {
     }
 
     public static void showLogin(Activity context) {
-        Intent intent = new Intent(context, LoginActivity.class);
-        context.startActivity(intent);
+        LoginActivity.startActivity(context);
     }
 
-    public static void showPatientHome(Activity content) {
-        Intent intent = new Intent(content, PatientHomeActivity.class);
-        content.startActivity(intent);
+    public static void showPatientHome(Activity context) {
+        PatientHomeActivity.startActivity(context);
     }
 }

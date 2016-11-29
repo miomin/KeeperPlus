@@ -1,11 +1,14 @@
-package com.scu.miomin.keeperplus.mvp.view.impl;
+package com.scu.miomin.keeperplus.mvp.view.impl.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -128,6 +131,11 @@ public class LoginActivity extends BaseToolbarMvpActivity<LoginPresenter> implem
                 });
     }
 
+    public static void startActivity(Context context) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        context.startActivity(intent);
+    }
+
     @OnClick(R.id.id_cancel)
     public void clearAccount() {
         id_edit.setText("");
@@ -168,5 +176,23 @@ public class LoginActivity extends BaseToolbarMvpActivity<LoginPresenter> implem
     @Override
     public void startMainActivity() {
         startActivity(new Intent(LoginActivity.this, PatientHomeActivity.class));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_login, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_register) {
+            RegisterActivity.startActivity(LoginActivity.this);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

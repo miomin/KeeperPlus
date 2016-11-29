@@ -114,15 +114,23 @@
         </activity>
 
         <activity
-            android:name=".mvp.view.impl.LoginActivity"
+            android:name=".mvp.view.impl.activity.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
 
         <activity
-            android:name=".mvp.view.impl.PatientHomeActivity"
+            android:name=".mvp.view.impl.activity.PatientHomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
+        </activity>
+
+        <activity
+            android:name=".mvp.view.impl.activity.RegisterActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".mvp.view.impl.activity.LoginActivity" />
         </activity>
 
     </application>

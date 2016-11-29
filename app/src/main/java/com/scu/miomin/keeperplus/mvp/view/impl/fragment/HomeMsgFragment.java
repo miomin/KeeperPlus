@@ -1,4 +1,4 @@
-package com.scu.miomin.keeperplus.mvp.view.impl;
+package com.scu.miomin.keeperplus.mvp.view.impl.fragment;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;

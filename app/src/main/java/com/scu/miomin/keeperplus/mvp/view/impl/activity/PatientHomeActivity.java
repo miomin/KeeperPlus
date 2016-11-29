@@ -1,5 +1,7 @@
-package com.scu.miomin.keeperplus.mvp.view.impl;
+package com.scu.miomin.keeperplus.mvp.view.impl.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 
@@ -7,6 +9,7 @@ import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationItem;
 import com.luseen.luseenbottomnavigation.BottomNavigation.OnBottomNavigationItemClickListener;
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.constants.ActivityType;
+import com.scu.miomin.keeperplus.mvp.view.impl.fragment.HomeMsgFragment;
 import com.scu.miomin.keeperplus.toolbar.ToolbarActivity;
 
 
@@ -37,6 +40,11 @@ public class PatientHomeActivity extends ToolbarActivity {
     protected void setUpView() {
         bottomNavigationView = (com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView)
                 findViewById(R.id.bottomNavigation);
+    }
+
+    public static void startActivity(Context context) {
+        Intent intent = new Intent(context, PatientHomeActivity.class);
+        context.startActivity(intent);
     }
 
     @Override

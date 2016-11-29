@@ -1,5 +1,7 @@
 package com.scu.miomin.keeperplus.splash;
 
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -89,6 +91,11 @@ public class SplashActivity extends BaseActivity {
                         finish();
                     }
                 });
+    }
+
+    public static void startActivity(Context context) {
+        Intent intent = new Intent(context, SplashActivity.class);
+        context.startActivity(intent);
     }
 
     @Override
