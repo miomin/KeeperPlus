@@ -1,8 +1,8 @@
 package com.scu.miomin.keeperplus.mvp.module;
 
-import com.scu.miomin.keeperplus.mvp.module.Enum.UserTypeEnum;
-
 import java.io.Serializable;
+
+import scu.miomin.com.keeper.Enum.UserTypeEnum;
 
 /**
  * 描述:医生和病人的父类 创建日期:2015/11/2

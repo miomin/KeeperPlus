@@ -9,8 +9,9 @@ import java.io.Serializable;
  */
 public class MyLocationBean implements Serializable {
 
-    float longitude; //经度
-    float latitude; //纬度
+    private float longitude; //经度
+    private float latitude; //纬度
+    private String address = ""; //医院所在地点位置
 
     public MyLocationBean(float longitude, float latitude) {
         this.latitude = latitude;
@@ -31,5 +32,13 @@ public class MyLocationBean implements Serializable {
 
     public void setLongitude(float longitude) {
         this.longitude = longitude;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
