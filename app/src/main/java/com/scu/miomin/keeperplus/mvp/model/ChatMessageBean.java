@@ -1,6 +1,6 @@
-package com.scu.miomin.keeperplus.mvp.module;
+package com.scu.miomin.keeperplus.mvp.model;
 
-import com.scu.miomin.keeperplus.mvp.module.Enum.ChatMsgTypeEnum;
+import com.scu.miomin.keeperplus.mvp.model.Enum.ChatMsgTypeEnum;
 
 import java.io.Serializable;
 

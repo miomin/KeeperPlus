@@ -1,16 +1,16 @@
 package com.scu.miomin.keeperplus.moke;
 
-import com.scu.miomin.keeperplus.mvp.module.BirthdayBean;
-import com.scu.miomin.keeperplus.mvp.module.DoctorBean;
-import com.scu.miomin.keeperplus.mvp.module.Enum.AdministrativeEnum;
-import com.scu.miomin.keeperplus.mvp.module.Enum.ProfessionalEnum;
-import com.scu.miomin.keeperplus.mvp.module.Enum.SexEnum;
-import com.scu.miomin.keeperplus.mvp.module.HospitalBean;
-import com.scu.miomin.keeperplus.mvp.module.MyLocationBean;
-import com.scu.miomin.keeperplus.mvp.module.PatientBean;
-import com.scu.miomin.keeperplus.mvp.module.TreatmentBean;
-import com.scu.miomin.keeperplus.mvp.module.TreatmentFollowupBean;
-import com.scu.miomin.keeperplus.mvp.module.Userbean;
+import com.scu.miomin.keeperplus.mvp.model.BirthdayBean;
+import com.scu.miomin.keeperplus.mvp.model.DoctorBean;
+import com.scu.miomin.keeperplus.mvp.model.Enum.AdministrativeEnum;
+import com.scu.miomin.keeperplus.mvp.model.Enum.ProfessionalEnum;
+import com.scu.miomin.keeperplus.mvp.model.Enum.SexEnum;
+import com.scu.miomin.keeperplus.mvp.model.HospitalBean;
+import com.scu.miomin.keeperplus.mvp.model.MyLocationBean;
+import com.scu.miomin.keeperplus.mvp.model.PatientBean;
+import com.scu.miomin.keeperplus.mvp.model.TreatmentBean;
+import com.scu.miomin.keeperplus.mvp.model.TreatmentFollowupBean;
+import com.scu.miomin.keeperplus.mvp.model.Userbean;
 
 import java.util.ArrayList;
 import java.util.HashMap;

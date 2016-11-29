@@ -1,4 +1,4 @@
-package com.scu.miomin.keeperplus.mvp.module.Enum;
+package com.scu.miomin.keeperplus.mvp.model.Enum;
 
 /**
  * 描述:表示信息类型的枚举 创建日期:2015/11/10

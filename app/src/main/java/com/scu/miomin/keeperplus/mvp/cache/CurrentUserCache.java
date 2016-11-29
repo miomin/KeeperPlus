@@ -1,6 +1,6 @@
 package com.scu.miomin.keeperplus.mvp.cache;
 
-import com.scu.miomin.keeperplus.mvp.module.Userbean;
+import com.scu.miomin.keeperplus.mvp.model.Userbean;
 
 /**
  * Created by miomin on 16/11/21.

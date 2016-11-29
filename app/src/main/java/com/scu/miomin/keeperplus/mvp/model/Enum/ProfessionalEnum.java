@@ -1,4 +1,4 @@
-package com.scu.miomin.keeperplus.mvp.module.Enum;
+package com.scu.miomin.keeperplus.mvp.model.Enum;
 
 /**
  * Created by miomin on 15/11/13.

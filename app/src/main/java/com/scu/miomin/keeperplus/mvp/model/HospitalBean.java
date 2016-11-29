@@ -1,4 +1,4 @@
-package com.scu.miomin.keeperplus.mvp.module;
+package com.scu.miomin.keeperplus.mvp.model;
 
 import java.io.Serializable;
 
