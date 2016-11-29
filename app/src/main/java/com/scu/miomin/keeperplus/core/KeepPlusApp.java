@@ -10,11 +10,8 @@ import android.text.TextUtils;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.netease.nimlib.sdk.NIMClient;
-import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.SDKOptions;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
-import com.netease.nimlib.sdk.StatusCode;
-import com.netease.nimlib.sdk.auth.AuthServiceObserver;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.uinfo.UserInfoProvider;
@@ -34,7 +31,7 @@ import com.squareup.leakcanary.LeakCanary;
 public class KeepPlusApp extends Application {
 
     private static KeepPlusApp sInstance;
-    public boolean AUTOLOGINSUCCEED = true;
+    public boolean AUTOLOGINSUCCEED = false;
 
     @Override
     public void onCreate() {
@@ -44,22 +41,10 @@ public class KeepPlusApp extends Application {
         LeakCanary.install(this);
         registerAppController();
         Logger.init(APPString.TAG).methodCount(2);
-        NIMClient.init(this, getLoginInfo(), options()); // SDK初始化（启动后台服务，若已经存在用户登录信息，SDK 将完成自动登录）
+        NIMClient.init(this, null, options()); // SDK初始化（启动后台服务，若已经存在用户登录信息，SDK 将完成自动登录）
         // 创建心电图目录文件
 //        ECGDirSaveUtil.creatDirFile(this);
         initMoke();
-        observeAutoLogin();
-    }
-
-    private void observeAutoLogin() {
-        NIMClient.getService(AuthServiceObserver.class).observeOnlineStatus(
-                new Observer<StatusCode>() {
-                    @Override
-                    public void onEvent(StatusCode statusCode) {
-                        if (statusCode.wontAutoLogin())
-                            AUTOLOGINSUCCEED = false;
-                    }
-                }, true);
     }
 
     private void initMoke() {
