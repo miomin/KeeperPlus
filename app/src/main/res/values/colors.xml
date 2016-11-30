@@ -49,7 +49,4 @@
     <color name="header">#58567D</color>
     <color name="grgray">#686868</color>
 
-    <!--list item-->
-    <color name="color_list_item_normal">#44ff0000</color>
-    <color name="color_list_item_press">#44e94c4c</color>
 </resources>
