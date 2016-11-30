@@ -21,38 +21,38 @@ import java.util.HashMap;
  *
  * @author 莫绪旻
  */
-public class UserMoke {
+public class KeeperDataMoke {
 
     private ArrayList<Userbean> userlist = new ArrayList<>();
     private HashMap<String, Userbean> usermap = new HashMap<>();
     private ArrayList<TreatmentBean> treatmentArray = new ArrayList<TreatmentBean>();
-    private static UserMoke instance;
+    private static KeeperDataMoke instance;
 
-    private UserMoke() {
+    private KeeperDataMoke() {
 
     }
 
-    public static UserMoke getInstance() {
+    public static KeeperDataMoke getInstance() {
         if (instance == null) {
-            synchronized (UserMoke.class) {
+            synchronized (KeeperDataMoke.class) {
                 if (instance == null)
-                    instance = new UserMoke();
+                    instance = new KeeperDataMoke();
             }
         }
         return instance;
     }
 
     public void initData() {
-        initDoctorData();
-        initPatientData();
-        initThreatmentListData();
+        initDoctorList();
+        initPatientList();
+        initThreatmentList();
     }
 
     public Userbean getUserByID(String ID) {
         return usermap.get(ID);
     }
 
-    public void initDoctorData() {
+    public void initDoctorList() {
         DoctorBean doctorBean;
         doctorBean = new DoctorBean("2013141463040", "123456", "王鹏医生", SexEnum.MAN,
                 new BirthdayBean(1987, 4, 19), "2013141463040.png", AdministrativeEnum.NEIKE,
@@ -87,7 +87,7 @@ public class UserMoke {
         usermap.put("2013141463003", doctorBean);
     }
 
-    public void initPatientData() {
+    public void initPatientList() {
 
         PatientBean patientBean;
 
@@ -112,7 +112,7 @@ public class UserMoke {
         usermap.put("13558868295", patientBean);
     }
 
-    public void initThreatmentListData() {
+    public void initThreatmentList() {
 
         TreatmentBean treatmentFollowupForPatientBean;
 

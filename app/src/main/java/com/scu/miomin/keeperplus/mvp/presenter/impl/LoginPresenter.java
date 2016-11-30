@@ -12,7 +12,7 @@ import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.netease.nimlib.sdk.auth.constant.LoginSyncStatus;
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.core.KeepPlusApp;
-import com.scu.miomin.keeperplus.moke.UserMoke;
+import com.scu.miomin.keeperplus.moke.KeeperDataMoke;
 import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
 import com.scu.miomin.keeperplus.mvp.model.DoctorBean;
 import com.scu.miomin.keeperplus.mvp.model.PatientBean;
@@ -43,10 +43,10 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
                     public void onSuccess(LoginInfo loginInfo) {
 
                         if (loginInfo.getAccount().length() == 11) {
-                            PatientBean patientBean = (PatientBean) UserMoke.getInstance().getUserByID(loginInfo.getAccount());
+                            PatientBean patientBean = (PatientBean) KeeperDataMoke.getInstance().getUserByID(loginInfo.getAccount());
                             KeeperPlusCache.getInstance().setCurrentUser(patientBean);
                         } else {
-                            DoctorBean doctorBean = (DoctorBean) UserMoke.getInstance().getUserByID(loginInfo.getAccount());
+                            DoctorBean doctorBean = (DoctorBean) KeeperDataMoke.getInstance().getUserByID(loginInfo.getAccount());
                             KeeperPlusCache.getInstance().setCurrentUser(doctorBean);
                         }
 

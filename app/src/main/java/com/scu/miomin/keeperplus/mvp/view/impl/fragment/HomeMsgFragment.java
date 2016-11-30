@@ -1,23 +1,27 @@
 package com.scu.miomin.keeperplus.mvp.view.impl.fragment;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.scu.miomin.keeperplus.R;
-import com.scu.miomin.keeperplus.core.BaseFragment;
+import com.scu.miomin.keeperplus.adapter.ConversationAdapter;
+import com.scu.miomin.keeperplus.moke.FriendListMoke;
+import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
+import com.scu.miomin.keeperplus.mvp.presenter.impl.HomeMsgPresenter;
+import com.scu.miomin.keeperplus.mvp.view.interf.IHomeMsgView;
+import com.scu.miomin.keeperplus.mvpcore.BaseMvpFragment;
 
 /**
  * Created by 莫绪旻 on 16/2/29.
  */
-public class HomeMsgFragment extends BaseFragment {
+public class HomeMsgFragment extends BaseMvpFragment<HomeMsgPresenter> implements IHomeMsgView {
 
     private final static String TITLE = "title";
 
-    // fragment的布局
-    private ProgressDialog dialog;
+    private ListView lvConversation;
 
     public static HomeMsgFragment newInstance(String title) {
         HomeMsgFragment fragment = new HomeMsgFragment();
@@ -25,6 +29,11 @@ public class HomeMsgFragment extends BaseFragment {
         bundle.putString(TITLE, title);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    protected HomeMsgPresenter createPresenter() {
+        return new HomeMsgPresenter(this);
     }
 
     @Override
@@ -40,12 +49,33 @@ public class HomeMsgFragment extends BaseFragment {
 
     @Override
     protected void setUpView() {
-
+        lvConversation = (ListView) fragmentView.findViewById(R.id.lvConversation);
     }
 
     @Override
     protected void setUpData() {
-        dialog = new ProgressDialog(getActivity());
-        dialog.setMessage(getResources().getString(R.string.app_name));
+        // 初始化好友列表
+        FriendListMoke.getInstance().initFriendList();
+        // 初始化对话列表的适配器
+        mvpPresenter.initConversationAdapter();
+        //  创建收发消息更新对话列表的观察者对象
+        mvpPresenter.initConversationObserver();
+        // 初始化chat适配器
+        mvpPresenter.initChatAdapterMap();
+        // 初始化接受消息的观察者对象
+        mvpPresenter.initMsgReciverObserver();
+    }
+
+    @Override
+    public void setConversationAdapter() {
+        // 创建适配器对象
+        KeeperPlusCache.getInstance().setConversationAdapter(new ConversationAdapter(getActivity()));
+        // 将ListView与适配器关联
+        lvConversation.setAdapter(KeeperPlusCache.getInstance().getConversationAdapter());
+    }
+
+    @Override
+    public void setChatAdapterMap() {
+        KeeperPlusCache.getInstance().initChatAdapterList(getActivity());
     }
 }

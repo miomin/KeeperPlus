@@ -19,4 +19,6 @@
     <string name="main">主页</string>
     <string name="me">我的</string>
 
+    <string name="search">搜索</string>
+
 </resources>

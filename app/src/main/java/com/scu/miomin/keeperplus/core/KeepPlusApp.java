@@ -19,7 +19,7 @@ import com.orhanobut.logger.Logger;
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.constants.APPAction;
 import com.scu.miomin.keeperplus.constants.APPString;
-import com.scu.miomin.keeperplus.moke.UserMoke;
+import com.scu.miomin.keeperplus.moke.KeeperDataMoke;
 import com.scu.miomin.keeperplus.splash.SplashActivity;
 import com.scu.miomin.keeperplus.string.LoginString;
 import com.squareup.leakcanary.LeakCanary;
@@ -48,7 +48,7 @@ public class KeepPlusApp extends Application {
     }
 
     private void initMoke() {
-        UserMoke.getInstance().initData();
+        KeeperDataMoke.getInstance().initData();
     }
 
     private void registerAppController() {
