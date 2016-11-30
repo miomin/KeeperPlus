@@ -6,20 +6,20 @@ import com.scu.miomin.keeperplus.mvp.model.Userbean;
  * Created by miomin on 16/11/21.
  */
 
-public class CurrentUserCache {
+public class KeeperPlusCache {
 
-    private static CurrentUserCache instance;
+    private static KeeperPlusCache instance;
     private Userbean currentUser;
 
-    private CurrentUserCache() {
+    private KeeperPlusCache() {
 
     }
 
-    public static CurrentUserCache getInstance() {
+    public static KeeperPlusCache getInstance() {
         if (instance == null) {
-            synchronized (CurrentUserCache.class) {
+            synchronized (KeeperPlusCache.class) {
                 if (instance == null)
-                    instance = new CurrentUserCache();
+                    instance = new KeeperPlusCache();
             }
         }
         return instance;
