@@ -19,6 +19,21 @@
     <string name="main">主页</string>
     <string name="me">我的</string>
 
-    <string name="search">搜索</string>
+    <string name="ecgmonitor">心电监测</string>
+    <string name="ecgmonitorDescribe">连接设备后检测心电图</string>
+    <string name="healthyRecord">健康档案</string>
+    <string name="healthyRecordDescribe">记录历史心电测试记录</string>
+    <string name="treatment_followup">诊后随访</string>
+    <string name="treatment_followup_describe">出院后跟踪治疗</string>
+    <string name="treatment_record">就诊记录</string>
+    <string name="firstAid">一键急救</string>
+    <string name="firstAidDescribe">紧急情况一键急救</string>
+    <string name="ecgRecord">心电监测记录</string>
+    <string name="anquanzhongxin">安全中心</string>
+    <string name="guanyuwomen">关于我们</string>
+    <string name="zhuxiaodenglu">注销登录</string>
+    <string name="bangdingshouji">绑定手机</string>
+    <string name="tuichudenglu">退出登录</string>
+    <string name="remendoctor">热门医生</string>
 
 </resources>

@@ -9,6 +9,10 @@ import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationItem;
 import com.luseen.luseenbottomnavigation.BottomNavigation.OnBottomNavigationItemClickListener;
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.constants.ActivityType;
+import com.scu.miomin.keeperplus.core.BaseFragment;
+import com.scu.miomin.keeperplus.moke.FriendListMoke;
+import com.scu.miomin.keeperplus.moke.RemenDoctorListMoke;
+import com.scu.miomin.keeperplus.mvp.view.impl.fragment.HomeMainFragment;
 import com.scu.miomin.keeperplus.mvp.view.impl.fragment.HomeMsgFragment;
 import com.scu.miomin.keeperplus.toolbar.ToolbarActivity;
 
@@ -17,10 +21,9 @@ public class PatientHomeActivity extends ToolbarActivity {
 
     private com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView bottomNavigationView;
 
-    private HomeMsgFragment fragment_msg;
-    private HomeMsgFragment fragment_main;
-    private HomeMsgFragment fragment_me;
-
+    private BaseFragment fragment_msg;
+    private BaseFragment fragment_main;
+    private BaseFragment fragment_me;
 
     private int[] image = {R.drawable.icon_msg_tab, R.drawable.icon_main_tab,
             R.drawable.icon_myself_tab};
@@ -34,6 +37,9 @@ public class PatientHomeActivity extends ToolbarActivity {
         titles[0] = getResources().getString(R.string.msg);
         titles[1] = getResources().getString(R.string.main);
         titles[2] = getResources().getString(R.string.me);
+        // 初始化好友列表
+        FriendListMoke.getInstance().initFriendList();
+        RemenDoctorListMoke.getInstance().initRemenDoctorList();
     }
 
     @Override
@@ -88,6 +94,7 @@ public class PatientHomeActivity extends ToolbarActivity {
         });
 
         selectFragmentMain();
+        bottomNavigationView.selectTab(1);
     }
 
     private void selectFragmentMsg() {
@@ -99,7 +106,7 @@ public class PatientHomeActivity extends ToolbarActivity {
 
     private void selectFragmentMain() {
         if (fragment_main == null)
-            fragment_main = HomeMsgFragment.newInstance(titles[1]);
+            fragment_main = HomeMainFragment.newInstance(titles[1]);
         getSupportFragmentManager().beginTransaction().replace(R.id.mFragmentContainerLayout, fragment_main).commitAllowingStateLoss();
         setUpTitle(titles[1]);
     }

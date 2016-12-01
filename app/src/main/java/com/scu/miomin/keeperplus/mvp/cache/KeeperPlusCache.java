@@ -5,6 +5,7 @@ import android.content.Context;
 import com.scu.miomin.keeperplus.adapter.ChatListAdapter;
 import com.scu.miomin.keeperplus.adapter.ConversationAdapter;
 import com.scu.miomin.keeperplus.mvp.model.ChatMessageBean;
+import com.scu.miomin.keeperplus.mvp.model.DoctorBean;
 import com.scu.miomin.keeperplus.mvp.model.Userbean;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class KeeperPlusCache {
     private ArrayList<Userbean> friendList = new ArrayList<>();
     private HashMap<String, ChatListAdapter> chatAdapterMap = new HashMap<>();
     public ConversationAdapter conversationAdapter;
+    private ArrayList<DoctorBean> remendoctorArray = new ArrayList<>();
 
     private KeeperPlusCache() {
 
@@ -77,5 +79,13 @@ public class KeeperPlusCache {
 
     public void setConversationAdapter(ConversationAdapter conversationAdapter) {
         this.conversationAdapter = conversationAdapter;
+    }
+
+    public void addRemenDoctor(DoctorBean doctorBean) {
+        remendoctorArray.add(doctorBean);
+    }
+
+    public ArrayList<DoctorBean> getRemenDoctorArray() {
+        return remendoctorArray;
     }
 }
