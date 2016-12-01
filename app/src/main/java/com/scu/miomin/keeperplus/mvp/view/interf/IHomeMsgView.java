@@ -1,6 +1,9 @@
 package com.scu.miomin.keeperplus.mvp.view.interf;
 
 
+import android.app.Activity;
+
+import com.scu.miomin.keeperplus.adapter.ConversationAdapter;
 import com.scu.miomin.keeperplus.mvpcore.IBaseView;
 
 /**
@@ -9,7 +12,7 @@ import com.scu.miomin.keeperplus.mvpcore.IBaseView;
 
 public interface IHomeMsgView extends IBaseView {
 
-    void setConversationAdapter();
+    void setConversationAdapter(ConversationAdapter conversationAdapter);
 
-    void setChatAdapterMap();
+    Activity getViewActivity();
 }

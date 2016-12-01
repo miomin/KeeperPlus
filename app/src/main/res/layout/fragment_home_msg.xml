@@ -9,8 +9,6 @@
         android:id="@+id/lvConversation"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:background="#fff4f7f9"
         android:cacheColorHint="#00000000"
         android:divider="#dddbdb"

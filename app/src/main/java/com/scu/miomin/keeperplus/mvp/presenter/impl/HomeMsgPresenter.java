@@ -7,6 +7,7 @@ import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.MsgServiceObserve;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.netease.nimlib.sdk.msg.model.RecentContact;
+import com.scu.miomin.keeperplus.adapter.ConversationAdapter;
 import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
 import com.scu.miomin.keeperplus.mvp.model.ChatMessageBean;
 import com.scu.miomin.keeperplus.mvp.model.ConversationBean;
@@ -93,7 +94,9 @@ public class HomeMsgPresenter extends BasePresenter<IHomeMsgView> implements IHo
     @Override
     public void initConversationAdapter() {
 
-        mvpView.setConversationAdapter();
+        // 创建适配器对象
+        KeeperPlusCache.getInstance().setConversationAdapter(new ConversationAdapter(mvpView.getViewActivity()));
+        mvpView.setConversationAdapter(KeeperPlusCache.getInstance().getConversationAdapter());
 
         NIMClient.getService(MsgService.class).queryRecentContacts()
                 .setCallback(new RequestCallbackWrapper<List<RecentContact>>() {
@@ -120,6 +123,6 @@ public class HomeMsgPresenter extends BasePresenter<IHomeMsgView> implements IHo
 
     @Override
     public void initChatAdapterMap() {
-        mvpView.setChatAdapterMap();
+        KeeperPlusCache.getInstance().initChatAdapterList(mvpView.getViewActivity());
     }
 }

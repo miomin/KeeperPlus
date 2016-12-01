@@ -1,5 +1,6 @@
 package com.scu.miomin.keeperplus.mvp.view.impl.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +9,6 @@ import android.widget.ListView;
 
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.adapter.ConversationAdapter;
-import com.scu.miomin.keeperplus.moke.FriendListMoke;
-import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
 import com.scu.miomin.keeperplus.mvp.presenter.impl.HomeMsgPresenter;
 import com.scu.miomin.keeperplus.mvp.view.interf.IHomeMsgView;
 import com.scu.miomin.keeperplus.mvpcore.BaseMvpFragment;
@@ -54,8 +53,6 @@ public class HomeMsgFragment extends BaseMvpFragment<HomeMsgPresenter> implement
 
     @Override
     protected void setUpData() {
-        // 初始化好友列表
-        FriendListMoke.getInstance().initFriendList();
         // 初始化对话列表的适配器
         mvpPresenter.initConversationAdapter();
         //  创建收发消息更新对话列表的观察者对象
@@ -67,15 +64,13 @@ public class HomeMsgFragment extends BaseMvpFragment<HomeMsgPresenter> implement
     }
 
     @Override
-    public void setConversationAdapter() {
-        // 创建适配器对象
-        KeeperPlusCache.getInstance().setConversationAdapter(new ConversationAdapter(getActivity()));
+    public void setConversationAdapter(ConversationAdapter conversationAdapter) {
         // 将ListView与适配器关联
-        lvConversation.setAdapter(KeeperPlusCache.getInstance().getConversationAdapter());
+        lvConversation.setAdapter(conversationAdapter);
     }
 
     @Override
-    public void setChatAdapterMap() {
-        KeeperPlusCache.getInstance().initChatAdapterList(getActivity());
+    public Activity getViewActivity() {
+        return getActivity();
     }
 }
