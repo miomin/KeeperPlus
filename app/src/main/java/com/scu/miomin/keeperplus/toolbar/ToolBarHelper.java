@@ -65,12 +65,39 @@ public class ToolBarHelper {
         /*获取主题中定义的悬浮标志*/
         boolean overly = typedArray.getBoolean(0, false);
         /*获取主题中定义的toolbar的高度*/
-        int toolBarSize = (int) typedArray.getDimension(1,(int) mContext.getResources().getDimension(R.dimen.abc_action_bar_default_height_material));
+        int toolBarSize = (int) typedArray.getDimension(1, (int) mContext.getResources().getDimension(R.dimen.abc_action_bar_default_height_material));
         typedArray.recycle();
         /*如果是悬浮状态，则不需要设置间距*/
         params.topMargin = overly ? 0 : toolBarSize;
         mUserView.setFitsSystemWindows(false);
         mContentView.addView(mUserView, params);
+    }
+
+    public void hideToolbar() {
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mUserView.getLayoutParams();
+        params.topMargin = 0;
+        mUserView.setLayoutParams(params);
+
+        ViewGroup.LayoutParams toolbarLP = mToolBar.getLayoutParams();
+        toolbarLP.height = 0;
+        mToolBar.setLayoutParams(toolbarLP);
+    }
+
+    public void showToolbar() {
+        TypedArray typedArray = mContext.getTheme().obtainStyledAttributes(ATTRS);
+        /*获取主题中定义的悬浮标志*/
+        boolean overly = typedArray.getBoolean(0, false);
+        /*获取主题中定义的toolbar的高度*/
+        int toolBarSize = (int) typedArray.getDimension(1, (int) mContext.getResources().getDimension(R.dimen.abc_action_bar_default_height_material));
+        typedArray.recycle();
+
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mUserView.getLayoutParams();
+        params.topMargin = overly ? 0 : toolBarSize;
+        mUserView.setLayoutParams(params);
+
+        ViewGroup.LayoutParams toolbarLP = mToolBar.getLayoutParams();
+        toolbarLP.height = toolBarSize;
+        mToolBar.setLayoutParams(toolbarLP);
     }
 
     public FrameLayout getContentView() {

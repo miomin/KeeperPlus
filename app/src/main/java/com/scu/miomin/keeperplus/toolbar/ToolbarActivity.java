@@ -68,6 +68,14 @@ public abstract class ToolbarActivity extends BaseActivity {
         }
     }
 
+    public void hideToolbar() {
+        mToolBarHelper.hideToolbar();
+    }
+
+    public void showToolbar() {
+        mToolBarHelper.showToolbar();
+    }
+
     /**
      * 设置Toolbar标题
      */
