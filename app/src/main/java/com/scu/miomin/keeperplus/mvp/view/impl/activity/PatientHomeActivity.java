@@ -13,6 +13,7 @@ import com.scu.miomin.keeperplus.core.BaseFragment;
 import com.scu.miomin.keeperplus.moke.FriendListMoke;
 import com.scu.miomin.keeperplus.moke.RemenDoctorListMoke;
 import com.scu.miomin.keeperplus.mvp.view.impl.fragment.HomeMainFragment;
+import com.scu.miomin.keeperplus.mvp.view.impl.fragment.HomeMeFragment;
 import com.scu.miomin.keeperplus.mvp.view.impl.fragment.HomeMsgFragment;
 import com.scu.miomin.keeperplus.toolbar.ToolbarActivity;
 
@@ -113,7 +114,7 @@ public class PatientHomeActivity extends ToolbarActivity {
 
     private void selectFragmentMe() {
         if (fragment_me == null)
-            fragment_me = HomeMsgFragment.newInstance(titles[2]);
+            fragment_me = HomeMeFragment.newInstance(titles[2]);
         getSupportFragmentManager().beginTransaction().replace(R.id.mFragmentContainerLayout, fragment_me).commitAllowingStateLoss();
         setUpTitle(titles[2]);
     }

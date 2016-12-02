@@ -1,26 +1,26 @@
 package com.scu.miomin.keeperplus.mvp.view.impl.fragment;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.TextView;
 
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.core.BaseFragment;
+import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
+import com.scu.miomin.keeperplus.toolbar.ToolbarActivity;
 
 /**
  * Created by 莫绪旻 on 16/11/29.
  */
 public class HomeMeFragment extends BaseFragment {
 
-
-    private ListView lvConversation;
     private final static String TITLE = "title";
 
-    // fragment的布局
-    private ProgressDialog dialog;
+    private TextView tvPhonenumber_top;
+    private TextView tvPhonenumber;
+    private TextView tvPatientname;
 
     public static HomeMeFragment newInstance(String title) {
         HomeMeFragment fragment = new HomeMeFragment();
@@ -38,17 +38,44 @@ public class HomeMeFragment extends BaseFragment {
 
     @Override
     protected View getContentView(LayoutInflater inflater, ViewGroup container) {
-        return inflater.inflate(R.layout.fragment_home_msg, container, false);
+        return inflater.inflate(R.layout.fragment_home_me, container, false);
     }
 
     @Override
     protected void setUpView() {
 
+        tvPatientname = (TextView) fragmentView.findViewById(R.id.tvUsername);
+        tvPhonenumber_top = (TextView) fragmentView.findViewById(R.id.tvUserphone_top);
+        tvPhonenumber = (TextView) fragmentView.findViewById(R.id.tvUserphone);
+
+
+        String phonenumber = KeeperPlusCache.getInstance().getCurrentUser().getAccount().substring(0, 3)
+                + "****"
+                + KeeperPlusCache.getInstance().getCurrentUser().getAccount().substring(7, 11);
+
+        tvPatientname.setText(KeeperPlusCache.getInstance().getCurrentUser().getName());
+        tvPhonenumber_top.setText(phonenumber);
+        tvPhonenumber.setText(phonenumber);
     }
 
     @Override
     protected void setUpData() {
-        dialog = new ProgressDialog(getActivity());
-        dialog.setMessage(getResources().getString(R.string.app_name));
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (getActivity() instanceof ToolbarActivity) {
+            ((ToolbarActivity) getActivity()).hideToolbar();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (getActivity() instanceof ToolbarActivity) {
+            ((ToolbarActivity) getActivity()).showToolbar();
+        }
     }
 }
