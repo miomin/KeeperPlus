@@ -25,6 +25,9 @@ import com.scu.miomin.keeperplus.string.LoginString;
 import com.scu.miomin.keeperplus.util.ecg.ECGDirSaveUtil;
 import com.squareup.leakcanary.LeakCanary;
 
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobConfig;
+
 
 /**
  * Created by 莫绪旻 and Stay on 2/2/16.
@@ -46,6 +49,21 @@ public class KeepPlusApp extends Application {
         // 创建心电图目录文件
         ECGDirSaveUtil.creatDirFile(this);
         initMoke();
+        initBmob();
+    }
+
+    private void initBmob() {
+        BmobConfig config = new BmobConfig.Builder(this)
+                //设置appkey
+                .setApplicationId("cab9d9865d9fd7a560e90659ae25b73c")
+                //请求超时时间（单位为秒）：默认15s
+                .setConnectTimeout(10)
+                //文件分片上传时每片的大小（单位字节），默认512*1024
+                .setUploadBlockSize(1024 * 1024)
+                //文件的过期时间(单位为秒)：默认1800s
+                .setFileExpiration(2500)
+                .build();
+        Bmob.initialize(config);
     }
 
     private void initMoke() {

@@ -58,7 +58,6 @@ public class LoginActivity extends BaseToolbarMvpActivity<LoginPresenter> implem
 
     @Override
     protected void setUpView() {
-
         setUpTitle(getResources().getString(R.string.login));
 
         id_edit.addTextChangedListener(new TextWatcher() {
