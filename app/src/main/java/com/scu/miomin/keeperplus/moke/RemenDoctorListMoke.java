@@ -49,4 +49,8 @@ public class RemenDoctorListMoke {
         KeeperPlusCache.getInstance().addRemenDoctor(doctorBean);
     }
 
+    public void clearRemenDoctorList() {
+        KeeperPlusCache.getInstance().clearRemenDoctorList();
+    }
+
 }

@@ -44,6 +44,13 @@ public class PatientHomeActivity extends ToolbarActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FriendListMoke.getInstance().clearFriendList();
+        RemenDoctorListMoke.getInstance().clearRemenDoctorList();
+    }
+
+    @Override
     protected void setUpView() {
         bottomNavigationView = (com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView)
                 findViewById(R.id.bottomNavigation);

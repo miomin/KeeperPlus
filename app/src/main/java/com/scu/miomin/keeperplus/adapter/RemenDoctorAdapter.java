@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.mvp.model.DoctorBean;
 import com.scu.miomin.keeperplus.mvp.view.impl.activity.ECGActivity;
+import com.scu.miomin.keeperplus.mvp.view.impl.activity.ECGRecordActivity;
 import com.scu.miomin.keeperplus.ui.MyBanner;
 
 import java.util.ArrayList;
@@ -65,6 +66,12 @@ public class RemenDoctorAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     ECGActivity.startActivity(context);
+                }
+            });
+            convertView.findViewById(R.id.layout_healthy_record).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ECGRecordActivity.startActivity(context);
                 }
             });
             myBanner = (MyBanner) convertView.findViewById(R.id.myBanner);

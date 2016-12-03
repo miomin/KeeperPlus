@@ -61,6 +61,10 @@ public class KeeperPlusCache {
         friendList.add(userbean);
     }
 
+    public void clearFriend() {
+        friendList.clear();
+    }
+
     public void initChatAdapterList(Context context) {
         for (int i = 0; i < friendList.size(); i++) {
             chatAdapterMap.put(friendList.get(i).getAccount(),
@@ -83,6 +87,10 @@ public class KeeperPlusCache {
 
     public void addRemenDoctor(DoctorBean doctorBean) {
         remendoctorArray.add(doctorBean);
+    }
+
+    public void clearRemenDoctorList() {
+        remendoctorArray.clear();
     }
 
     public ArrayList<DoctorBean> getRemenDoctorArray() {

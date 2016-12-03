@@ -60,4 +60,7 @@ public class FriendListMoke {
         KeeperPlusCache.getInstance().addFriend(KeeperPlusCache.getInstance().getCurrentUser());
     }
 
+    public void clearFriendList() {
+        KeeperPlusCache.getInstance().clearFriend();
+    }
 }
