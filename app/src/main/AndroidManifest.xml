@@ -145,5 +145,13 @@
                 android:value=".mvp.view.impl.activity.ECGActivity" />
         </activity>
 
+        <activity
+            android:name=".mvp.view.impl.activity.ECGRecordActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".mvp.view.impl.activity.PatientHomeActivity" />
+        </activity>
+
     </application>
 </manifest>

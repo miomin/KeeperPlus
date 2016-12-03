@@ -326,7 +326,7 @@ public class ECGActivity extends ToolbarActivity implements OnClickListener {
             case R.id.btn_find:
                 if (isRecord || isConnect) {
                 } else {
-//                    ECGRecordActivityForPatient.actionStart(this);
+                    ECGRecordActivity.startActivity(this);
                 }
                 break;
 

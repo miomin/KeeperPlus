@@ -76,4 +76,7 @@ dependencies {
     compile files('libs/cosinesdk.jar')
     compile files('libs/my_btlib.jar')
     compile files('libs/netty-4.0.23-for-yx.final.jar')
+
+    compile 'com.orhanobut:dialogplus:1.11@aar'
+    compile 'me.drakeet.materialdialog:library:1.3.1'
 }
