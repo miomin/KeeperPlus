@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.scu.miomin.keeperplus.constants.APPStatu;
 import com.scu.miomin.keeperplus.constants.APPString;
@@ -99,4 +100,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 //        }
 //        return super.onKeyDown(keyCode, event);
 //    }
+
+    public void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
 }

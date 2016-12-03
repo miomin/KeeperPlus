@@ -49,4 +49,7 @@
     <color name="header">#58567D</color>
     <color name="grgray">#686868</color>
 
+    <color name="tablelinecolor">#5d844f</color>
+    <color name="ecglinecolor">#99373c</color>
+
 </resources>

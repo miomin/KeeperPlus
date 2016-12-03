@@ -22,6 +22,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/layout_ecg_monitor"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"

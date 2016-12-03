@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.mvp.model.DoctorBean;
+import com.scu.miomin.keeperplus.mvp.view.impl.activity.ECGActivity;
 import com.scu.miomin.keeperplus.ui.MyBanner;
 
 import java.util.ArrayList;
@@ -60,6 +61,12 @@ public class RemenDoctorAdapter extends BaseAdapter {
 
         if (position == 0) {
             convertView = View.inflate(context, R.layout.layout_main_top, null);
+            convertView.findViewById(R.id.layout_ecg_monitor).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ECGActivity.startActivity(context);
+                }
+            });
             myBanner = (MyBanner) convertView.findViewById(R.id.myBanner);
             myBanner.startPlay();
         } else {

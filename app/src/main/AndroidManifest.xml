@@ -133,5 +133,17 @@
                 android:value=".mvp.view.impl.activity.LoginActivity" />
         </activity>
 
+        <activity
+            android:name=".mvp.view.impl.activity.ECGActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
+            android:name=".mvp.view.impl.activity.DeviceListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".mvp.view.impl.activity.ECGActivity" />
+        </activity>
+
     </application>
 </manifest>

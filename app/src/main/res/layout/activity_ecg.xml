@@ -1,0 +1,154 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/white">
+
+        <com.scu.miomin.keeperplus.ui.ECGSurfaceView
+            android:id="@+id/ecg_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="300dp" />
+
+        <ImageView
+            android:id="@+id/bg_top"
+            android:layout_width="match_parent"
+            android:layout_height="360dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/bg_ecg_top" />
+
+        <LinearLayout
+            android:id="@+id/rl_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal">
+
+            <!--<ImageView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="35dp"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:layout_weight="1.2"-->
+            <!--android:onClick="back"-->
+            <!--android:src="@drawable/icon_back_white" />-->
+
+            <!--<TextView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="45dp"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:layout_weight="6"-->
+            <!--android:gravity="center"-->
+            <!--android:text="@string/ecgmonitor"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="16sp" />-->
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="280dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_record"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/startRecord"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/btn_record"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/icon_start_record" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="250dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_find"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chazhaojilu"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/btn_find"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/icon_find_record" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="280dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_connect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/connect"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/btn_connect"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/icon_connect" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="130dp"
+            android:layout_marginTop="100dp"
+            android:background="@color/transparent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:gravity="center"
+                fresco:placeholderImage="@drawable/bg_xinlv" />
+
+            <TextView
+                android:id="@+id/tvxinlv"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="36sp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

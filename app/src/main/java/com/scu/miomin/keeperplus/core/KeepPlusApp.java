@@ -22,6 +22,7 @@ import com.scu.miomin.keeperplus.constants.APPString;
 import com.scu.miomin.keeperplus.moke.KeeperDataMoke;
 import com.scu.miomin.keeperplus.splash.SplashActivity;
 import com.scu.miomin.keeperplus.string.LoginString;
+import com.scu.miomin.keeperplus.util.ecg.ECGDirSaveUtil;
 import com.squareup.leakcanary.LeakCanary;
 
 
@@ -43,7 +44,7 @@ public class KeepPlusApp extends Application {
         Logger.init(APPString.TAG).methodCount(2);
         NIMClient.init(this, null, options()); // SDK初始化（启动后台服务，若已经存在用户登录信息，SDK 将完成自动登录）
         // 创建心电图目录文件
-//        ECGDirSaveUtil.creatDirFile(this);
+        ECGDirSaveUtil.creatDirFile(this);
         initMoke();
     }
 
