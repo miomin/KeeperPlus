@@ -30,7 +30,7 @@ public class HomePresenter extends BasePresenter<IHomeView> implements IHomePres
         mvpView.showLoading("提示", "正在加载数据，请稍后...");
 
         BmobQuery<Userbean> query = new BmobQuery<>();
-        query.addWhereEqualTo("sex", 0);
+        query.addWhereGreaterThanOrEqualTo("Role", 1);
         query.include("birthday");
         query.include("hospital");
         query.findObjects(new FindListener<Userbean>() {
