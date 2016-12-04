@@ -4,8 +4,6 @@ import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
 import com.scu.miomin.keeperplus.mvp.model.TreatmentBean;
 import com.scu.miomin.keeperplus.mvp.model.TreatmentFollowupBean;
 
-import java.util.ArrayList;
-
 /**
  * 描述:Demo版存放临时数据 创建日期:2016/1/21
  *
@@ -13,7 +11,6 @@ import java.util.ArrayList;
  */
 public class KeeperDataMoke {
 
-    private ArrayList<TreatmentBean> treatmentArray = new ArrayList<>();
     private static KeeperDataMoke instance;
 
     private KeeperDataMoke() {
@@ -32,10 +29,6 @@ public class KeeperDataMoke {
 
     public void initData() {
         initThreatmentList();
-    }
-
-    public void clearData() {
-        treatmentArray.clear();
     }
 
     public void initThreatmentList() {
@@ -76,7 +69,7 @@ public class KeeperDataMoke {
         treatmentFollowupForPatientBean.addTreatmentFollowup(
                 new TreatmentFollowupBean("2015-12-18", "已经痊愈", "感觉好些了",
                         198, 123, 123, 123, 123, 156, 156, 86, 84));
-        treatmentArray.add(treatmentFollowupForPatientBean);
+        KeeperPlusCache.getInstance().addTreatment(treatmentFollowupForPatientBean);
 
 
         treatmentFollowupForPatientBean = new TreatmentBean("2015-11-19",
@@ -107,7 +100,8 @@ public class KeeperDataMoke {
         treatmentFollowupForPatientBean.addTreatmentFollowup(
                 new TreatmentFollowupBean("2015-11-30", "已经痊愈", "感觉好些了",
                         198, 123, 123, 123, 123, 156, 156, 86, 84));
-        treatmentArray.add(treatmentFollowupForPatientBean);
+        KeeperPlusCache.getInstance().addTreatment(treatmentFollowupForPatientBean);
+
 
 
         treatmentFollowupForPatientBean = new TreatmentBean("2015-11-15",
@@ -141,7 +135,7 @@ public class KeeperDataMoke {
         treatmentFollowupForPatientBean.addTreatmentFollowup(
                 new TreatmentFollowupBean("2015-11-24", "已经痊愈", "感觉好些了",
                         178, 156, 143, 145, 154, 154, 145, 65, 87));
-        treatmentArray.add(treatmentFollowupForPatientBean);
+        KeeperPlusCache.getInstance().addTreatment(treatmentFollowupForPatientBean);
 
 
         treatmentFollowupForPatientBean = new TreatmentBean("2015-11-11",
@@ -172,7 +166,7 @@ public class KeeperDataMoke {
         treatmentFollowupForPatientBean.addTreatmentFollowup(
                 new TreatmentFollowupBean("2015-11-22", "已经痊愈", "感觉好些了",
                         198, 123, 123, 123, 123, 156, 156, 86, 84));
-        treatmentArray.add(treatmentFollowupForPatientBean);
+        KeeperPlusCache.getInstance().addTreatment(treatmentFollowupForPatientBean);
 
 
         treatmentFollowupForPatientBean = new TreatmentBean("2015-11-06",
@@ -209,7 +203,7 @@ public class KeeperDataMoke {
         treatmentFollowupForPatientBean.addTreatmentFollowup(
                 new TreatmentFollowupBean("2015-11-21", "已经痊愈", "感觉好些了",
                         198, 123, 123, 123, 123, 156, 156, 86, 84));
-        treatmentArray.add(treatmentFollowupForPatientBean);
+        KeeperPlusCache.getInstance().addTreatment(treatmentFollowupForPatientBean);
 
 
         treatmentFollowupForPatientBean = new TreatmentBean("2015-11-08",
@@ -243,10 +237,6 @@ public class KeeperDataMoke {
         treatmentFollowupForPatientBean.addTreatmentFollowup(
                 new TreatmentFollowupBean("2015-11-19", "已经痊愈", "感觉好些了",
                         178, 156, 143, 145, 154, 154, 145, 65, 87));
-        treatmentArray.add(treatmentFollowupForPatientBean);
-    }
-
-    public ArrayList<TreatmentBean> getTreatmentArray() {
-        return treatmentArray;
+        KeeperPlusCache.getInstance().addTreatment(treatmentFollowupForPatientBean);
     }
 }

@@ -3,11 +3,14 @@ package com.scu.miomin.keeperplus.mvp.view.impl.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.adapter.TreatmentListPatientAdapter;
 import com.scu.miomin.keeperplus.constants.ActivityType;
+import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
 import com.scu.miomin.keeperplus.mvp.presenter.impl.TreatmentListPatientPresenter;
 import com.scu.miomin.keeperplus.mvp.view.interf.ITreatmentListPatientView;
 import com.scu.miomin.keeperplus.mvpcore.BaseToolbarMvpActivity;
@@ -45,13 +48,12 @@ public class TreatmentListPatientActivity extends BaseToolbarMvpActivity<Treatme
     @Override
     protected void setUpView() {
 
-//        lvTreatmentFollowupList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                TreatmentInfoActivityForPatient.actionStart(TreatmentListActivityForPatient.this,
-//                        UserResource.getTreatmentArray().get(position - 1));
-//            }
-//        });
+        lvTreatmentFollowupList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TreatmentInfoActivity.startActivity(TreatmentListPatientActivity.this, KeeperPlusCache.getInstance().getTreatmentArray().get(position));
+            }
+        });
     }
 
     @Override

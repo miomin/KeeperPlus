@@ -19,6 +19,7 @@ import com.orhanobut.logger.Logger;
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.constants.APPAction;
 import com.scu.miomin.keeperplus.constants.APPString;
+import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
 import com.scu.miomin.keeperplus.splash.SplashActivity;
 import com.scu.miomin.keeperplus.string.LoginString;
 import com.scu.miomin.keeperplus.util.ecg.ECGDirSaveUtil;
@@ -35,6 +36,7 @@ public class KeepPlusApp extends Application {
 
     private static KeepPlusApp sInstance;
     public boolean AUTOLOGINSUCCEED = false;
+    private static KeeperPlusCache keeperPlusCache;
 
     @Override
     public void onCreate() {
@@ -47,6 +49,7 @@ public class KeepPlusApp extends Application {
         NIMClient.init(this, null, options()); // SDK初始化（启动后台服务，若已经存在用户登录信息，SDK 将完成自动登录）
         // 创建心电图目录文件
         ECGDirSaveUtil.creatDirFile(this);
+        keeperPlusCache = KeeperPlusCache.getInstance();
         initMoke();
         initBmob();
     }

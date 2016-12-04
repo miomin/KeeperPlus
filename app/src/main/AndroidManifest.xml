@@ -165,5 +165,13 @@
                 android:value=".mvp.view.impl.activity.PatientHomeActivity" />
         </activity>
 
+        <activity
+            android:name=".mvp.view.impl.activity.TreatmentInfoActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".mvp.view.impl.activity.TreatmentListPatientActivity" />
+        </activity>
+
     </application>
 </manifest>

@@ -24,13 +24,13 @@ public class TreatmentListPatientPresenter extends BasePresenter<ITreatmentListP
 
     @Override
     public void clearTreatmentData() {
-        KeeperDataMoke.getInstance().clearData();
+        KeeperPlusCache.getInstance().clearTreatmentData();
     }
 
     @Override
     public void initTreatmentAdapter() {
         // 创建适配器对象
-        KeeperPlusCache.getInstance().setTreatmentListAdapter(new TreatmentListPatientAdapter(mvpView.getContext(), KeeperDataMoke.getInstance().getTreatmentArray()));
+        KeeperPlusCache.getInstance().setTreatmentListAdapter(new TreatmentListPatientAdapter(mvpView.getContext(), KeeperPlusCache.getInstance().getTreatmentArray()));
         // 将ListView与适配器关联
         mvpView.setTreatmentAdapter(KeeperPlusCache.getInstance().getTreatmentListAdapter());
     }
