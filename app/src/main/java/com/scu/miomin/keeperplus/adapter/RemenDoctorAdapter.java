@@ -11,6 +11,7 @@ import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.mvp.model.Userbean;
 import com.scu.miomin.keeperplus.mvp.view.impl.activity.ECGActivity;
 import com.scu.miomin.keeperplus.mvp.view.impl.activity.ECGRecordActivity;
+import com.scu.miomin.keeperplus.mvp.view.impl.activity.TreatmentListPatientActivity;
 import com.scu.miomin.keeperplus.ui.MyBanner;
 
 import java.util.ArrayList;
@@ -62,6 +63,7 @@ public class RemenDoctorAdapter extends BaseAdapter {
 
         if (position == 0) {
             convertView = View.inflate(context, R.layout.layout_main_top, null);
+
             convertView.findViewById(R.id.layout_ecg_monitor).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -74,6 +76,13 @@ public class RemenDoctorAdapter extends BaseAdapter {
                     ECGRecordActivity.startActivity(context);
                 }
             });
+            convertView.findViewById(R.id.layout_treatment).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    TreatmentListPatientActivity.startActivity(context);
+                }
+            });
+
             myBanner = (MyBanner) convertView.findViewById(R.id.myBanner);
             myBanner.startPlay();
         } else {

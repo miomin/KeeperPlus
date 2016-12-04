@@ -43,6 +43,12 @@ public class PatientHomeActivity extends BaseToolbarMvpActivity<HomePresenter> i
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mvpPresenter.clearFriendList();
+    }
+
+    @Override
     protected void setUpView() {
         bottomNavigationView = (com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView)
                 findViewById(R.id.bottomNavigation);

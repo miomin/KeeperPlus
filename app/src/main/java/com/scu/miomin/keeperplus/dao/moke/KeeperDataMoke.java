@@ -34,6 +34,10 @@ public class KeeperDataMoke {
         initThreatmentList();
     }
 
+    public void clearData() {
+        treatmentArray.clear();
+    }
+
     public void initThreatmentList() {
 
         TreatmentBean treatmentFollowupForPatientBean;

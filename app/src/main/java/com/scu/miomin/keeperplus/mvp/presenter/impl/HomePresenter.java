@@ -43,4 +43,9 @@ public class HomePresenter extends BasePresenter<IHomeView> implements IHomePres
             }
         });
     }
+
+    @Override
+    public void clearFriendList() {
+        KeeperPlusCache.getInstance().clearFriend();
+    }
 }

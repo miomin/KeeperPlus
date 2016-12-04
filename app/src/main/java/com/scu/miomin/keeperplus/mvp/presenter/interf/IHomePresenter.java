@@ -7,4 +7,6 @@ package com.scu.miomin.keeperplus.mvp.presenter.interf;
 public interface IHomePresenter {
 
     void initFriendList();
+
+    void clearFriendList();
 }

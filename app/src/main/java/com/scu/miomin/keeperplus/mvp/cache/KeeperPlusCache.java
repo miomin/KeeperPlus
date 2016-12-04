@@ -5,6 +5,7 @@ import android.content.Context;
 import com.scu.miomin.keeperplus.adapter.ChatListAdapter;
 import com.scu.miomin.keeperplus.adapter.ConversationAdapter;
 import com.scu.miomin.keeperplus.adapter.RemenDoctorAdapter;
+import com.scu.miomin.keeperplus.adapter.TreatmentListPatientAdapter;
 import com.scu.miomin.keeperplus.mvp.model.ChatMessageBean;
 import com.scu.miomin.keeperplus.mvp.model.Userbean;
 
@@ -21,10 +22,12 @@ public class KeeperPlusCache {
     private static KeeperPlusCache instance;
     private Userbean currentUser;
     private ArrayList<Userbean> friendList = new ArrayList<>();
+    private ArrayList<Userbean> remenDoctorList = new ArrayList<>();
+
     private HashMap<String, ChatListAdapter> chatAdapterMap = new HashMap<>();
     private ConversationAdapter conversationAdapter;
     private RemenDoctorAdapter remenDoctorAdapter;
-    private ArrayList<Userbean> remenDoctorList = new ArrayList<>();
+    private TreatmentListPatientAdapter treatmentListAdapter;
 
     private KeeperPlusCache() {
 
@@ -123,5 +126,13 @@ public class KeeperPlusCache {
 
     public void refreshRemenDoctorAdapter() {
         remenDoctorAdapter.add(remenDoctorList);
+    }
+
+    public TreatmentListPatientAdapter getTreatmentListAdapter() {
+        return treatmentListAdapter;
+    }
+
+    public void setTreatmentListAdapter(TreatmentListPatientAdapter treatmentListAdapter) {
+        this.treatmentListAdapter = treatmentListAdapter;
     }
 }
