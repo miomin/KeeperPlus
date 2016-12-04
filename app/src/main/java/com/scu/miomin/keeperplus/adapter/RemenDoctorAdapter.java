@@ -8,12 +8,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.scu.miomin.keeperplus.R;
-import com.scu.miomin.keeperplus.mvp.model.DoctorBean;
+import com.scu.miomin.keeperplus.mvp.model.Userbean;
 import com.scu.miomin.keeperplus.mvp.view.impl.activity.ECGActivity;
 import com.scu.miomin.keeperplus.mvp.view.impl.activity.ECGRecordActivity;
 import com.scu.miomin.keeperplus.ui.MyBanner;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -21,21 +22,20 @@ import java.util.ArrayList;
  */
 public class RemenDoctorAdapter extends BaseAdapter {
 
-    private ArrayList<DoctorBean> remenDoctorList;
+    private ArrayList<Userbean> remenDoctorList = new ArrayList<>();
     private Context context;
     private MyBanner myBanner;
 
-    public RemenDoctorAdapter(ArrayList<DoctorBean> remenDoctorList, Context context) {
+    public RemenDoctorAdapter(Context context) {
         this.context = context;
-        this.remenDoctorList = remenDoctorList;
     }
 
-    public void add(DoctorBean doctorBean) {
+    public void add(Userbean doctorBean) {
         remenDoctorList.add(doctorBean);
         notifyDataSetChanged();
     }
 
-    public void add(ArrayList<DoctorBean> list) {
+    public void add(List<Userbean> list) {
         remenDoctorList.addAll(list);
         notifyDataSetChanged();
     }
@@ -77,27 +77,23 @@ public class RemenDoctorAdapter extends BaseAdapter {
             myBanner = (MyBanner) convertView.findViewById(R.id.myBanner);
             myBanner.startPlay();
         } else {
-            if (convertView == null) {
-                convertView = View.inflate(context, R.layout.item_remendoctor, null);
-                viewHolder = new ViewHolder();
-                viewHolder.ivHead = (ImageView) convertView.findViewById(R.id.ivHead);
-                viewHolder.tvName = (TextView) convertView.findViewById(R.id.tvName);
-                viewHolder.tvAdministrative = (TextView) convertView.findViewById(R.id.tvAdministrative);
-                viewHolder.tvProfessional = (TextView) convertView.findViewById(R.id.tvProfessional);
-                viewHolder.tvHospital = (TextView) convertView.findViewById(R.id.tvHospital);
-                viewHolder.tvIntroduction = (TextView) convertView.findViewById(R.id.tvIntroduction);
-                convertView.setTag(viewHolder);
-            } else {
-                viewHolder = (ViewHolder) convertView.getTag();
-            }
+            convertView = View.inflate(context, R.layout.item_remendoctor, null);
+            viewHolder = new ViewHolder();
+            viewHolder.ivHead = (ImageView) convertView.findViewById(R.id.ivHead);
+            viewHolder.tvName = (TextView) convertView.findViewById(R.id.tvName);
+            viewHolder.tvAdministrative = (TextView) convertView.findViewById(R.id.tvAdministrative);
+            viewHolder.tvProfessional = (TextView) convertView.findViewById(R.id.tvProfessional);
+            viewHolder.tvHospital = (TextView) convertView.findViewById(R.id.tvHospital);
+            viewHolder.tvIntroduction = (TextView) convertView.findViewById(R.id.tvIntroduction);
+            convertView.setTag(viewHolder);
 
-            DoctorBean doctorBean = remenDoctorList.get(position - 1);
+            Userbean user = remenDoctorList.get(position - 1);
 
-            viewHolder.tvName.setText(doctorBean.getName());
-            viewHolder.tvAdministrative.setText(doctorBean.getAdministrative());
-            viewHolder.tvProfessional.setText(doctorBean.getProfessional());
-            viewHolder.tvHospital.setText(doctorBean.getHospitalBean().getName());
-            viewHolder.tvIntroduction.setText(doctorBean.getIntroduction());
+            viewHolder.tvName.setText(user.getUsername());
+            viewHolder.tvAdministrative.setText(user.getAdministrative());
+            viewHolder.tvProfessional.setText(user.getProfessional());
+            viewHolder.tvHospital.setText(user.getHospital().getName());
+            viewHolder.tvIntroduction.setText(user.getIntroduction());
 
 //            MyLoader.dispalyFromAssets(doctorBean.getHeadUrl(),
 //                    viewHolder.ivHead);

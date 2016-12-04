@@ -351,7 +351,7 @@ public class ECGActivity extends ToolbarActivity implements OnClickListener {
 
                         // 创建心电图文件
                         SimpleDateFormat dataFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-                        String filename = "ecgdata_" + KeeperPlusCache.getInstance().getCurrentUser().getAccount() + "_"
+                        String filename = "ecgdata_" + KeeperPlusCache.getInstance().getCurrentUser().getMobilePhoneNumber() + "_"
                                 + dataFormat.format(new Date(System.currentTimeMillis())) + ".txt";
                         ECGDirSaveUtil.writeRecordToDir(filename, getApplication());
                         ecgDataSavaUtil = new ECGDataSavaUtil(filename, getApplication());

@@ -13,15 +13,7 @@ public class HospitalBean implements Serializable {
     private String province; //医院所在省
     private String city; //医院所在城市
     private String county; //医院所在县/区
-    private MyLocationBean myLocationBean; //医院位置
-
-    public HospitalBean(String name, String province, String city, String county, MyLocationBean myLocationBean) {
-        this.name = name;
-        this.province = province;
-        this.city = city;
-        this.county = county;
-        this.myLocationBean = myLocationBean;
-    }
+    private MyLocationBean location; //医院位置
 
     public String getCity() {
         return city;
@@ -39,12 +31,12 @@ public class HospitalBean implements Serializable {
         this.county = county;
     }
 
-    public MyLocationBean getMyLocationBean() {
-        return myLocationBean;
+    public MyLocationBean getLocation() {
+        return location;
     }
 
-    public void setMyLocationBean(MyLocationBean myLocationBean) {
-        this.myLocationBean = myLocationBean;
+    public void setLocation(MyLocationBean location) {
+        this.location = location;
     }
 
     public String getName() {

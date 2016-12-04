@@ -12,15 +12,19 @@ import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.netease.nimlib.sdk.auth.constant.LoginSyncStatus;
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.core.KeepPlusApp;
-import com.scu.miomin.keeperplus.moke.KeeperDataMoke;
 import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
-import com.scu.miomin.keeperplus.mvp.model.DoctorBean;
-import com.scu.miomin.keeperplus.mvp.model.PatientBean;
+import com.scu.miomin.keeperplus.mvp.model.Userbean;
 import com.scu.miomin.keeperplus.mvp.presenter.interf.ILoginPresenter;
 import com.scu.miomin.keeperplus.mvp.view.interf.ILoginView;
 import com.scu.miomin.keeperplus.mvpcore.BasePresenter;
 import com.scu.miomin.keeperplus.string.APPString;
 import com.scu.miomin.keeperplus.string.LoginString;
+
+import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 
 /**
  * Created by miomin on 16/11/16.
@@ -35,37 +39,44 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
     @Override
     public void login() {
 
+        mvpView.showLoading("提示", "登录中，请稍后");
         LoginInfo loginInfo = new LoginInfo(mvpView.getUserName(), mvpView.getPassword());
 
         RequestCallback<LoginInfo> callback =
                 new RequestCallback<LoginInfo>() {
                     @Override
-                    public void onSuccess(LoginInfo loginInfo) {
+                    public void onSuccess(final LoginInfo loginInfo) {
 
-                        if (loginInfo.getAccount().length() == 11) {
-                            PatientBean patientBean = (PatientBean) KeeperDataMoke.getInstance().getUserByID(loginInfo.getAccount());
-                            KeeperPlusCache.getInstance().setCurrentUser(patientBean);
-                        } else {
-                            DoctorBean doctorBean = (DoctorBean) KeeperDataMoke.getInstance().getUserByID(loginInfo.getAccount());
-                            KeeperPlusCache.getInstance().setCurrentUser(doctorBean);
-                        }
-
-                        mvpView.startMainActivity();
-
-                        // 保存登录信息到SharedPerences
-                        saveLoginInfo(loginInfo);
-
-                        mvpView.showToast(KeepPlusApp.getInstance().getResources().getString(R.string.loginsucceed));
+                        BmobQuery<Userbean> query = new BmobQuery<>();
+                        query.addWhereEqualTo("mobilePhoneNumber", loginInfo.getAccount());
+                        query.include("birthday");
+                        query.include("hospital");
+                        query.findObjects(new FindListener<Userbean>() {
+                            @Override
+                            public void done(List<Userbean> list, BmobException e) {
+                                if (e == null)
+                                    if (list.size() > 0) {
+                                        KeeperPlusCache.getInstance().setCurrentUser(list.get(0));
+                                        // 保存登录信息到SharedPerences
+                                        saveLoginInfo(loginInfo);
+                                        mvpView.showToast(KeepPlusApp.getInstance().getResources().getString(R.string.loginsucceed));
+                                        mvpView.startMainActivity();
+                                        mvpView.hideLoading();
+                                    }
+                            }
+                        });
                     }
 
                     @Override
                     public void onFailed(int i) {
                         mvpView.showToast(KeepPlusApp.getInstance().getResources().getString(R.string.loginfaild));
+                        mvpView.hideLoading();
                     }
 
                     @Override
                     public void onException(Throwable throwable) {
                         mvpView.showToast(KeepPlusApp.getInstance().getResources().getString(R.string.loginfaild));
+                        mvpView.hideLoading();
                     }
                 };
 

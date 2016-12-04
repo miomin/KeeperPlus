@@ -49,7 +49,7 @@ public class HomeMsgPresenter extends BasePresenter<IHomeMsgView> implements IHo
                             String lastTime = sdf.format(new Date(time));
                             boolean isNewMsg = true;
                             String userphone = messages.get(i).getContactId();
-                            String username = KeeperPlusCache.getInstance().getFriendByID(userphone).getName();
+                            String username = KeeperPlusCache.getInstance().getFriendByID(userphone).getUsername();
 
                             ConversationBean conversation = new ConversationBean(lastMsg, lastTime,
                                     isNewMsg, userphone, username);
@@ -75,7 +75,7 @@ public class HomeMsgPresenter extends BasePresenter<IHomeMsgView> implements IHo
                             Date currentData = new Date(System.currentTimeMillis());
                             String time = format.format(currentData);
                             ChatMessageBean textMsg = new ChatMessageBean(messages.get(i).getSessionId(),
-                                    KeeperPlusCache.getInstance().getCurrentUser().getAccount(),
+                                    KeeperPlusCache.getInstance().getCurrentUser().getMobilePhoneNumber(),
                                     messages.get(i).getContent(), time, ChatMsgTypeEnum.RECIVE_MSG);
                             // 显示最后一行
 //                            if (ChatActivity.instance != null)
@@ -111,7 +111,8 @@ public class HomeMsgPresenter extends BasePresenter<IHomeMsgView> implements IHo
                             boolean isNewMsg = true;
 
                             String userphone = recents.get(i).getContactId();
-                            String username = KeeperPlusCache.getInstance().getFriendByID(userphone).getName();
+
+                            String username = KeeperPlusCache.getInstance().getFriendByID(userphone).getUsername();
 
                             ConversationBean conversation = new ConversationBean(lastMsg, lastTime,
                                     isNewMsg, userphone, username);

@@ -49,11 +49,11 @@ public class HomeMeFragment extends BaseFragment {
         tvPhonenumber = (TextView) fragmentView.findViewById(R.id.tvUserphone);
 
 
-        String phonenumber = KeeperPlusCache.getInstance().getCurrentUser().getAccount().substring(0, 3)
+        String phonenumber = KeeperPlusCache.getInstance().getCurrentUser().getMobilePhoneNumber().substring(0, 3)
                 + "****"
-                + KeeperPlusCache.getInstance().getCurrentUser().getAccount().substring(7, 11);
+                + KeeperPlusCache.getInstance().getCurrentUser().getMobilePhoneNumber().substring(7, 11);
 
-        tvPatientname.setText(KeeperPlusCache.getInstance().getCurrentUser().getName());
+        tvPatientname.setText(KeeperPlusCache.getInstance().getCurrentUser().getUsername());
         tvPhonenumber_top.setText(phonenumber);
         tvPhonenumber.setText(phonenumber);
     }

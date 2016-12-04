@@ -2,9 +2,7 @@ package com.scu.miomin.keeperplus.mvp.presenter.impl;
 
 import com.scu.miomin.keeperplus.adapter.ECGRecordAdapter;
 import com.scu.miomin.keeperplus.core.KeepPlusApp;
-import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
 import com.scu.miomin.keeperplus.mvp.model.ECGRecordBean;
-import com.scu.miomin.keeperplus.mvp.model.Enum.UserTypeEnum;
 import com.scu.miomin.keeperplus.mvp.model.HealthyDescribeByPatientBean;
 import com.scu.miomin.keeperplus.mvp.presenter.interf.IECGRecordPresenter;
 import com.scu.miomin.keeperplus.mvp.view.interf.IECGRecordView;
@@ -67,15 +65,6 @@ public class ECGRecordPresenter extends BasePresenter<IECGRecordView> implements
             int minute = Integer.parseInt(minuteStr);
 
             boolean isAtPhone = false;
-
-            if (KeeperPlusCache.getInstance().getCurrentUser().getUserType() == UserTypeEnum.PATIENT) {
-                if (i < 2)
-                    isAtPhone = false;
-                else
-                    isAtPhone = true;
-            } else if (KeeperPlusCache.getInstance().getCurrentUser().getUserType() == UserTypeEnum.DOCTOR) {
-                isAtPhone = true;
-            }
 
             ecgRecord = new ECGRecordBean(year + "-" + month + "-" + day + " " + hour + ":" + minute,
                     ecgfileNameList.get(i), new HealthyDescribeByPatientBean(false, false, false, false, false, false), isAtPhone);

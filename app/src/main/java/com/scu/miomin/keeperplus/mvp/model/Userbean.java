@@ -1,8 +1,8 @@
 package com.scu.miomin.keeperplus.mvp.model;
 
-import com.scu.miomin.keeperplus.mvp.model.Enum.UserTypeEnum;
-
 import java.io.Serializable;
+
+import cn.bmob.v3.BmobUser;
 
 
 /**
@@ -10,68 +10,35 @@ import java.io.Serializable;
  *
  * @author 莫绪旻
  */
-public class Userbean implements Serializable {
+public class Userbean extends BmobUser implements Serializable {
 
-    private String account;// 注册时的手机号，唯一标识
-    private String password;// 用户密码
-    private String name;// 病人姓名
-    private int sex;// 病人性别
+    private Integer Role; //1表示病人，2表示医生
+
+    private Integer sex;// 病人性别
     private BirthdayBean birthday;// 病人生日
-    private int age;// 病人年龄
+    private Integer age;// 病人年龄
     private String headUrl;// 头像在服务端的url
 
-    public Userbean(String account, String password, String name, int sex, BirthdayBean birthday, String headUrl) {
-        this.account = account;
-        this.password = password;
-        this.name = name;
-        this.sex = sex;
-        this.birthday = birthday;
-        this.age = calAge(birthday);
-        this.headUrl = headUrl;
+    private String professional;  //医生职称，见枚举类ProfessionalEnum
+    private String administrative; //医生所在科室，见枚举类AdministrativeEnum
+    private HospitalBean hospital; //医生所在医院
+    private String introduction; //医生简介
+
+    // 病人身高
+    private Double pheight;
+    // 病人体重
+    private Double pweight;
+
+    public String getAdministrative() {
+        return administrative;
     }
 
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
+    public void setAdministrative(String administrative) {
+        this.administrative = administrative;
     }
 
     public int getAge() {
         return age;
-    }
-
-    public String getHeadUrl() {
-        return headUrl;
-    }
-
-    public void setHeadUrl(String headUrl) {
-        this.headUrl = headUrl;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getSex() {
-        return sex;
-    }
-
-    public void setSex(int sex) {
-        this.sex = sex;
     }
 
     public BirthdayBean getBirthday() {
@@ -84,25 +51,84 @@ public class Userbean implements Serializable {
     }
 
     private int calAge(BirthdayBean birthday) {
-        return 2015 - birthday.getYear();
+        return 2016 - birthday.getYear();
     }
 
-    public int getUserType() {
-        if (account.length() == 11)
-            return UserTypeEnum.PATIENT;
+    public String getHeadUrl() {
+        return headUrl;
+    }
+
+    public void setHeadUrl(String headUrl) {
+        this.headUrl = headUrl;
+    }
+
+    public HospitalBean getHospital() {
+        return hospital;
+    }
+
+    public void setHospital(HospitalBean hospital) {
+        this.hospital = hospital;
+    }
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+
+    public double getPheight() {
+        return pheight;
+    }
+
+    public void setPheight(double pheight) {
+        this.pheight = pheight;
+    }
+
+    public String getProfessional() {
+        return professional;
+    }
+
+    public void setProfessional(String professional) {
+        this.professional = professional;
+    }
+
+    public double getPweight() {
+        return pweight;
+    }
+
+    public void setPweight(double pweight) {
+        this.pweight = pweight;
+    }
+
+    public Integer getRole() {
+        return Role;
+    }
+
+    public void setRole(Integer role) {
+        Role = role;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    public boolean isDoctor() {
+        if (Role == 2)
+            return true;
         else
-            return UserTypeEnum.DOCTOR;
+            return false;
     }
 
-    @Override
-    public String toString() {
-        return "Userbean{" +
-                "phonenumber='" + account + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", sex=" + sex +
-                ", birthday=" + birthday +
-                ", age=" + age +
-                '}';
+    public boolean isPatient() {
+        if (Role == 1)
+            return true;
+        else
+            return false;
     }
 }

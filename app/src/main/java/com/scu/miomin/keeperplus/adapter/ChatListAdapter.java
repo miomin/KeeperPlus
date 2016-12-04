@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.scu.miomin.keeperplus.R;
-import com.scu.miomin.keeperplus.moke.KeeperDataMoke;
+import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
 import com.scu.miomin.keeperplus.mvp.model.ChatMessageBean;
 import com.scu.miomin.keeperplus.mvp.model.Enum.ChatMsgTypeEnum;
 import com.scu.miomin.keeperplus.mvp.model.Userbean;
@@ -33,7 +33,7 @@ public class ChatListAdapter extends BaseAdapter {
         this.context = context;
         this.chat_msg_list = chat_msg_list;
         this.userID = userID;
-        chatFriend = KeeperDataMoke.getInstance().getUserByID(userID);
+        chatFriend = KeeperPlusCache.getInstance().getFriendByID(userID);
     }
 
     @Override

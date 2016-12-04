@@ -10,15 +10,15 @@ import com.luseen.luseenbottomnavigation.BottomNavigation.OnBottomNavigationItem
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.constants.ActivityType;
 import com.scu.miomin.keeperplus.core.BaseFragment;
-import com.scu.miomin.keeperplus.moke.FriendListMoke;
-import com.scu.miomin.keeperplus.moke.RemenDoctorListMoke;
+import com.scu.miomin.keeperplus.mvp.presenter.impl.HomePresenter;
 import com.scu.miomin.keeperplus.mvp.view.impl.fragment.HomeMainFragment;
 import com.scu.miomin.keeperplus.mvp.view.impl.fragment.HomeMeFragment;
 import com.scu.miomin.keeperplus.mvp.view.impl.fragment.HomeMsgFragment;
-import com.scu.miomin.keeperplus.toolbar.ToolbarActivity;
+import com.scu.miomin.keeperplus.mvp.view.interf.IHomeView;
+import com.scu.miomin.keeperplus.mvpcore.BaseToolbarMvpActivity;
 
 
-public class PatientHomeActivity extends ToolbarActivity {
+public class PatientHomeActivity extends BaseToolbarMvpActivity<HomePresenter> implements IHomeView {
 
     private com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView bottomNavigationView;
 
@@ -39,15 +39,7 @@ public class PatientHomeActivity extends ToolbarActivity {
         titles[1] = getResources().getString(R.string.main);
         titles[2] = getResources().getString(R.string.me);
         // 初始化好友列表
-        FriendListMoke.getInstance().initFriendList();
-        RemenDoctorListMoke.getInstance().initRemenDoctorList();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        FriendListMoke.getInstance().clearFriendList();
-        RemenDoctorListMoke.getInstance().clearRemenDoctorList();
+        mvpPresenter.initFriendList();
     }
 
     @Override
@@ -124,5 +116,10 @@ public class PatientHomeActivity extends ToolbarActivity {
             fragment_me = HomeMeFragment.newInstance(titles[2]);
         getSupportFragmentManager().beginTransaction().replace(R.id.mFragmentContainerLayout, fragment_me).commitAllowingStateLoss();
         setUpTitle(titles[2]);
+    }
+
+    @Override
+    protected HomePresenter createPresenter() {
+        return new HomePresenter(this);
     }
 }

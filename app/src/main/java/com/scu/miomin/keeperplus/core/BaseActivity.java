@@ -42,7 +42,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 break;
         }
 
-        mProgressDialogHandler = new ProgressDialogHandler(this, true);
+        mProgressDialogHandler = new ProgressDialogHandler(this, false);
     }
 
     protected abstract void getContentView();
