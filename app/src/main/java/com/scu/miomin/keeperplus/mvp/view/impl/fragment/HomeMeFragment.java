@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.core.BaseFragment;
 import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
+import com.scu.miomin.keeperplus.mvpcore.BaseToolbarMvpActivity;
 import com.scu.miomin.keeperplus.toolbar.ToolbarActivity;
 
 /**
@@ -66,7 +67,7 @@ public class HomeMeFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (getActivity() instanceof ToolbarActivity) {
+        if (getActivity() instanceof ToolbarActivity || getActivity() instanceof BaseToolbarMvpActivity) {
             ((ToolbarActivity) getActivity()).hideToolbar();
         }
     }
@@ -74,7 +75,7 @@ public class HomeMeFragment extends BaseFragment {
     @Override
     public void onStop() {
         super.onStop();
-        if (getActivity() instanceof ToolbarActivity) {
+        if (getActivity() instanceof ToolbarActivity || getActivity() instanceof BaseToolbarMvpActivity) {
             ((ToolbarActivity) getActivity()).showToolbar();
         }
     }
