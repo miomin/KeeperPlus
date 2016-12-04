@@ -42,7 +42,7 @@ public class ECGRecordActivity extends BaseToolbarMvpActivity<ECGRecordPresenter
 
     @Override
     protected void setUpView() {
-
+        setUpTitle("心电云图库");
     }
 
     @Override

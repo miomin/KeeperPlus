@@ -84,7 +84,7 @@ public class FollowupInfoActivity extends ToolbarActivity {
 
     @Override
     protected void setUpView() {
-
+        setUpTitle("诊后随访详情");
     }
 
     @Override
@@ -116,7 +116,7 @@ public class FollowupInfoActivity extends ToolbarActivity {
                 break;
         }
 
-//        TrendLineChartActivity.actionStart(this, tv1.getText().toString(), datas);
+        FollowUpLineActivity.startActivity(this, tv1.getText().toString(), datas);
         datas.clear();
     }
 
@@ -127,7 +127,7 @@ public class FollowupInfoActivity extends ToolbarActivity {
                 break;
         }
 
-//        TrendLineChartActivity.actionStart(this, tv2.getText().toString(), datas);
+        FollowUpLineActivity.startActivity(this, tv2.getText().toString(), datas);
         datas.clear();
     }
 
@@ -138,7 +138,7 @@ public class FollowupInfoActivity extends ToolbarActivity {
                 break;
         }
 
-//        TrendLineChartActivity.actionStart(this, tv3.getText().toString(), datas);
+        FollowUpLineActivity.startActivity(this, tv3.getText().toString(), datas);
         datas.clear();
     }
 
@@ -149,7 +149,7 @@ public class FollowupInfoActivity extends ToolbarActivity {
                 break;
         }
 
-//        TrendLineChartActivity.actionStart(this, tv4.getText().toString(), datas);
+        FollowUpLineActivity.startActivity(this, tv4.getText().toString(), datas);
         datas.clear();
     }
 
@@ -160,7 +160,7 @@ public class FollowupInfoActivity extends ToolbarActivity {
                 break;
         }
 
-//        TrendLineChartActivity.actionStart(this, tv5.getText().toString(), datas);
+        FollowUpLineActivity.startActivity(this, tv5.getText().toString(), datas);
         datas.clear();
     }
 
@@ -171,7 +171,7 @@ public class FollowupInfoActivity extends ToolbarActivity {
                 break;
         }
 
-//        TrendLineChartActivity.actionStart(this, tv6.getText().toString(), datas);
+        FollowUpLineActivity.startActivity(this, tv6.getText().toString(), datas);
         datas.clear();
     }
 
@@ -182,7 +182,7 @@ public class FollowupInfoActivity extends ToolbarActivity {
                 break;
         }
 
-//        TrendLineChartActivity.actionStart(this, tv7.getText().toString(), datas);
+        FollowUpLineActivity.startActivity(this, tv7.getText().toString(), datas);
         datas.clear();
     }
 
@@ -193,7 +193,7 @@ public class FollowupInfoActivity extends ToolbarActivity {
                 break;
         }
 
-//        TrendLineChartActivity.actionStart(this, tv8.getText().toString(), datas);
+        FollowUpLineActivity.startActivity(this, tv8.getText().toString(), datas);
         datas.clear();
     }
 
@@ -204,7 +204,7 @@ public class FollowupInfoActivity extends ToolbarActivity {
                 break;
         }
 
-//        TrendLineChartActivity.actionStart(this, tv9.getText().toString(), datas);
+        FollowUpLineActivity.startActivity(this, tv9.getText().toString(), datas);
         datas.clear();
     }
 }

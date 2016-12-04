@@ -53,6 +53,7 @@ public class DeviceListActivity extends ToolbarActivity {
 
     @Override
     protected void setUpView() {
+        setUpTitle("设备管理");
         setResult(Activity.RESULT_CANCELED);
 
         // 初始化扫描按钮

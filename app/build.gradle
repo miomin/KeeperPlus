@@ -38,14 +38,13 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:support-v4:23.2.1'
     testCompile 'junit:junit:4.12'
-
     compile 'com.miomin:shswiperefreshlayout:1.2.0'
     compile 'com.github.gabrielemariotti.recyclerview:recyclerview-animators:0.3.0-SNAPSHOT@aar'
     compile 'com.facebook.fresco:fresco:0.10.0'
@@ -55,39 +54,32 @@ dependencies {
     compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
     compile 'com.github.armcha:LuseenBottomNavigation:1.8.2'
     compile 'com.jakewharton:butterknife:7.0.1'
-
     compile 'io.reactivex:rxjava:1.2.2'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'com.google.code.gson:gson:2.6.2'
-    compile 'com.squareup.okhttp:okhttp:2.4.0'//CDN文件服务使用okhttp相关包进行文件的上传和下载（必填）
+    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    //CDN文件服务使用okhttp相关包进行文件的上传和下载（必填）
     compile 'com.squareup.okio:okio:1.4.0'
-
     compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
     compile 'com.jakewharton.rxbinding:rxbinding-support-v4:0.4.0'
     compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:0.4.0'
     compile 'com.jakewharton.rxbinding:rxbinding-design:0.4.0'
     compile 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:0.4.0'
-
-
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
-
     compile 'com.android.support:design:23.0.0'
     compile 'com.android.support:cardview-v7:23.0.0'
-
     compile files('libs/nim-sdk-1.7.1.jar')
     compile files('libs/cosinesdk.jar')
     compile files('libs/my_btlib.jar')
     compile files('libs/netty-4.0.23-for-yx.final.jar')
     compile files('libs/bmobsdk.jar')
-
     compile 'com.orhanobut:dialogplus:1.11@aar'
     compile 'me.drakeet.materialdialog:library:1.3.1'
-
-//    compile 'cn.bmob.android:bmob-sdk:3.5.0'
     compile 'cn.bmob.android:http-legacy:1.0'
+    compile project(':MPChartLib')
 }

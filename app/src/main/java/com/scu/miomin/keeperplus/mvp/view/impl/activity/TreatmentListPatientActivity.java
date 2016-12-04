@@ -47,6 +47,7 @@ public class TreatmentListPatientActivity extends BaseToolbarMvpActivity<Treatme
 
     @Override
     protected void setUpView() {
+        setUpTitle("就诊记录列表");
 
         lvTreatmentFollowupList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

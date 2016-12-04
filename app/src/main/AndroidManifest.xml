@@ -181,5 +181,13 @@
                 android:value=".mvp.view.impl.activity.TreatmentInfoActivity" />
         </activity>
 
+        <activity
+            android:name=".mvp.view.impl.activity.FollowUpLineActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".mvp.view.impl.activity.FollowupInfoActivity" />
+        </activity>
+
     </application>
 </manifest>

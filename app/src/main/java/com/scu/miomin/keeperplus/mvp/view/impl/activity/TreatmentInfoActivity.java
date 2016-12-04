@@ -38,6 +38,8 @@ public class TreatmentInfoActivity extends BaseToolbarMvpActivity<TreatmentInfoP
 
     @Override
     protected void setUpView() {
+        setUpTitle("就诊记录详情");
+
         lvTreatmentFollowup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

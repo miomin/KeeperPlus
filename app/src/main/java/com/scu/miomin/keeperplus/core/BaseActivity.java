@@ -118,6 +118,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
+            dismissProgressDialog();
             return true;
         }
         return super.onOptionsItemSelected(item);
