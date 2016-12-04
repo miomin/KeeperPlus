@@ -61,4 +61,18 @@
     <string name="title_other_devices">其他可用设备</string>
     <string name="button_scan">查找设备</string>
 
+    <!--activity_add_followup -->
+    <string name="addTreatmentFollowup">添加随访记录</string>
+    <string name="addTreatmentFollowupDestribe">输入检查结果后，点击提交按钮即可添加随访记录</string>
+    <string name="rusuantuoqingmei">乳酸脱氢酶(iu/L)</string>
+    <string name="gucaozhuananmei">谷草转氨酶(iu/L)</string>
+    <string name="gubingzhuananmei">谷丙转氨酶(iu/L)</string>
+    <string name="lingsuanjisuanjimei">磷酸肌酸激酶(iu/L)</string>
+    <string name="lingsuanjisuanjimeitonggongmei">磷酸肌酸激酶同工酶(iu/L)</string>
+    <string name="jihongdanbai">肌红蛋白(μg/L)</string>
+    <string name="jigaidanbai">肌钙蛋白(μg/L)</string>
+    <string name="waizhouxuebaixibaozongshu">外周血白细胞总数</string>
+    <string name="zhongxinglixibaobilv">中性粒细胞比率</string>
+    <string name="pleaseInputCheckResult">请输入检查结果</string>
+
 </resources>

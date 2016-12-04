@@ -173,5 +173,13 @@
                 android:value=".mvp.view.impl.activity.TreatmentListPatientActivity" />
         </activity>
 
+        <activity
+            android:name=".mvp.view.impl.activity.FollowupInfoActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".mvp.view.impl.activity.TreatmentInfoActivity" />
+        </activity>
+
     </application>
 </manifest>

@@ -3,6 +3,8 @@ package com.scu.miomin.keeperplus.mvp.view.impl.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.scu.miomin.keeperplus.R;
@@ -36,7 +38,15 @@ public class TreatmentInfoActivity extends BaseToolbarMvpActivity<TreatmentInfoP
 
     @Override
     protected void setUpView() {
-
+        lvTreatmentFollowup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0)
+                    return;
+                FollowupInfoActivity.startActivity(TreatmentInfoActivity.this, treatmentBean.getTreatmentFollowupList().get(position - 1),
+                        treatmentBean);
+            }
+        });
     }
 
     @Override
@@ -46,6 +56,7 @@ public class TreatmentInfoActivity extends BaseToolbarMvpActivity<TreatmentInfoP
 
         if (treatmentBean == null) {
             showToast("加载信息失败");
+            finish();
             return;
         }
 
@@ -54,20 +65,6 @@ public class TreatmentInfoActivity extends BaseToolbarMvpActivity<TreatmentInfoP
 
     private void initAdapter() {
         mvpPresenter.initTreatmentFollowUpAdapter(treatmentBean);
-    }
-
-    private void initListener() {
-//        lvTreatmentFollowup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                if (position == 1)
-//                    return;
-//
-//                FollowupInfoActivity.actionStart(TreatmentInfoActivityForPatient.this,
-//                        treatmentBean.getTreatmentFollowupList().get(position - 2),
-//                        treatmentBean.getTreatmentFollowupList());
-//            }
-//        });
     }
 
     public static void startActivity(Context context, TreatmentBean treatmentBean) {
