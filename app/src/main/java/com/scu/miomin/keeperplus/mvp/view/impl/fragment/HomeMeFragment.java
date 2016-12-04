@@ -67,8 +67,10 @@ public class HomeMeFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (getActivity() instanceof ToolbarActivity || getActivity() instanceof BaseToolbarMvpActivity) {
+        if (getActivity() instanceof ToolbarActivity) {
             ((ToolbarActivity) getActivity()).hideToolbar();
+        } else if (getActivity() instanceof BaseToolbarMvpActivity) {
+            ((BaseToolbarMvpActivity) getActivity()).hideToolbar();
         }
     }
 
@@ -77,6 +79,8 @@ public class HomeMeFragment extends BaseFragment {
         super.onStop();
         if (getActivity() instanceof ToolbarActivity || getActivity() instanceof BaseToolbarMvpActivity) {
             ((ToolbarActivity) getActivity()).showToolbar();
+        } else if (getActivity() instanceof BaseToolbarMvpActivity) {
+            ((BaseToolbarMvpActivity) getActivity()).hideToolbar();
         }
     }
 }
