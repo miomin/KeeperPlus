@@ -13,14 +13,14 @@ import java.util.ArrayList;
  */
 public class TreatmentBean implements Serializable {
 
-    private PatientBean patientBean; //就诊病人
-    private DoctorBean doctorBean; //负责此次就诊的医生
+    private Userbean patientBean; //就诊病人
+    private Userbean doctorBean; //负责此次就诊的医生
     private String date; //就诊的日期
     private String treatmentReason; //诊断原因
     private ArrayList<TreatmentFollowupBean> treatmentFollowupList; //该就诊的随访列表
 
-    public TreatmentBean(String date, DoctorBean doctorBean,
-                         PatientBean patientBean,
+    public TreatmentBean(String date, Userbean doctorBean,
+                         Userbean patientBean,
                          String treatmentReason) {
         this.date = date;
         this.doctorBean = doctorBean;
@@ -42,19 +42,19 @@ public class TreatmentBean implements Serializable {
         this.date = date;
     }
 
-    public DoctorBean getDoctorBean() {
+    public Userbean getDoctorBean() {
         return doctorBean;
     }
 
-    public void setDoctorBean(DoctorBean doctorBean) {
+    public void setDoctorBean(Userbean doctorBean) {
         this.doctorBean = doctorBean;
     }
 
-    public PatientBean getPatientBean() {
+    public Userbean getPatientBean() {
         return patientBean;
     }
 
-    public void setPatientBean(PatientBean patientBean) {
+    public void setPatientBean(Userbean patientBean) {
         this.patientBean = patientBean;
     }
 
