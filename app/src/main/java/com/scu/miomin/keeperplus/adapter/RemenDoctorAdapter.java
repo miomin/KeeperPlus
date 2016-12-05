@@ -1,12 +1,13 @@
 package com.scu.miomin.keeperplus.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.mvp.model.Userbean;
 import com.scu.miomin.keeperplus.mvp.view.impl.activity.ECGActivity;
@@ -88,7 +89,7 @@ public class RemenDoctorAdapter extends BaseAdapter {
         } else {
             convertView = View.inflate(context, R.layout.item_remendoctor, null);
             viewHolder = new ViewHolder();
-            viewHolder.ivHead = (ImageView) convertView.findViewById(R.id.ivHead);
+            viewHolder.ivHead = (SimpleDraweeView) convertView.findViewById(R.id.ivHead);
             viewHolder.tvName = (TextView) convertView.findViewById(R.id.tvName);
             viewHolder.tvAdministrative = (TextView) convertView.findViewById(R.id.tvAdministrative);
             viewHolder.tvProfessional = (TextView) convertView.findViewById(R.id.tvProfessional);
@@ -104,14 +105,14 @@ public class RemenDoctorAdapter extends BaseAdapter {
             viewHolder.tvHospital.setText(user.getHospital().getName());
             viewHolder.tvIntroduction.setText(user.getIntroduction());
 
-//            MyLoader.dispalyFromAssets(doctorBean.getHeadUrl(),
-//                    viewHolder.ivHead);
+            Uri uri = Uri.parse(user.getHeadUrl());
+            viewHolder.ivHead.setImageURI(uri);
         }
         return convertView;
     }
 
     class ViewHolder {
-        public ImageView ivHead;
+        public SimpleDraweeView ivHead;
         public TextView tvName;
         public TextView tvAdministrative;
         public TextView tvProfessional;

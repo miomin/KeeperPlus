@@ -1,11 +1,13 @@
 package com.scu.miomin.keeperplus.mvp.view.impl.fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.core.BaseFragment;
 import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
@@ -22,6 +24,7 @@ public class HomeMeFragment extends BaseFragment {
     private TextView tvPhonenumber_top;
     private TextView tvPhonenumber;
     private TextView tvPatientname;
+    private SimpleDraweeView ivHead;
 
     public static HomeMeFragment newInstance(String title) {
         HomeMeFragment fragment = new HomeMeFragment();
@@ -48,7 +51,7 @@ public class HomeMeFragment extends BaseFragment {
         tvPatientname = (TextView) fragmentView.findViewById(R.id.tvUsername);
         tvPhonenumber_top = (TextView) fragmentView.findViewById(R.id.tvUserphone_top);
         tvPhonenumber = (TextView) fragmentView.findViewById(R.id.tvUserphone);
-
+        ivHead = (SimpleDraweeView) fragmentView.findViewById(R.id.ivHead);
 
         String phonenumber = KeeperPlusCache.getInstance().getCurrentUser().getMobilePhoneNumber().substring(0, 3)
                 + "****"
@@ -61,7 +64,8 @@ public class HomeMeFragment extends BaseFragment {
 
     @Override
     protected void setUpData() {
-
+        Uri uri = Uri.parse(KeeperPlusCache.getInstance().getCurrentUser().getHeadUrl());
+        ivHead.setImageURI(uri);
     }
 
     @Override

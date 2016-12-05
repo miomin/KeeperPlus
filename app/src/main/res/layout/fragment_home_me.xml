@@ -41,12 +41,13 @@
                         android:layout_height="wrap_content">
 
                         <com.facebook.drawee.view.SimpleDraweeView
+                            android:id="@+id/ivHead"
                             android:layout_width="76dp"
                             android:layout_height="76dp"
                             android:layout_marginLeft="4dp"
                             android:layout_marginRight="5dp"
                             android:layout_marginTop="4dp"
-                            fresco:placeholderImage="@drawable/default_head"
+                            fresco:placeholderImage="@mipmap/ic_launcher"
                             fresco:roundAsCircle="true" />
 
                     </RelativeLayout>

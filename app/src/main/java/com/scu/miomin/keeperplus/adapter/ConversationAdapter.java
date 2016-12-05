@@ -1,13 +1,16 @@
 package com.scu.miomin.keeperplus.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.scu.miomin.keeperplus.R;
+import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
 import com.scu.miomin.keeperplus.mvp.model.ConversationBean;
 
 import java.util.ArrayList;
@@ -74,7 +77,7 @@ public class ConversationAdapter extends BaseAdapter {
             // 拿到ListViewItem的布局（一行，需要单独定义一个），转换为View类型的对象
             convertView = View.inflate(context, R.layout.item_conversation, null);
             holder = new viewHolder();
-            holder.ivHead = (ImageView) convertView
+            holder.ivHead = (SimpleDraweeView) convertView
                     .findViewById(R.id.ivHead);
             holder.tvName = (TextView) convertView
                     .findViewById(R.id.tvName);
@@ -92,14 +95,13 @@ public class ConversationAdapter extends BaseAdapter {
         // 更新保留的控件中的数据
         ConversationBean conversation = listConversation.get(position);
 
-//        String imageUrl = MyUrl.HEADURLPATH + conversation.getPhonenumber() + ".jpg";
+        String imageUrl = KeeperPlusCache.getInstance().getFriendByID(conversation.getPhonenumber()).getHeadUrl();
+        holder.ivHead.setTag(imageUrl);
 
-//        holder.ivHead.setTag(imageUrl);
-
-//        if (imageUrl.equals(holder.ivHead.getTag())) {
-//            MyLoader.dispalyFromAssets(UserResource.getUserByID(conversation.getPhonenumber()).getHeadUrl(),
-//                    holder.ivHead);
-//        }
+        if (imageUrl.equals(holder.ivHead.getTag())) {
+            Uri uri = Uri.parse(imageUrl);
+            holder.ivHead.setImageURI(uri);
+        }
 
         holder.tvName.setText(conversation.getUsername());
         holder.tvMsg.setText(conversation.getLastMsg());
@@ -115,7 +117,7 @@ public class ConversationAdapter extends BaseAdapter {
     }
 
     class viewHolder {
-        ImageView ivHead;
+        SimpleDraweeView ivHead;
         TextView tvName;
         TextView tvMsg;
         TextView tvDate;

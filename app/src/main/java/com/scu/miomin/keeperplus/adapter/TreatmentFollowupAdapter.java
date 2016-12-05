@@ -1,12 +1,13 @@
 package com.scu.miomin.keeperplus.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.mvp.model.TreatmentBean;
 import com.scu.miomin.keeperplus.mvp.model.TreatmentFollowupBean;
@@ -26,7 +27,7 @@ public class TreatmentFollowupAdapter extends BaseAdapter {
     private TextView tvTreatmentHospital;
     private TextView tvPatientName;
     private TextView tvTreatmentReason;
-    private ImageView ivDoctorHead;
+    private SimpleDraweeView ivDoctorHead;
 
     private ArrayList<TreatmentFollowupBean> treatmentFollowupList;
     private Context context;
@@ -73,7 +74,7 @@ public class TreatmentFollowupAdapter extends BaseAdapter {
             tvTreatmentHospital = (TextView) convertView.findViewById(R.id.tvTreatmentHospital);
             tvPatientName = (TextView) convertView.findViewById(R.id.tvPatientName);
             tvTreatmentReason = (TextView) convertView.findViewById(R.id.tvTreatmentReason);
-            ivDoctorHead = (ImageView) convertView.findViewById(R.id.ivDoctorHead);
+            ivDoctorHead = (SimpleDraweeView) convertView.findViewById(R.id.ivDoctorHead);
 
             tvDoctorName.setText(treatmentBean.getDoctorBean().getUsername());
             tvAdministrative.setText(treatmentBean.getDoctorBean().getAdministrative());
@@ -83,7 +84,8 @@ public class TreatmentFollowupAdapter extends BaseAdapter {
             tvPatientName.setText(treatmentBean.getPatientBean().getUsername());
             tvTreatmentReason.setText(treatmentBean.getTreatmentReason());
 
-//            MyLoader.dispalyFromAssets(treatmentBean.getDoctorBean().getHeadUrl(), ivDoctorHead);
+            Uri uri = Uri.parse(treatmentBean.getDoctorBean().getHeadUrl());
+            ivDoctorHead.setImageURI(uri);
         } else {
             if (convertView == null) {
                 convertView = View.inflate(context, R.layout.item_treatment_followup, null);

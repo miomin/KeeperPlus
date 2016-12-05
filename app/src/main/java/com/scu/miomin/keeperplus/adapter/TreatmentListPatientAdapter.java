@@ -1,12 +1,13 @@
 package com.scu.miomin.keeperplus.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.mvp.model.TreatmentBean;
 
@@ -69,7 +70,7 @@ public class TreatmentListPatientAdapter extends BaseAdapter {
             // 拿到ListViewItem的布局（一行，需要单独定义一个），转换为View类型的对象
             convertView = View.inflate(context, R.layout.item_treatment_patient_list, null);
             holder = new viewHolder();
-            holder.ivHead = (ImageView) convertView.findViewById(R.id.ivHead);
+            holder.ivHead = (SimpleDraweeView) convertView.findViewById(R.id.ivHead);
             holder.tvHospital = (TextView) convertView.findViewById(R.id.tvHospital);
             holder.tvName = (TextView) convertView
                     .findViewById(R.id.tvName);
@@ -83,26 +84,26 @@ public class TreatmentListPatientAdapter extends BaseAdapter {
         }
 
         // 更新保留的控件中的数据
-        TreatmentBean treatmentFollowupForPatientBean =
+        TreatmentBean treatmentBean =
                 listTreatmentFollowerForPatient.get(position);
 
-        if (treatmentFollowupForPatientBean == null)
+        if (treatmentBean == null)
             return null;
 
-        holder.tvHospital.setText(treatmentFollowupForPatientBean.getDoctorBean().getHospital().getName());
-        holder.tvName.setText(treatmentFollowupForPatientBean.getDoctorBean().getUsername());
-        holder.tvTreatmentReason.setText(treatmentFollowupForPatientBean.getTreatmentReason());
-        holder.tvTreatmentDate.setText(treatmentFollowupForPatientBean.getDate());
+        holder.tvHospital.setText(treatmentBean.getDoctorBean().getHospital().getName());
+        holder.tvName.setText(treatmentBean.getDoctorBean().getUsername());
+        holder.tvTreatmentReason.setText(treatmentBean.getTreatmentReason());
+        holder.tvTreatmentDate.setText(treatmentBean.getDate());
 
-//        MyLoader.dispalyFromAssets(treatmentFollowupForPatientBean.getDoctorBean().getHeadUrl(),
-//                holder.ivHead);
+        Uri uri = Uri.parse(treatmentBean.getDoctorBean().getHeadUrl());
+        holder.ivHead.setImageURI(uri);
 
         // 将更新后的控件返回给Android系统
         return convertView;
     }
 
     class viewHolder {
-        ImageView ivHead;
+        SimpleDraweeView ivHead;
         TextView tvHospital;
         TextView tvName;
         TextView tvTreatmentReason;
