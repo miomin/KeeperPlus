@@ -1,14 +1,15 @@
 package com.scu.miomin.keeperplus.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
 import com.scu.miomin.keeperplus.mvp.model.ChatMessageBean;
@@ -29,7 +30,6 @@ public class ChatListAdapter extends BaseAdapter {
     private Userbean chatFriend;
 
     public ChatListAdapter(Context context, ArrayList<ChatMessageBean> chat_msg_list, String userID) {
-
         this.context = context;
         this.chat_msg_list = chat_msg_list;
         this.userID = userID;
@@ -65,11 +65,11 @@ public class ChatListAdapter extends BaseAdapter {
             }
             viewholder = new ViewHolder();
             viewholder.layout_my = (RelativeLayout) view.findViewById(R.id.layout_my);
-            viewholder.iv_myhead = (ImageView) view.findViewById(R.id.iv_myhead);
+            viewholder.iv_myhead = (SimpleDraweeView) view.findViewById(R.id.iv_myhead);
             viewholder.tv_mysendtime = (TextView) view.findViewById(R.id.tv_mysendtime);
             viewholder.tv_mytext = (TextView) view.findViewById(R.id.tv_mytext);
             viewholder.layout_friend = (RelativeLayout) view.findViewById(R.id.layout_friend);
-            viewholder.iv_friendhead = (ImageView) view.findViewById(R.id.iv_friendhead);
+            viewholder.iv_friendhead = (SimpleDraweeView) view.findViewById(R.id.iv_friendhead);
             viewholder.tv_friendsendtime = (TextView) view.findViewById(R.id.tv_friendsendtime);
             viewholder.tv_friendtext = (TextView) view.findViewById(R.id.tv_friendtext);
             view.setTag(viewholder);
@@ -99,7 +99,10 @@ public class ChatListAdapter extends BaseAdapter {
                 viewholder.layout_my.setVisibility(View.GONE);
                 viewholder.tv_friendsendtime.setText(msg.getTime());
                 Log.i("keeper", chatFriend.getHeadUrl());
-//                MyLoader.dispalyFromAssets(chatFriend.getHeadUrl(), viewholder.iv_friendhead);
+
+                Uri uri = Uri.parse(chatFriend.getHeadUrl());
+                viewholder.iv_friendhead.setImageURI(uri);
+
                 switch (msg.getContentType()) {
                     case ChatMsgTypeEnum.TEXT_MSG:
                         viewholder.tv_friendtext.setText(msg.getText());
@@ -118,7 +121,10 @@ public class ChatListAdapter extends BaseAdapter {
                 viewholder.layout_my.setVisibility(View.VISIBLE);
                 viewholder.layout_friend.setVisibility(View.GONE);
                 viewholder.tv_mysendtime.setText(msg.getTime());
-//                MyLoader.dispalyFromAssets(Controller.getCurrentUser().getHeadUrl(), viewholder.iv_myhead);
+
+                uri = Uri.parse(KeeperPlusCache.getInstance().getCurrentUser().getHeadUrl());
+                viewholder.iv_myhead.setImageURI(uri);
+
                 switch (msg.getContentType()) {
                     case ChatMsgTypeEnum.TEXT_MSG:
                         viewholder.tv_mytext.setText(msg.getText());
@@ -143,13 +149,18 @@ public class ChatListAdapter extends BaseAdapter {
         this.notifyDataSetChanged();
     }
 
+    public void addHistoryMsg(ChatMessageBean msg) {
+        chat_msg_list.add(0, msg);
+        this.notifyDataSetChanged();
+    }
+
     private class ViewHolder {
         public RelativeLayout layout_my;
-        public ImageView iv_myhead;
+        public SimpleDraweeView iv_myhead;
         public TextView tv_mysendtime;
         public TextView tv_mytext;
         public RelativeLayout layout_friend;
-        public ImageView iv_friendhead;
+        public SimpleDraweeView iv_friendhead;
         public TextView tv_friendsendtime;
         public TextView tv_friendtext;
     }

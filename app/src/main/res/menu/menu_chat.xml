@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.scu.miomin.menuapp.MainActivity">
+    <item
+        android:id="@+id/action_show_info"
+        android:orderInCategory="100"
+        android:title="查看资料"
+        app:showAsAction="always" />
+</menu>

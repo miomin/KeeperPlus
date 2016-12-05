@@ -1,18 +1,13 @@
 package com.scu.miomin.keeperplus.mvp.cache;
 
-import android.content.Context;
-
-import com.scu.miomin.keeperplus.adapter.ChatListAdapter;
 import com.scu.miomin.keeperplus.adapter.ConversationAdapter;
 import com.scu.miomin.keeperplus.adapter.RemenDoctorAdapter;
 import com.scu.miomin.keeperplus.adapter.TreatmentFollowupAdapter;
 import com.scu.miomin.keeperplus.adapter.TreatmentListPatientAdapter;
-import com.scu.miomin.keeperplus.mvp.model.ChatMessageBean;
 import com.scu.miomin.keeperplus.mvp.model.TreatmentBean;
 import com.scu.miomin.keeperplus.mvp.model.Userbean;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -27,7 +22,6 @@ public class KeeperPlusCache {
     private ArrayList<Userbean> remenDoctorList = new ArrayList<>();
     private ArrayList<TreatmentBean> treatmentArray = new ArrayList<>();
 
-    private HashMap<String, ChatListAdapter> chatAdapterMap = new HashMap<>();
     private ConversationAdapter conversationAdapter;
     private RemenDoctorAdapter remenDoctorAdapter;
     private TreatmentListPatientAdapter treatmentListAdapter;
@@ -78,18 +72,6 @@ public class KeeperPlusCache {
 
     public void clearFriend() {
         friendList.clear();
-    }
-
-    public void initChatAdapterList(Context context) {
-        for (int i = 0; i < friendList.size(); i++) {
-            chatAdapterMap.put(friendList.get(i).getMobilePhoneNumber(),
-                    new ChatListAdapter(context, new ArrayList<ChatMessageBean>(),
-                            friendList.get(i).getMobilePhoneNumber()));
-        }
-    }
-
-    public ChatListAdapter getChatAdapter(String userphone) {
-        return chatAdapterMap.get(userphone);
     }
 
     public ConversationAdapter getConversationAdapter() {
