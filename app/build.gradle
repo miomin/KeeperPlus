@@ -68,9 +68,6 @@ dependencies {
     compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:0.4.0'
     compile 'com.jakewharton.rxbinding:rxbinding-design:0.4.0'
     compile 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:0.4.0'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
     compile 'com.android.support:design:23.0.0'
     compile 'com.android.support:cardview-v7:23.0.0'
     compile files('libs/nim-sdk-1.7.1.jar')

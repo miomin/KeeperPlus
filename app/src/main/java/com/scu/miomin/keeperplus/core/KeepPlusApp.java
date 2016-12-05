@@ -23,7 +23,6 @@ import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
 import com.scu.miomin.keeperplus.splash.SplashActivity;
 import com.scu.miomin.keeperplus.string.LoginString;
 import com.scu.miomin.keeperplus.util.ecg.ECGDirSaveUtil;
-import com.squareup.leakcanary.LeakCanary;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobConfig;
@@ -43,7 +42,6 @@ public class KeepPlusApp extends Application {
         super.onCreate();
         sInstance = this;
         Fresco.initialize(this);
-        LeakCanary.install(this);
         registerAppController();
         Logger.init(APPString.TAG).methodCount(2);
         NIMClient.init(this, null, options()); // SDK初始化（启动后台服务，若已经存在用户登录信息，SDK 将完成自动登录）
