@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -15,25 +14,33 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.constants.ActivityType;
-import com.scu.miomin.keeperplus.toolbar.ToolbarActivity;
+import com.scu.miomin.keeperplus.mvp.presenter.impl.FollowUpLinePresenter;
+import com.scu.miomin.keeperplus.mvp.view.interf.IFollowUpLineView;
+import com.scu.miomin.keeperplus.mvpcore.BaseToolbarMvpActivity;
 
 import java.util.ArrayList;
 
-public class FollowUpLineActivity extends ToolbarActivity implements OnChartValueSelectedListener {
+import butterknife.Bind;
 
-    private LineChart trendLineChart;
+public class FollowUpLineActivity extends BaseToolbarMvpActivity<FollowUpLinePresenter> implements IFollowUpLineView {
+
+    private static final String TITLE_STR = "titleStr";
+    private static final String DATAS = "datas";
+
+    @Bind(R.id.trendLineChart)
+    LineChart trendLineChart;
+    @Bind(R.id.tvTitleSub)
+    TextView tvTitleSub;
+
     private String titleStr;
-    private TextView tvTitleSub;
     private ArrayList<Integer> datas;
 
     public static void startActivity(Context context, String titleStr, ArrayList<Integer> datas) {
         Intent intent = new Intent(context, FollowUpLineActivity.class);
-        intent.putExtra("titleStr", titleStr);
-        intent.putExtra("datas", datas);
+        intent.putExtra(TITLE_STR, titleStr);
+        intent.putExtra(DATAS, datas);
         context.startActivity(intent);
     }
 
@@ -41,8 +48,8 @@ public class FollowUpLineActivity extends ToolbarActivity implements OnChartValu
     protected void getContentView() {
         setContentView(R.layout.activity_followup_line, ActivityType.MODE_TOOLBAR_BACK);
 
-        titleStr = getIntent().getStringExtra("titleStr");
-        datas = (ArrayList<Integer>) getIntent().getSerializableExtra("datas");
+        titleStr = getIntent().getStringExtra(TITLE_STR);
+        datas = (ArrayList<Integer>) getIntent().getSerializableExtra(DATAS);
 
         if (titleStr == null || datas == null) {
             showToast("数据加载失败");
@@ -53,9 +60,7 @@ public class FollowUpLineActivity extends ToolbarActivity implements OnChartValu
 
     @Override
     protected void setUpView() {
-        tvTitleSub = (TextView) findViewById(R.id.tvTitleSub);
-        trendLineChart = (LineChart) findViewById(R.id.trendLineChart);
-        trendLineChart.setOnChartValueSelectedListener(this);
+
     }
 
     @Override
@@ -63,34 +68,29 @@ public class FollowUpLineActivity extends ToolbarActivity implements OnChartValu
         setUpTitle(titleStr);
         tvTitleSub.setText(titleStr);
 
+        initChart();
+        setLineChatData();
+    }
+
+    private void initChart() {
         // no description text
         trendLineChart.setDescription("");
         trendLineChart.setNoDataTextDescription("You need to provide data for the chart.");
-
         // enable touch gestures
         trendLineChart.setTouchEnabled(true);
-
         trendLineChart.setDragDecelerationFrictionCoef(0.9f);
-
         // enable scaling and dragging
         trendLineChart.setDragEnabled(true);
         trendLineChart.setScaleEnabled(true);
         trendLineChart.setDrawGridBackground(false);
         trendLineChart.setHighlightPerDragEnabled(true);
-
         // if disabled, scaling can be done on x- and y-axis separately
         trendLineChart.setPinchZoom(true);
-
         // set an alternative background color
         trendLineChart.setBackgroundResource(R.color.white);
-
-        // add data
-        setLineChatData();
-
         trendLineChart.animateY(3000);
 
         Typeface tf = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
-
         XAxis xAxis = trendLineChart.getXAxis();
         xAxis.setTypeface(tf);
         xAxis.setTextSize(12f);
@@ -153,12 +153,7 @@ public class FollowUpLineActivity extends ToolbarActivity implements OnChartValu
     }
 
     @Override
-    public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
-        Log.i("Entry selected", e.toString());
-    }
-
-    @Override
-    public void onNothingSelected() {
-        Log.i("Nothing selected", "Nothing selected.");
+    protected FollowUpLinePresenter createPresenter() {
+        return new FollowUpLinePresenter(this);
     }
 }
