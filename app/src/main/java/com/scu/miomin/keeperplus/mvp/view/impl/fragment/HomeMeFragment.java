@@ -11,6 +11,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.core.BaseFragment;
 import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
+import com.scu.miomin.keeperplus.mvp.view.impl.activity.SettingActivity;
 import com.scu.miomin.keeperplus.mvpcore.BaseToolbarMvpActivity;
 import com.scu.miomin.keeperplus.toolbar.ToolbarActivity;
 
@@ -60,6 +61,13 @@ public class HomeMeFragment extends BaseFragment {
         tvPatientname.setText(KeeperPlusCache.getInstance().getCurrentUser().getUsername());
         tvPhonenumber_top.setText(phonenumber);
         tvPhonenumber.setText(phonenumber);
+
+        fragmentView.findViewById(R.id.layout_setting).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SettingActivity.startActivity(getActivity());
+            }
+        });
     }
 
     @Override

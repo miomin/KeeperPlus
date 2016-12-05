@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationItem;
 import com.luseen.luseenbottomnavigation.BottomNavigation.OnBottomNavigationItemClickListener;
@@ -127,5 +129,29 @@ public class PatientHomeActivity extends BaseToolbarMvpActivity<HomePresenter> i
     @Override
     protected HomePresenter createPresenter() {
         return new HomePresenter(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_setting) {
+            SettingActivity.startActivity(PatientHomeActivity.this);
+            return true;
+        } else if (id == R.id.action_quit) {
+
+            return true;
+        } else if (id == R.id.action_find_friend) {
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
