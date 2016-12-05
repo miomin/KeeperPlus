@@ -3,6 +3,8 @@ package com.scu.miomin.keeperplus.mvp.view.impl.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -88,5 +90,23 @@ public class TreatmentInfoActivity extends BaseToolbarMvpActivity<TreatmentInfoP
     @Override
     protected TreatmentInfoPresenter createPresenter() {
         return new TreatmentInfoPresenter(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_treatment_info, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_add_followup) {
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

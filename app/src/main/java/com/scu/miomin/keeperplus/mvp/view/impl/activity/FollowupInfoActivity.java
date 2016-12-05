@@ -3,6 +3,8 @@ package com.scu.miomin.keeperplus.mvp.view.impl.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -206,5 +208,23 @@ public class FollowupInfoActivity extends ToolbarActivity {
 
         FollowUpLineActivity.startActivity(this, tv9.getText().toString(), datas);
         datas.clear();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_followup_info, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_edit_followup) {
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

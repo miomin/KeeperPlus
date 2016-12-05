@@ -11,6 +11,4 @@ public interface IHomeMsgPresenter {
     void initMsgReciverObserver();
 
     void initConversationAdapter();
-
-    void initChatAdapterMap();
 }

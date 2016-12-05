@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.adapter.ConversationAdapter;
+import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
 import com.scu.miomin.keeperplus.mvp.presenter.impl.HomeMsgPresenter;
+import com.scu.miomin.keeperplus.mvp.view.impl.activity.ChatActivity;
 import com.scu.miomin.keeperplus.mvp.view.interf.IHomeMsgView;
 import com.scu.miomin.keeperplus.mvpcore.BaseMvpFragment;
 
@@ -49,6 +52,14 @@ public class HomeMsgFragment extends BaseMvpFragment<HomeMsgPresenter> implement
     @Override
     protected void setUpView() {
         lvConversation = (ListView) fragmentView.findViewById(R.id.lvConversation);
+
+        lvConversation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ChatActivity.startActivity(getActivity(),
+                        KeeperPlusCache.getInstance().getConversationAdapter().getConversation(position).getPhonenumber());
+            }
+        });
     }
 
     @Override
@@ -57,8 +68,6 @@ public class HomeMsgFragment extends BaseMvpFragment<HomeMsgPresenter> implement
         mvpPresenter.initConversationAdapter();
         //  创建收发消息更新对话列表的观察者对象
         mvpPresenter.initConversationObserver();
-        // 初始化chat适配器
-        mvpPresenter.initChatAdapterMap();
         // 初始化接受消息的观察者对象
         mvpPresenter.initMsgReciverObserver();
     }
