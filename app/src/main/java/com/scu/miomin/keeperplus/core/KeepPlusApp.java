@@ -23,6 +23,11 @@ import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
 import com.scu.miomin.keeperplus.splash.SplashActivity;
 import com.scu.miomin.keeperplus.string.LoginString;
 import com.scu.miomin.keeperplus.util.ecg.ECGDirSaveUtil;
+import com.scu.miomin.keeperplus.weex.adapter.PicassoImageAdapter;
+import com.scu.miomin.keeperplus.weex.module.WXGetDoctorInfoModule;
+import com.taobao.weex.InitConfig;
+import com.taobao.weex.WXSDKEngine;
+import com.taobao.weex.common.WXException;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobConfig;
@@ -41,6 +46,15 @@ public class KeepPlusApp extends Application {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
+        // 初始化Weex引擎
+        InitConfig config = new InitConfig.Builder().setImgAdapter(new PicassoImageAdapter()).build();
+        WXSDKEngine.initialize(this, config);
+        try {
+            WXSDKEngine.registerModule("getuserinfo", WXGetDoctorInfoModule.class);
+        } catch (WXException e) {
+            e.printStackTrace();
+        }
+
         Fresco.initialize(this);
         registerAppController();
         Logger.init(APPString.TAG).methodCount(2);
