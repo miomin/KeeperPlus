@@ -75,6 +75,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/layout_bind_phone"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
@@ -224,6 +225,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/layout_about_me"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
