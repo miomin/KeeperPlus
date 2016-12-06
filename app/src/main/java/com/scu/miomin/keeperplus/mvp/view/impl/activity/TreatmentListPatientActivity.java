@@ -12,10 +12,12 @@ import android.widget.ListView;
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.adapter.TreatmentListPatientAdapter;
 import com.scu.miomin.keeperplus.constants.ActivityType;
-import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
+import com.scu.miomin.keeperplus.mvp.model.TreatmentBean;
 import com.scu.miomin.keeperplus.mvp.presenter.impl.TreatmentListPatientPresenter;
 import com.scu.miomin.keeperplus.mvp.view.interf.ITreatmentListPatientView;
 import com.scu.miomin.keeperplus.mvpcore.BaseToolbarMvpActivity;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 
@@ -30,10 +32,12 @@ public class TreatmentListPatientActivity extends BaseToolbarMvpActivity<Treatme
     @Bind(R.id.lvTreatment)
     ListView lvTreatmentFollowupList;
 
+    private ArrayList<TreatmentBean> treatmentBeanList = new ArrayList<>();
+    private TreatmentListPatientAdapter treatmentListPatientAdapter;
+
     @Override
     protected void getContentView() {
         setContentView(R.layout.activity_treatment_patient_list, ActivityType.MODE_TOOLBAR_BACK);
-        mvpPresenter.initTreatmentData();
     }
 
     @Override
@@ -43,8 +47,10 @@ public class TreatmentListPatientActivity extends BaseToolbarMvpActivity<Treatme
 
     @Override
     protected void onDestroy() {
+        treatmentListPatientAdapter = null;
+        treatmentBeanList.clear();
+        treatmentBeanList = null;
         super.onDestroy();
-        mvpPresenter.clearTreatmentData();
     }
 
     @Override
@@ -54,14 +60,19 @@ public class TreatmentListPatientActivity extends BaseToolbarMvpActivity<Treatme
         lvTreatmentFollowupList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TreatmentInfoActivity.startActivity(TreatmentListPatientActivity.this, KeeperPlusCache.getInstance().getTreatmentArray().get(position));
+                TreatmentInfoActivity.startActivity(TreatmentListPatientActivity.this, treatmentBeanList.get(position));
             }
         });
     }
 
     @Override
     protected void setUpData(Bundle savedInstanceState) {
-        mvpPresenter.initTreatmentAdapter();
+        // 创建适配器对象
+        treatmentListPatientAdapter = new TreatmentListPatientAdapter(this, treatmentBeanList);
+        // 将ListView与适配器关联
+        lvTreatmentFollowupList.setAdapter(treatmentListPatientAdapter);
+
+        mvpPresenter.initTreatmentData();
     }
 
     public static void startActivity(Context context) {
@@ -70,13 +81,9 @@ public class TreatmentListPatientActivity extends BaseToolbarMvpActivity<Treatme
     }
 
     @Override
-    public Context getContext() {
-        return this;
-    }
-
-    @Override
-    public void setTreatmentAdapter(TreatmentListPatientAdapter treatmentListPatientAdapter) {
-        lvTreatmentFollowupList.setAdapter(treatmentListPatientAdapter);
+    public void addTreatment(TreatmentBean treatmentBean) {
+        treatmentBeanList.add(treatmentBean);
+        treatmentListPatientAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -90,6 +97,7 @@ public class TreatmentListPatientActivity extends BaseToolbarMvpActivity<Treatme
         int id = item.getItemId();
 
         if (id == R.id.action_add_treatment) {
+            EditTreatmentActivity.startActivity(TreatmentListPatientActivity.this);
             return true;
         }
 

@@ -7,8 +7,4 @@ package com.scu.miomin.keeperplus.mvp.presenter.interf;
 public interface ITreatmentListPatientPresenter {
 
     void initTreatmentData();
-
-    void clearTreatmentData();
-
-    void initTreatmentAdapter();
 }

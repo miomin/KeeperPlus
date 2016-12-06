@@ -10,8 +10,7 @@ import android.widget.TextView;
 
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.constants.ActivityType;
-import com.scu.miomin.keeperplus.mvp.model.TreatmentBean;
-import com.scu.miomin.keeperplus.mvp.model.TreatmentFollowupBean;
+import com.scu.miomin.keeperplus.mvp.model.TreatmentFollowup;
 import com.scu.miomin.keeperplus.toolbar.ToolbarActivity;
 
 import java.util.ArrayList;
@@ -25,8 +24,8 @@ import butterknife.Bind;
  */
 public class FollowupInfoActivity extends ToolbarActivity {
 
-    private TreatmentFollowupBean treatmentFollowupBean;
-    private TreatmentBean treatmentBean;
+    private TreatmentFollowup treatmentFollowupBean;
+    private ArrayList<TreatmentFollowup> treatmentFollowupList;
     private ArrayList<Integer> datas = new ArrayList<>();
 
     @Bind(R.id.tvRusuantuoqingmei)
@@ -74,14 +73,24 @@ public class FollowupInfoActivity extends ToolbarActivity {
     protected void getContentView() {
         setContentView(R.layout.activity_followup_info, ActivityType.MODE_TOOLBAR_BACK);
 
-        treatmentFollowupBean = (TreatmentFollowupBean) getIntent().getSerializableExtra("treatmentFollowupBean");
-        treatmentBean = (TreatmentBean) getIntent().getSerializableExtra("treatmentBean");
+        treatmentFollowupBean = (TreatmentFollowup) getIntent().getSerializableExtra("treatmentFollowupBean");
+        treatmentFollowupList = (ArrayList<TreatmentFollowup>) getIntent().getSerializableExtra("treatmentFollowupList");
 
-        if (treatmentFollowupBean == null || treatmentBean == null) {
-            showToast("数据加载失败");
+        if (treatmentFollowupBean == null || treatmentFollowupList == null) {
+            toast("数据加载失败");
             finish();
             return;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        treatmentFollowupBean = null;
+        treatmentFollowupList.clear();
+        treatmentFollowupList = null;
+        datas.clear();
+        datas = null;
+        super.onDestroy();
     }
 
     @Override
@@ -103,18 +112,18 @@ public class FollowupInfoActivity extends ToolbarActivity {
         tvFllowupdata.setText(treatmentFollowupBean.getDate());
     }
 
-    public static void startActivity(Context context, TreatmentFollowupBean treatmentFollowupBean,
-                                     TreatmentBean treatmentBean) {
+    public static void startActivity(Context context, TreatmentFollowup treatmentFollowupBean,
+                                     ArrayList<TreatmentFollowup> treatmentFollowupList) {
         Intent intent = new Intent(context, FollowupInfoActivity.class);
         intent.putExtra("treatmentFollowupBean", treatmentFollowupBean);
-        intent.putExtra("treatmentBean", treatmentBean);
+        intent.putExtra("treatmentFollowupList", treatmentFollowupList);
         context.startActivity(intent);
     }
 
     public void checkRusuantuoqingmei(View view) {
-        for (int i = treatmentBean.getTreatmentFollowupList().size() - 1; i >= 0; i--) {
-            datas.add((int) treatmentBean.getTreatmentFollowupList().get(i).getRUSUANTUOQINGMEI());
-            if (treatmentBean.getTreatmentFollowupList().size() - i == 7)
+        for (int i = treatmentFollowupList.size() - 1; i >= 0; i--) {
+            datas.add((int) treatmentFollowupList.get(i).getRUSUANTUOQINGMEI());
+            if (treatmentFollowupList.size() - i == 7)
                 break;
         }
 
@@ -123,9 +132,9 @@ public class FollowupInfoActivity extends ToolbarActivity {
     }
 
     public void checkGucaozhuananmei(View view) {
-        for (int i = treatmentBean.getTreatmentFollowupList().size() - 1; i >= 0; i--) {
-            datas.add((int) treatmentBean.getTreatmentFollowupList().get(i).getGUCAOZHUANANMEI());
-            if (treatmentBean.getTreatmentFollowupList().size() - i == 7)
+        for (int i = treatmentFollowupList.size() - 1; i >= 0; i--) {
+            datas.add((int) treatmentFollowupList.get(i).getGUCAOZHUANANMEI());
+            if (treatmentFollowupList.size() - i == 7)
                 break;
         }
 
@@ -134,9 +143,9 @@ public class FollowupInfoActivity extends ToolbarActivity {
     }
 
     public void checkGubingzhuananmei(View view) {
-        for (int i = treatmentBean.getTreatmentFollowupList().size() - 1; i >= 0; i--) {
-            datas.add((int) treatmentBean.getTreatmentFollowupList().get(i).getGUBINGZHUANANMEI());
-            if (treatmentBean.getTreatmentFollowupList().size() - i == 7)
+        for (int i = treatmentFollowupList.size() - 1; i >= 0; i--) {
+            datas.add((int) treatmentFollowupList.get(i).getGUBINGZHUANANMEI());
+            if (treatmentFollowupList.size() - i == 7)
                 break;
         }
 
@@ -145,9 +154,9 @@ public class FollowupInfoActivity extends ToolbarActivity {
     }
 
     public void checkLingsuanjisuanjimei(View view) {
-        for (int i = treatmentBean.getTreatmentFollowupList().size() - 1; i >= 0; i--) {
-            datas.add((int) treatmentBean.getTreatmentFollowupList().get(i).getLINGSUANJISUANJIMEI());
-            if (treatmentBean.getTreatmentFollowupList().size() - i == 7)
+        for (int i = treatmentFollowupList.size() - 1; i >= 0; i--) {
+            datas.add((int) treatmentFollowupList.get(i).getLINGSUANJISUANJIMEI());
+            if (treatmentFollowupList.size() - i == 7)
                 break;
         }
 
@@ -156,9 +165,9 @@ public class FollowupInfoActivity extends ToolbarActivity {
     }
 
     public void checkLingsuanjisuanjimeitonggongmei(View view) {
-        for (int i = treatmentBean.getTreatmentFollowupList().size() - 1; i >= 0; i--) {
-            datas.add((int) treatmentBean.getTreatmentFollowupList().get(i).getLINGSUANJISUANJIMEITONGGONGMEI());
-            if (treatmentBean.getTreatmentFollowupList().size() - i == 7)
+        for (int i = treatmentFollowupList.size() - 1; i >= 0; i--) {
+            datas.add((int) treatmentFollowupList.get(i).getLINGSUANJISUANJIMEITONGGONGMEI());
+            if (treatmentFollowupList.size() - i == 7)
                 break;
         }
 
@@ -167,9 +176,9 @@ public class FollowupInfoActivity extends ToolbarActivity {
     }
 
     public void checkJihongdanbai(View view) {
-        for (int i = treatmentBean.getTreatmentFollowupList().size() - 1; i >= 0; i--) {
-            datas.add((int) treatmentBean.getTreatmentFollowupList().get(i).getJIHONGDANBAI());
-            if (treatmentBean.getTreatmentFollowupList().size() - i == 7)
+        for (int i = treatmentFollowupList.size() - 1; i >= 0; i--) {
+            datas.add((int) treatmentFollowupList.get(i).getJIHONGDANBAI());
+            if (treatmentFollowupList.size() - i == 7)
                 break;
         }
 
@@ -178,9 +187,9 @@ public class FollowupInfoActivity extends ToolbarActivity {
     }
 
     public void checkJigaidanbai(View view) {
-        for (int i = treatmentBean.getTreatmentFollowupList().size() - 1; i >= 0; i--) {
-            datas.add((int) treatmentBean.getTreatmentFollowupList().get(i).getJIGAIDANBAI());
-            if (treatmentBean.getTreatmentFollowupList().size() - i == 7)
+        for (int i = treatmentFollowupList.size() - 1; i >= 0; i--) {
+            datas.add((int) treatmentFollowupList.get(i).getJIGAIDANBAI());
+            if (treatmentFollowupList.size() - i == 7)
                 break;
         }
 
@@ -189,9 +198,9 @@ public class FollowupInfoActivity extends ToolbarActivity {
     }
 
     public void checkWaizhouxuebaixibaozongshu(View view) {
-        for (int i = treatmentBean.getTreatmentFollowupList().size() - 1; i >= 0; i--) {
-            datas.add((int) treatmentBean.getTreatmentFollowupList().get(i).getWAIZHOUXUEHONGXIBAOZONGSHU());
-            if (treatmentBean.getTreatmentFollowupList().size() - i == 7)
+        for (int i = treatmentFollowupList.size() - 1; i >= 0; i--) {
+            datas.add((int) treatmentFollowupList.get(i).getWAIZHOUXUEHONGXIBAOZONGSHU());
+            if (treatmentFollowupList.size() - i == 7)
                 break;
         }
 
@@ -200,9 +209,9 @@ public class FollowupInfoActivity extends ToolbarActivity {
     }
 
     public void checkZhongxinglixibaibilv(View view) {
-        for (int i = treatmentBean.getTreatmentFollowupList().size() - 1; i >= 0; i--) {
-            datas.add((int) treatmentBean.getTreatmentFollowupList().get(i).getZHONGXINGLIXIBAOBILV());
-            if (treatmentBean.getTreatmentFollowupList().size() - i == 7)
+        for (int i = treatmentFollowupList.size() - 1; i >= 0; i--) {
+            datas.add((int) treatmentFollowupList.get(i).getZHONGXINGLIXIBAOBILV());
+            if (treatmentFollowupList.size() - i == 7)
                 break;
         }
 
@@ -221,7 +230,7 @@ public class FollowupInfoActivity extends ToolbarActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_edit_followup) {
-
+            EditFollowupActivity.startActivity(this);
             return true;
         }
 

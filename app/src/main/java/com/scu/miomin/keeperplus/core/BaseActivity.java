@@ -102,16 +102,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 //        return super.onKeyDown(keyCode, event);
 //    }
 
-    public void showLoading(String title, String message) {
-        showProgressDialog(title, message);
-    }
-
-    public void hideLoading() {
-        dismissProgressDialog();
-    }
-
-    public void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    public void toast(String message) {
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
 
     @Override

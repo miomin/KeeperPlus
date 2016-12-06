@@ -13,9 +13,12 @@ import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.adapter.TreatmentFollowupAdapter;
 import com.scu.miomin.keeperplus.constants.ActivityType;
 import com.scu.miomin.keeperplus.mvp.model.TreatmentBean;
+import com.scu.miomin.keeperplus.mvp.model.TreatmentFollowup;
 import com.scu.miomin.keeperplus.mvp.presenter.impl.TreatmentInfoPresenter;
 import com.scu.miomin.keeperplus.mvp.view.interf.ITreatmentInfoView;
 import com.scu.miomin.keeperplus.mvpcore.BaseToolbarMvpActivity;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 
@@ -32,10 +35,21 @@ public class TreatmentInfoActivity extends BaseToolbarMvpActivity<TreatmentInfoP
     private static final String TREATMENT = "treatment";
 
     private TreatmentBean treatmentBean;
+    private TreatmentFollowupAdapter treatmentFollowupAdapter;
+    private ArrayList<TreatmentFollowup> treatmentFollowupList = new ArrayList<>();
 
     @Override
     protected void getContentView() {
         setContentView(R.layout.activity_treatment_info, ActivityType.MODE_TOOLBAR_BACK);
+    }
+
+    @Override
+    protected void onDestroy() {
+        treatmentBean = null;
+        treatmentFollowupAdapter = null;
+        treatmentFollowupList.clear();
+        treatmentFollowupList = null;
+        super.onDestroy();
     }
 
     @Override
@@ -47,8 +61,7 @@ public class TreatmentInfoActivity extends BaseToolbarMvpActivity<TreatmentInfoP
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0)
                     return;
-                FollowupInfoActivity.startActivity(TreatmentInfoActivity.this, treatmentBean.getTreatmentFollowupList().get(position - 1),
-                        treatmentBean);
+                FollowupInfoActivity.startActivity(TreatmentInfoActivity.this, treatmentFollowupList.get(position - 1), treatmentFollowupList);
             }
         });
     }
@@ -64,11 +77,11 @@ public class TreatmentInfoActivity extends BaseToolbarMvpActivity<TreatmentInfoP
             return;
         }
 
-        initAdapter();
-    }
+        // 创建适配器对象
+        treatmentFollowupAdapter = new TreatmentFollowupAdapter(treatmentFollowupList, this, treatmentBean);
+        lvTreatmentFollowup.setAdapter(treatmentFollowupAdapter);
 
-    private void initAdapter() {
-        mvpPresenter.initTreatmentFollowUpAdapter(treatmentBean);
+        mvpPresenter.initTreatmentFollowUpData(treatmentBean);
     }
 
     public static void startActivity(Context context, TreatmentBean treatmentBean) {
@@ -78,13 +91,9 @@ public class TreatmentInfoActivity extends BaseToolbarMvpActivity<TreatmentInfoP
     }
 
     @Override
-    public Context getContext() {
-        return this;
-    }
-
-    @Override
-    public void setTreatmentInfoAdapter(TreatmentFollowupAdapter treatmentInfoAdapter) {
-        lvTreatmentFollowup.setAdapter(treatmentInfoAdapter);
+    public void addTreatmentFollowup(TreatmentFollowup treatmentFollowup) {
+        treatmentFollowupList.add(treatmentFollowup);
+        treatmentFollowupAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -103,7 +112,7 @@ public class TreatmentInfoActivity extends BaseToolbarMvpActivity<TreatmentInfoP
         int id = item.getItemId();
 
         if (id == R.id.action_add_followup) {
-
+            EditFollowupActivity.startActivity(this);
             return true;
         }
 

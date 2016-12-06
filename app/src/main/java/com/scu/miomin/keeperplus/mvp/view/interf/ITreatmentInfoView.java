@@ -1,9 +1,7 @@
 package com.scu.miomin.keeperplus.mvp.view.interf;
 
 
-import android.content.Context;
-
-import com.scu.miomin.keeperplus.adapter.TreatmentFollowupAdapter;
+import com.scu.miomin.keeperplus.mvp.model.TreatmentFollowup;
 import com.scu.miomin.keeperplus.mvpcore.IBaseView;
 
 /**
@@ -12,7 +10,5 @@ import com.scu.miomin.keeperplus.mvpcore.IBaseView;
 
 public interface ITreatmentInfoView extends IBaseView {
 
-    Context getContext();
-
-    void setTreatmentInfoAdapter(TreatmentFollowupAdapter treatmentInfoAdapter);
+    void addTreatmentFollowup(TreatmentFollowup treatmentFollowup);
 }

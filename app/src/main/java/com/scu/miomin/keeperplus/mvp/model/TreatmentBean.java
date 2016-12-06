@@ -1,7 +1,8 @@
 package com.scu.miomin.keeperplus.mvp.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+
+import cn.bmob.v3.BmobObject;
 
 /**
  * 描述：就诊记录实体类，一次就诊记录对应多个诊后随访
@@ -11,27 +12,20 @@ import java.util.ArrayList;
  *
  * @author 莫绪旻
  */
-public class TreatmentBean implements Serializable {
+public class TreatmentBean extends BmobObject implements Serializable {
 
-    private Userbean patientBean; //就诊病人
-    private Userbean doctorBean; //负责此次就诊的医生
+    private Userbean patient; //就诊病人
+    private Userbean doctor; //负责此次就诊的医生
     private String date; //就诊的日期
     private String treatmentReason; //诊断原因
-    private ArrayList<TreatmentFollowupBean> treatmentFollowupList; //该就诊的随访列表
 
     public TreatmentBean(String date, Userbean doctorBean,
                          Userbean patientBean,
                          String treatmentReason) {
         this.date = date;
-        this.doctorBean = doctorBean;
-        this.patientBean = patientBean;
+        this.doctor = doctorBean;
+        this.patient = patientBean;
         this.treatmentReason = treatmentReason;
-        treatmentFollowupList = new ArrayList<TreatmentFollowupBean>();
-    }
-
-    // 添加一条诊后随访记录
-    public void addTreatmentFollowup(TreatmentFollowupBean treatmentFollowupBean) {
-        treatmentFollowupList.add(treatmentFollowupBean);
     }
 
     public String getDate() {
@@ -43,19 +37,19 @@ public class TreatmentBean implements Serializable {
     }
 
     public Userbean getDoctorBean() {
-        return doctorBean;
+        return doctor;
     }
 
-    public void setDoctorBean(Userbean doctorBean) {
-        this.doctorBean = doctorBean;
+    public void setDoctorBean(Userbean doctor) {
+        this.doctor = doctor;
     }
 
     public Userbean getPatientBean() {
-        return patientBean;
+        return patient;
     }
 
-    public void setPatientBean(Userbean patientBean) {
-        this.patientBean = patientBean;
+    public void setPatientBean(Userbean patient) {
+        this.patient = patient;
     }
 
     public String getTreatmentReason() {
@@ -65,14 +59,4 @@ public class TreatmentBean implements Serializable {
     public void setTreatmentReason(String treatmentReason) {
         this.treatmentReason = treatmentReason;
     }
-
-    public ArrayList<TreatmentFollowupBean> getTreatmentFollowupList() {
-        return treatmentFollowupList;
-    }
-
-    public void setTreatmentFollowupList(ArrayList<TreatmentFollowupBean> treatmentFollowupList) {
-        this.treatmentFollowupList = treatmentFollowupList;
-    }
-
-
 }

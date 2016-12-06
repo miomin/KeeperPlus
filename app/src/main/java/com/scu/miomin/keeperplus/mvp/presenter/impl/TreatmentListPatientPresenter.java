@@ -1,11 +1,16 @@
 package com.scu.miomin.keeperplus.mvp.presenter.impl;
 
-import com.scu.miomin.keeperplus.adapter.TreatmentListPatientAdapter;
-import com.scu.miomin.keeperplus.dao.moke.KeeperDataMoke;
 import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
+import com.scu.miomin.keeperplus.mvp.model.TreatmentBean;
 import com.scu.miomin.keeperplus.mvp.presenter.interf.ITreatmentListPatientPresenter;
 import com.scu.miomin.keeperplus.mvp.view.interf.ITreatmentListPatientView;
 import com.scu.miomin.keeperplus.mvpcore.BasePresenter;
+
+import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 
 /**
  * Created by miomin on 16/11/16.
@@ -19,19 +24,22 @@ public class TreatmentListPatientPresenter extends BasePresenter<ITreatmentListP
 
     @Override
     public void initTreatmentData() {
-        KeeperDataMoke.getInstance().initData();
-    }
-
-    @Override
-    public void clearTreatmentData() {
-        KeeperPlusCache.getInstance().clearTreatmentData();
-    }
-
-    @Override
-    public void initTreatmentAdapter() {
-        // 创建适配器对象
-        KeeperPlusCache.getInstance().setTreatmentListAdapter(new TreatmentListPatientAdapter(mvpView.getContext(), KeeperPlusCache.getInstance().getTreatmentArray()));
-        // 将ListView与适配器关联
-        mvpView.setTreatmentAdapter(KeeperPlusCache.getInstance().getTreatmentListAdapter());
+        mvpView.showLoading("提示", "请稍后，正在加载数据");
+        BmobQuery<TreatmentBean> query;
+        query = new BmobQuery<>();
+        query.addWhereEqualTo("patient", KeeperPlusCache.getInstance().getCurrentUser());
+        query.include("patient");
+        query.include("doctor");
+        query.findObjects(new FindListener<TreatmentBean>() {
+            @Override
+            public void done(List<TreatmentBean> list, BmobException e) {
+                if (e == null) {
+                    for (TreatmentBean treatment : list)
+                        if (treatment != null)
+                            mvpView.addTreatment(treatment);
+                }
+                mvpView.hideLoading();
+            }
+        });
     }
 }

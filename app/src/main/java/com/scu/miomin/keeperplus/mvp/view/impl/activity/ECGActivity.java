@@ -161,7 +161,7 @@ public class ECGActivity extends ToolbarActivity implements OnClickListener {
                         // 连接失败
                         case BluetoothService.MESSAGE_FAILED_CONNECTION:
 
-                            showToast(getResources().getString(R.string.unable_connect));
+                            toast(getResources().getString(R.string.unable_connect));
 
                             tv_connect.setText(R.string.connect);
                             btn_connect.setEnabled(true);
@@ -179,7 +179,7 @@ public class ECGActivity extends ToolbarActivity implements OnClickListener {
                             KeeperEcgCache.getInstance().clearValue();
                             stopPaintTimer();
 
-                            showToast(getResources().getString(R.string.lost_connection));
+                            toast(getResources().getString(R.string.lost_connection));
                             break;
 
                         default:
@@ -189,7 +189,7 @@ public class ECGActivity extends ToolbarActivity implements OnClickListener {
                     break;
 
                 case BluetoothService.MESSAGE_NOT_CONNECT:
-                    showToast(getResources().getString(R.string.not_connected));
+                    toast(getResources().getString(R.string.not_connected));
                     break;
             }
         }
@@ -231,7 +231,7 @@ public class ECGActivity extends ToolbarActivity implements OnClickListener {
 
         // 不支持蓝牙则退出App
         if (mBluetoothAdapter == null) {
-            showToast(getResources().getString(R.string.not_support));
+            toast(getResources().getString(R.string.not_support));
             finish();
             return;
         }
@@ -345,7 +345,7 @@ public class ECGActivity extends ToolbarActivity implements OnClickListener {
                     // 点击连接按钮事件
                     if (mBTService.getState() == BluetoothService.STATE_NONE
                             || mBTService.getState() == BluetoothService.STATE_LISTEN) {
-                        showToast(getResources().getString(R.string.not_connected));
+                        toast(getResources().getString(R.string.not_connected));
                     } else {
                         tv_record.setText(getResources().getString(R.string.stopRecord));
                         btn_record.setBackgroundResource(R.drawable.icon_stop_record);
@@ -397,7 +397,7 @@ public class ECGActivity extends ToolbarActivity implements OnClickListener {
                     // 打开蓝牙开关后，初始化蓝牙连接服务
                     mBTService = new BluetoothService(this, mHandler);
                 } else {
-                    showToast(getResources().getString(R.string.not_connected));
+                    toast(getResources().getString(R.string.not_connected));
                     finish();
                 }
         }

@@ -88,7 +88,7 @@ public class ChatActivity extends ToolbarActivity {
         chatFriend = KeeperPlusCache.getInstance().getFriendByID(friendphone);
 
         if (friendphone == null || chatFriend == null) {
-            showToast("数据加载失败");
+            toast("数据加载失败");
             finish();
             return;
         }

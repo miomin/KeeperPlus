@@ -37,16 +37,16 @@ public abstract class BaseToolbarMvpActivity<P extends BasePresenter> extends To
 
     @Override
     public void showLoading(String title, String message) {
-        super.showLoading(title, message);
+        showProgressDialog(title, message);
     }
 
     @Override
     public void hideLoading() {
-        super.hideLoading();
+        dismissProgressDialog();
     }
 
     @Override
     public void showToast(String message) {
-        super.showToast(message);
+        toast(message);
     }
 }

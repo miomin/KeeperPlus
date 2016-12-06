@@ -8,5 +8,5 @@ import com.scu.miomin.keeperplus.mvp.model.TreatmentBean;
 
 public interface ITreatmentInfoPresenter {
 
-    void initTreatmentFollowUpAdapter(TreatmentBean treatmentBean);
+    void initTreatmentFollowUpData(TreatmentBean treatmentBean);
 }

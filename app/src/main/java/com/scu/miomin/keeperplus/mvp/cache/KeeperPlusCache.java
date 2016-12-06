@@ -2,9 +2,6 @@ package com.scu.miomin.keeperplus.mvp.cache;
 
 import com.scu.miomin.keeperplus.adapter.ConversationAdapter;
 import com.scu.miomin.keeperplus.adapter.RemenDoctorAdapter;
-import com.scu.miomin.keeperplus.adapter.TreatmentFollowupAdapter;
-import com.scu.miomin.keeperplus.adapter.TreatmentListPatientAdapter;
-import com.scu.miomin.keeperplus.mvp.model.TreatmentBean;
 import com.scu.miomin.keeperplus.mvp.model.Userbean;
 
 import java.util.ArrayList;
@@ -20,12 +17,9 @@ public class KeeperPlusCache {
     private Userbean currentUser;
     private ArrayList<Userbean> friendList = new ArrayList<>();
     private ArrayList<Userbean> remenDoctorList = new ArrayList<>();
-    private ArrayList<TreatmentBean> treatmentArray = new ArrayList<>();
 
     private ConversationAdapter conversationAdapter;
     private RemenDoctorAdapter remenDoctorAdapter;
-    private TreatmentListPatientAdapter treatmentListAdapter;
-    private TreatmentFollowupAdapter treatmentFollowupAdapter;
     private String lastCheckUserPhonenumber;
 
     private KeeperPlusCache() {
@@ -113,34 +107,6 @@ public class KeeperPlusCache {
 
     public void refreshRemenDoctorAdapter() {
         remenDoctorAdapter.add(remenDoctorList);
-    }
-
-    public TreatmentListPatientAdapter getTreatmentListAdapter() {
-        return treatmentListAdapter;
-    }
-
-    public void setTreatmentListAdapter(TreatmentListPatientAdapter treatmentListAdapter) {
-        this.treatmentListAdapter = treatmentListAdapter;
-    }
-
-    public ArrayList<TreatmentBean> getTreatmentArray() {
-        return treatmentArray;
-    }
-
-    public void addTreatment(TreatmentBean treatmentBean) {
-        treatmentArray.add(treatmentBean);
-    }
-
-    public void clearTreatmentData() {
-        treatmentArray.clear();
-    }
-
-    public TreatmentFollowupAdapter getTreatmentFollowupAdapter() {
-        return treatmentFollowupAdapter;
-    }
-
-    public void setTreatmentFollowupAdapter(TreatmentFollowupAdapter treatmentFollowupAdapter) {
-        this.treatmentFollowupAdapter = treatmentFollowupAdapter;
     }
 
     public String getLastCheckUserPhonenumber() {

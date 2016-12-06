@@ -1,9 +1,7 @@
 package com.scu.miomin.keeperplus.mvp.view.interf;
 
 
-import android.content.Context;
-
-import com.scu.miomin.keeperplus.adapter.TreatmentListPatientAdapter;
+import com.scu.miomin.keeperplus.mvp.model.TreatmentBean;
 import com.scu.miomin.keeperplus.mvpcore.IBaseView;
 
 /**
@@ -12,7 +10,5 @@ import com.scu.miomin.keeperplus.mvpcore.IBaseView;
 
 public interface ITreatmentListPatientView extends IBaseView {
 
-    Context getContext();
-
-    void setTreatmentAdapter(TreatmentListPatientAdapter treatmentListPatientAdapter);
+    void addTreatment(TreatmentBean treatmentBean);
 }

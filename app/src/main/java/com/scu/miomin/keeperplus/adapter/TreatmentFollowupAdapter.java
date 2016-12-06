@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.mvp.model.TreatmentBean;
-import com.scu.miomin.keeperplus.mvp.model.TreatmentFollowupBean;
+import com.scu.miomin.keeperplus.mvp.model.TreatmentFollowup;
 
 import java.util.ArrayList;
 
@@ -29,18 +29,18 @@ public class TreatmentFollowupAdapter extends BaseAdapter {
     private TextView tvTreatmentReason;
     private SimpleDraweeView ivDoctorHead;
 
-    private ArrayList<TreatmentFollowupBean> treatmentFollowupList;
+    private ArrayList<TreatmentFollowup> treatmentFollowupList;
     private Context context;
     private TreatmentBean treatmentBean;
 
-    public TreatmentFollowupAdapter(ArrayList<TreatmentFollowupBean> treatmentFollowupList,
+    public TreatmentFollowupAdapter(ArrayList<TreatmentFollowup> treatmentFollowupList,
                                     Context context, TreatmentBean treatmentBean) {
         this.context = context;
         this.treatmentFollowupList = treatmentFollowupList;
         this.treatmentBean = treatmentBean;
     }
 
-    public void add(TreatmentFollowupBean treatmentFollowupBean) {
+    public void add(TreatmentFollowup treatmentFollowupBean) {
         treatmentFollowupList.add(treatmentFollowupBean);
         notifyDataSetChanged();
     }
@@ -87,17 +87,13 @@ public class TreatmentFollowupAdapter extends BaseAdapter {
             Uri uri = Uri.parse(treatmentBean.getDoctorBean().getHeadUrl());
             ivDoctorHead.setImageURI(uri);
         } else {
-            if (convertView == null) {
-                convertView = View.inflate(context, R.layout.item_treatment_followup, null);
-                viewHolder = new ViewHolder();
-                viewHolder.tvDate = (TextView) convertView.findViewById(R.id.tvDate);
-                viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
-                convertView.setTag(viewHolder);
-            } else {
-                viewHolder = (ViewHolder) convertView.getTag();
-            }
+            convertView = View.inflate(context, R.layout.item_treatment_followup, null);
+            viewHolder = new ViewHolder();
+            viewHolder.tvDate = (TextView) convertView.findViewById(R.id.tvDate);
+            viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
+            convertView.setTag(viewHolder);
 
-            TreatmentFollowupBean treatmentFollowupBean = treatmentFollowupList.get(position - 1);
+            TreatmentFollowup treatmentFollowupBean = treatmentFollowupList.get(position - 1);
 
             viewHolder.tvDate.setText(treatmentFollowupBean.getDate());
             viewHolder.tvTitle.setText("诊后第" + position + "次随访");
