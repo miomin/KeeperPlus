@@ -13,6 +13,9 @@ import com.scu.miomin.keeperplus.constants.ActivityType;
 import com.scu.miomin.keeperplus.mvp.presenter.impl.ECGRecordPresenter;
 import com.scu.miomin.keeperplus.mvp.view.interf.IECGRecordView;
 import com.scu.miomin.keeperplus.mvpcore.BaseToolbarMvpActivity;
+import com.scu.miomin.keeperplus.string.APPString;
+
+import java.io.File;
 
 import butterknife.Bind;
 import me.drakeet.materialdialog.MaterialDialog;
@@ -63,7 +66,7 @@ public class ECGRecordActivity extends BaseToolbarMvpActivity<ECGRecordPresenter
                             @Override
                             public void onClick(View v) {
                                 mMaterialDialog.dismiss();
-                                mvpPresenter.uploadECGFile(uploadFilename);
+                                mvpPresenter.uploadECGFile(new File(APPString.ECG_DIR + "/" + uploadFilename));
                             }
                         })
                         .setNegativeButton("否", new View.OnClickListener() {

@@ -339,6 +339,7 @@ public class ECGActivity extends ToolbarActivity implements OnClickListener {
                         mc.cancel();
                         mc = null;
                     }
+                    ecgDataSavaUtil.closeFile();
                     ecgDataSavaUtil = null;
                 } else {
                     // 点击连接按钮事件

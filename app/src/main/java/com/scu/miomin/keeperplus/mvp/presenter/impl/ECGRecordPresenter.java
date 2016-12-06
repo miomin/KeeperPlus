@@ -9,9 +9,12 @@ import com.scu.miomin.keeperplus.mvp.view.interf.IECGRecordView;
 import com.scu.miomin.keeperplus.mvpcore.BasePresenter;
 import com.scu.miomin.keeperplus.util.ecg.ECGDirSaveUtil;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.util.ArrayList;
+
+import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.UploadFileListener;
 
 /**
  * Created by miomin on 16/11/16.
@@ -86,11 +89,32 @@ public class ECGRecordPresenter extends BasePresenter<IECGRecordView> implements
     }
 
     @Override
-    public void uploadECGFile(String filename) {
-        try {
-            FileInputStream in = mvpView.getContext().openFileInput(filename);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+    public void uploadECGFile(File file) {
+        final BmobFile bmobFile = new BmobFile(file);
+
+        if (bmobFile == null) {
+            mvpView.showToast("读取文件失败，没有这个文件");
+            return;
         }
+
+        mvpView.showLoading("提示", "请稍等，文件正在上传");
+        bmobFile.uploadblock(new UploadFileListener() {
+
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    //bmobFile.getFileUrl()--返回的上传文件的完整地址
+                    mvpView.showToast("上传文件成功:" + bmobFile.getFileUrl());
+                } else {
+                    mvpView.showToast("上传文件失败：" + e.getMessage());
+                }
+                mvpView.hideLoading();
+            }
+
+            @Override
+            public void onProgress(Integer value) {
+                // 返回的上传进度（百分比）
+            }
+        });
     }
 }
