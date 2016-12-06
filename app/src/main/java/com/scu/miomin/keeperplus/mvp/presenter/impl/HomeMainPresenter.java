@@ -32,6 +32,11 @@ public class HomeMainPresenter extends BasePresenter<IHomeMainView> implements I
         initRemenDoctorList();
     }
 
+    @Override
+    public void showDoctorInfo(int position) {
+
+    }
+
     private void initRemenDoctorList() {
         if (KeeperPlusCache.getInstance().getRemenDoctorCount() > 0) {
             KeeperPlusCache.getInstance().refreshRemenDoctorAdapter();
@@ -53,19 +58,5 @@ public class HomeMainPresenter extends BasePresenter<IHomeMainView> implements I
                 mvpView.hideLoading();
             }
         });
-    }
-
-    @Override
-    public void initRemenDoctorListener() {
-//        lvRemenDoctor.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//                if (position == 1)
-//                    return;
-//
-////                DoctorInfoActivity.actionStart(MainKeeperForPatient.this, remendoctorArray.get(position - 2));
-//            }
-//        });
     }
 }

@@ -26,6 +26,7 @@ public class KeeperPlusCache {
     private RemenDoctorAdapter remenDoctorAdapter;
     private TreatmentListPatientAdapter treatmentListAdapter;
     private TreatmentFollowupAdapter treatmentFollowupAdapter;
+    private String lastCheckUserPhonenumber;
 
     private KeeperPlusCache() {
 
@@ -140,5 +141,13 @@ public class KeeperPlusCache {
 
     public void setTreatmentFollowupAdapter(TreatmentFollowupAdapter treatmentFollowupAdapter) {
         this.treatmentFollowupAdapter = treatmentFollowupAdapter;
+    }
+
+    public String getLastCheckUserPhonenumber() {
+        return lastCheckUserPhonenumber;
+    }
+
+    public void setLastCheckUserPhonenumber(String lastCheckUserPhonenumber) {
+        this.lastCheckUserPhonenumber = lastCheckUserPhonenumber;
     }
 }

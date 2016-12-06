@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.adapter.RemenDoctorAdapter;
+import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
 import com.scu.miomin.keeperplus.mvp.presenter.impl.HomeMainPresenter;
+import com.scu.miomin.keeperplus.mvp.view.impl.activity.DoctorInfoActivity;
 import com.scu.miomin.keeperplus.mvp.view.interf.IHomeMainView;
 import com.scu.miomin.keeperplus.mvpcore.BaseMvpFragment;
 
@@ -55,8 +58,18 @@ public class HomeMainFragment extends BaseMvpFragment<HomeMainPresenter> impleme
     protected void setUpData() {
         // 初始化热门医生列表的适配器
         mvpPresenter.initRemenDoctorAdapter();
+
         // 初始化热门医生列表的监听器
-        mvpPresenter.initRemenDoctorListener();
+        lvRemenDoctor.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position == 0)
+                    return;
+                KeeperPlusCache.getInstance().setLastCheckUserPhonenumber(KeeperPlusCache.getInstance().getRemenDoctorList().get(position - 1).getMobilePhoneNumber());
+                DoctorInfoActivity.startActivity(getActivity());
+            }
+        });
     }
 
     @Override

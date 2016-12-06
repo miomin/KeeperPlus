@@ -8,5 +8,5 @@ public interface IHomeMainPresenter {
 
     void initRemenDoctorAdapter();
 
-    void initRemenDoctorListener();
+    void showDoctorInfo(int position);
 }
