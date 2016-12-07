@@ -229,5 +229,21 @@
                 android:value=".mvp.view.impl.activity.PatientHomeActivity" />
         </activity>
 
+        <activity
+            android:name=".mvp.view.impl.activity.FindUserActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".mvp.view.impl.activity.PatientHomeActivity" />
+        </activity>
+
+        <activity
+            android:name=".mvp.view.impl.activity.DoctorInfoActivity2"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".mvp.view.impl.activity.PatientHomeActivity" />
+        </activity>
+
     </application>
 </manifest>

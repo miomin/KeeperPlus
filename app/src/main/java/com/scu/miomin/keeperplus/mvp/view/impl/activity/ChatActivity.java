@@ -17,32 +17,41 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.jph.takephoto.app.TakePhotoActivity;
+import com.jph.takephoto.model.TImage;
+import com.jph.takephoto.model.TResult;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.msg.MessageBuilder;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.MsgServiceObserve;
+import com.netease.nimlib.sdk.msg.attachment.ImageAttachment;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.adapter.ChatListAdapter;
-import com.scu.miomin.keeperplus.constants.ActivityType;
 import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
 import com.scu.miomin.keeperplus.mvp.model.ChatMessageBean;
 import com.scu.miomin.keeperplus.mvp.model.Enum.ChatMsgTypeEnum;
 import com.scu.miomin.keeperplus.mvp.model.Userbean;
-import com.scu.miomin.keeperplus.toolbar.ToolbarActivity;
 import com.scu.miomin.keeperplus.util.DateUtil;
+import com.scu.miomin.keeperplus.util.TakePhotoHelper;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
+import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.UploadFileListener;
 
-public class ChatActivity extends ToolbarActivity {
+public class ChatActivity extends TakePhotoActivity {
 
     @Bind(R.id.list_chat)
     ListView list_chat;
@@ -62,6 +71,9 @@ public class ChatActivity extends ToolbarActivity {
     @Bind(R.id.layout_send_img)
     LinearLayout layout_send_img;
 
+    @Bind(R.id.toolbar_title)
+    TextView toolbar_title;
+
     // 消息接受的观察者
     Observer<List<IMMessage>> incomingMessageObserver;
 
@@ -71,15 +83,11 @@ public class ChatActivity extends ToolbarActivity {
     private String textContent;
     private Userbean chatFriend;
 
-    public static void startActivity(Context context, String phonenumber) {
-        Intent intent = new Intent(context, ChatActivity.class);
-        intent.putExtra("phonenumber", phonenumber);
-        context.startActivity(intent);
-    }
-
     @Override
-    protected void getContentView() {
-        setContentView(R.layout.activity_chat, ActivityType.MODE_TOOLBAR_BACK);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_chat);
+        ButterKnife.bind(this);
         //进入Activity时不打开软件盘
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -88,16 +96,24 @@ public class ChatActivity extends ToolbarActivity {
         chatFriend = KeeperPlusCache.getInstance().getFriendByID(friendphone);
 
         if (friendphone == null || chatFriend == null) {
-            toast("数据加载失败");
             finish();
             return;
         }
+
+        setUpView();
+        setUpData();
     }
 
-    @Override
-    protected void setUpView() {
+    public static void startActivity(Context context, String phonenumber) {
+        Intent intent = new Intent(context, ChatActivity.class);
+        intent.putExtra("phonenumber", phonenumber);
+        context.startActivity(intent);
+    }
 
-        setUpTitle(chatFriend.getUsername());
+
+    private void setUpView() {
+
+        toolbar_title.setText("与" + chatFriend.getUsername() + "的聊天");
 
         edit_msg.addTextChangedListener(new TextWatcher() {
             @Override
@@ -213,7 +229,7 @@ public class ChatActivity extends ToolbarActivity {
         layout_send_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                TakePhotoHelper.of().selectPhoto(getTakePhoto());
             }
         });
     }
@@ -227,8 +243,7 @@ public class ChatActivity extends ToolbarActivity {
         chatListAdapter.addHistoryMsg(msg);
     }
 
-    @Override
-    protected void setUpData(Bundle savedInstanceState) {
+    private void setUpData() {
         chatListAdapter = new ChatListAdapter(this,
                 new ArrayList<ChatMessageBean>(), chatFriend.getMobilePhoneNumber());
         list_chat.setAdapter(chatListAdapter);
@@ -239,11 +254,22 @@ public class ChatActivity extends ToolbarActivity {
                     public void onEvent(List<IMMessage> messages) {
                         // 处理新收到的消息，为了上传处理方便，SDK 保证参数 messages 全部来自同一个聊天对象。
                         for (int i = 0; i < messages.size(); i++) {
-                            ChatMessageBean textMsg = new ChatMessageBean(messages.get(i).getSessionId(),
-                                    KeeperPlusCache.getInstance().getCurrentUser().getMobilePhoneNumber(),
-                                    messages.get(i).getContent(), DateUtil.transferLongToDate("HH:mm", messages.get(i).getTime()),
-                                    ChatMsgTypeEnum.RECIVE_MSG);
-                            addMsg(textMsg);
+
+                            if (messages.get(i).getAttachment() != null && messages.get(i).getAttachment() instanceof ImageAttachment) {
+                                ChatMessageBean imgMsg = new ChatMessageBean(messages.get(i).getSessionId(),
+                                        KeeperPlusCache.getInstance().getCurrentUser().getMobilePhoneNumber(),
+                                        "[图片]", DateUtil.transferLongToDate("HH:mm", messages.get(i).getTime()),
+                                        ChatMsgTypeEnum.RECIVE_MSG);
+                                imgMsg.setContentType(ChatMsgTypeEnum.PIC_MSG);
+                                imgMsg.setImgPath(((ImageAttachment) messages.get(i).getAttachment()).getUrl());
+                                addMsg(imgMsg);
+                            } else {
+                                ChatMessageBean textMsg = new ChatMessageBean(messages.get(i).getSessionId(),
+                                        KeeperPlusCache.getInstance().getCurrentUser().getMobilePhoneNumber(),
+                                        messages.get(i).getContent(), DateUtil.transferLongToDate("HH:mm", messages.get(i).getTime()),
+                                        ChatMsgTypeEnum.RECIVE_MSG);
+                                addMsg(textMsg);
+                            }
                         }
                     }
                 };
@@ -300,6 +326,50 @@ public class ChatActivity extends ToolbarActivity {
     }
 
     @Override
+    public void takeSuccess(TResult result) {
+        super.takeSuccess(result);
+        sendImg(result.getImages());
+    }
+
+    private void sendImg(final ArrayList<TImage> images) {
+
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        Date currentData = new Date(System.currentTimeMillis());
+        String time = format.format(currentData);
+        final ChatMessageBean imgMsg = new ChatMessageBean(KeeperPlusCache.getInstance().getCurrentUser().getMobilePhoneNumber(),
+                friendphone, "[图片]", time, ChatMsgTypeEnum.SEND_MSG);
+        imgMsg.setContentType(ChatMsgTypeEnum.PIC_MSG);
+
+        IMMessage message = MessageBuilder.createImageMessage(
+                chatFriend.getMobilePhoneNumber(), // 聊天对象的 ID，如果是单聊，为用户帐号，如果是群聊，为群组 ID
+                SessionTypeEnum.P2P, // 聊天类型，单聊或群组
+                new File(images.get(0).getCompressPath()) // 文本内容
+        );
+
+        // 发送消息。如果需要关心发送结果，可设置回调函数。发送完成时，会收到回调。如果失败，会有具体的错误码。
+        NIMClient.getService(MsgService.class).sendMessage(message, true);
+
+        File file = new File(images.get(0).getCompressPath());
+        final BmobFile bmobFile = new BmobFile(file);
+
+        bmobFile.uploadblock(new UploadFileListener() {
+
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    imgMsg.setImgPath(bmobFile.getFileUrl());
+                    addMsg(imgMsg);
+                } else {
+                }
+            }
+
+            @Override
+            public void onProgress(Integer value) {
+            }
+        });
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_chat, menu);
         return true;
@@ -310,7 +380,7 @@ public class ChatActivity extends ToolbarActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_show_info) {
-
+            DoctorInfoActivity2.startActivity(ChatActivity.this, chatFriend);
             return true;
         }
 

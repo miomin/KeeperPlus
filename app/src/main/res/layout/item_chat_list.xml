@@ -34,6 +34,16 @@
             android:textColor="#666666"
             android:textSize="12sp" />
 
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/iv_friendImg"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@id/iv_friendhead"
+            android:visibility="gone"
+            fresco:roundedCornerRadius="20dp" />
+
         <TextView
             android:id="@+id/tv_friendtext"
             android:layout_width="wrap_content"
@@ -83,6 +93,16 @@
             android:text="16:25"
             android:textColor="#666666"
             android:textSize="12sp" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/iv_myimg"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="2dp"
+            android:layout_toLeftOf="@id/iv_myhead"
+            android:visibility="gone"
+            fresco:roundedCornerRadius="20dp" />
 
         <TextView
             android:id="@+id/tv_mytext"

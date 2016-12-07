@@ -18,6 +18,7 @@ public class ChatMessageBean implements Serializable {
     private int MsgType;
     private int ContentType;
     private String text;
+    private String imgPath;
 
     public ChatMessageBean(String senderID, String reciverID, String text, String time, int MsgType) {
         this.senderID = senderID;
@@ -26,6 +27,10 @@ public class ChatMessageBean implements Serializable {
         this.time = time;
         this.ContentType = ChatMsgTypeEnum.TEXT_MSG;
         this.MsgType = MsgType;
+    }
+
+    public void setContentType(int contentType) {
+        ContentType = contentType;
     }
 
     public String getSenderID() {
@@ -50,5 +55,13 @@ public class ChatMessageBean implements Serializable {
 
     public int getMsgType() {
         return MsgType;
+    }
+
+    public String getImgPath() {
+        return imgPath;
+    }
+
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
     }
 }

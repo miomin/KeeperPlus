@@ -2,7 +2,6 @@ package com.scu.miomin.keeperplus.adapter;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -15,6 +14,7 @@ import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
 import com.scu.miomin.keeperplus.mvp.model.ChatMessageBean;
 import com.scu.miomin.keeperplus.mvp.model.Enum.ChatMsgTypeEnum;
 import com.scu.miomin.keeperplus.mvp.model.Userbean;
+import com.scu.miomin.keeperplus.mvp.view.impl.activity.DoctorInfoActivity2;
 
 import java.util.ArrayList;
 
@@ -72,6 +72,8 @@ public class ChatListAdapter extends BaseAdapter {
             viewholder.iv_friendhead = (SimpleDraweeView) view.findViewById(R.id.iv_friendhead);
             viewholder.tv_friendsendtime = (TextView) view.findViewById(R.id.tv_friendsendtime);
             viewholder.tv_friendtext = (TextView) view.findViewById(R.id.tv_friendtext);
+            viewholder.iv_friendImg = (SimpleDraweeView) view.findViewById(R.id.iv_friendImg);
+            viewholder.iv_myimg = (SimpleDraweeView) view.findViewById(R.id.iv_myimg);
             view.setTag(viewholder);
         } else {
             viewholder = (ViewHolder) view.getTag();
@@ -87,7 +89,7 @@ public class ChatListAdapter extends BaseAdapter {
         viewholder.iv_friendhead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                DoctorInfoActivity2.startActivity(context,chatFriend);
             }
         });
 
@@ -98,7 +100,6 @@ public class ChatListAdapter extends BaseAdapter {
                 viewholder.layout_friend.setVisibility(View.VISIBLE);
                 viewholder.layout_my.setVisibility(View.GONE);
                 viewholder.tv_friendsendtime.setText(msg.getTime());
-                Log.i("keeper", chatFriend.getHeadUrl());
 
                 Uri uri = Uri.parse(chatFriend.getHeadUrl());
                 viewholder.iv_friendhead.setImageURI(uri);
@@ -106,8 +107,15 @@ public class ChatListAdapter extends BaseAdapter {
                 switch (msg.getContentType()) {
                     case ChatMsgTypeEnum.TEXT_MSG:
                         viewholder.tv_friendtext.setText(msg.getText());
+                        viewholder.iv_friendImg.setVisibility(View.GONE);
+                        viewholder.tv_friendtext.setVisibility(View.VISIBLE);
                         break;
                     case ChatMsgTypeEnum.PIC_MSG:
+                        if (msg.getImgPath() != null) {
+                            viewholder.iv_friendImg.setImageURI(Uri.parse(msg.getImgPath()));
+                            viewholder.iv_friendImg.setVisibility(View.VISIBLE);
+                            viewholder.tv_friendtext.setVisibility(View.GONE);
+                        }
                         break;
                     case ChatMsgTypeEnum.VOICE_MSG:
                         break;
@@ -128,8 +136,15 @@ public class ChatListAdapter extends BaseAdapter {
                 switch (msg.getContentType()) {
                     case ChatMsgTypeEnum.TEXT_MSG:
                         viewholder.tv_mytext.setText(msg.getText());
+                        viewholder.iv_myimg.setVisibility(View.GONE);
+                        viewholder.tv_mytext.setVisibility(View.VISIBLE);
                         break;
                     case ChatMsgTypeEnum.PIC_MSG:
+                        if (msg.getImgPath() != null) {
+                            viewholder.iv_myimg.setImageURI(Uri.parse(msg.getImgPath()));
+                            viewholder.iv_myimg.setVisibility(View.VISIBLE);
+                            viewholder.tv_mytext.setVisibility(View.GONE);
+                        }
                         break;
                     case ChatMsgTypeEnum.VOICE_MSG:
                         break;
@@ -163,5 +178,7 @@ public class ChatListAdapter extends BaseAdapter {
         public SimpleDraweeView iv_friendhead;
         public TextView tv_friendsendtime;
         public TextView tv_friendtext;
+        public SimpleDraweeView iv_friendImg;
+        public SimpleDraweeView iv_myimg;
     }
 }
