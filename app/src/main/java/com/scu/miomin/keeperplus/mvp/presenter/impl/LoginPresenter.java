@@ -54,15 +54,18 @@ public class LoginPresenter extends BasePresenter<ILoginView> implements ILoginP
                         query.findObjects(new FindListener<Userbean>() {
                             @Override
                             public void done(List<Userbean> list, BmobException e) {
-                                if (e == null)
+                                if (e == null) {
                                     if (list.size() > 0) {
                                         KeeperPlusCache.getInstance().setCurrentUser(list.get(0));
                                         // 保存登录信息到SharedPerences
                                         saveLoginInfo(loginInfo);
                                         mvpView.showToast(KeepPlusApp.getInstance().getResources().getString(R.string.loginsucceed));
                                         mvpView.startMainActivity();
-                                        mvpView.hideLoading();
                                     }
+                                } else {
+                                    mvpView.showToast("对不起，您的网络不太稳定...");
+                                }
+                                mvpView.hideLoading();
                             }
                         });
                     }

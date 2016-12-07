@@ -42,8 +42,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                 setUpData(savedInstanceState);
                 break;
         }
-
-        mProgressDialogHandler = new ProgressDialogHandler(this, false);
     }
 
     protected abstract void getContentView();
@@ -78,12 +76,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void showProgressDialog(String title, String message) {
-        if (mProgressDialogHandler != null) {
-            Message msg = mProgressDialogHandler.obtainMessage(ProgressDialogHandler.SHOW_PROGRESS_DIALOG);
-            PDMessage pdmessage = new PDMessage(title, message);
-            msg.obj = pdmessage;
-            msg.sendToTarget();
-        }
+        if (mProgressDialogHandler == null)
+            mProgressDialogHandler = new ProgressDialogHandler(this, false);
+        Message msg = mProgressDialogHandler.obtainMessage(ProgressDialogHandler.SHOW_PROGRESS_DIALOG);
+        PDMessage pdmessage = new PDMessage(title, message);
+        msg.obj = pdmessage;
+        msg.sendToTarget();
     }
 
     public void dismissProgressDialog() {
@@ -103,7 +101,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 //    }
 
     public void toast(String message) {
-        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

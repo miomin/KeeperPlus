@@ -36,6 +36,8 @@ public class TreatmentInfoPresenter extends BasePresenter<ITreatmentInfoView> im
                     for (TreatmentFollowup treatmentFollowup : list)
                         if (treatmentFollowup != null)
                             mvpView.addTreatmentFollowup(treatmentFollowup);
+                } else {
+                    mvpView.showToast("对不起，您的网络不稳定...");
                 }
                 mvpView.hideLoading();
             }

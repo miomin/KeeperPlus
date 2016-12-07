@@ -3,7 +3,6 @@ package com.scu.miomin.keeperplus.mvpcore;
 import android.os.Bundle;
 
 import com.scu.miomin.keeperplus.toolbar.ToolbarActivity;
-import com.scu.miomin.keeperplus.util.progress.ProgressCancelListener;
 
 
 /**
@@ -17,12 +16,6 @@ public abstract class BaseToolbarMvpActivity<P extends BasePresenter> extends To
     protected void onCreate(Bundle savedInstanceState) {
         mvpPresenter = createPresenter();
         super.onCreate(savedInstanceState);
-        mProgressDialogHandler.setProgressCancleListener(new ProgressCancelListener() {
-            @Override
-            public void onCancelProgress() {
-                mvpPresenter.onUnsubscribe();
-            }
-        });
     }
 
     protected abstract P createPresenter();

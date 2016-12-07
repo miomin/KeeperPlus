@@ -55,6 +55,8 @@ public class HomeMainPresenter extends BasePresenter<IHomeMainView> implements I
             public void done(List<Userbean> list, BmobException e) {
                 if (e == null)
                     KeeperPlusCache.getInstance().addRemenDoctor(list);
+                else
+                    mvpView.showToast("对不起，您的网络不稳定...");
                 mvpView.hideLoading();
             }
         });

@@ -37,6 +37,8 @@ public class TreatmentListPatientPresenter extends BasePresenter<ITreatmentListP
                     for (TreatmentBean treatment : list)
                         if (treatment != null)
                             mvpView.addTreatment(treatment);
+                } else {
+                    mvpView.showToast("对不起，您的网络不稳定...");
                 }
                 mvpView.hideLoading();
             }
