@@ -159,6 +159,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_find_doctor"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_marginBottom="2dp"
@@ -186,7 +187,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="bottom"
-                    android:text="@string/firstAid"
+                    android:text="查找医生"
                     android:textColor="@color/blackLight"
                     android:textSize="12sp" />
 
@@ -195,7 +196,7 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:text="@string/firstAidDescribe"
+                    android:text="通过手机号查找医生"
                     android:textColor="@color/grey"
                     android:textSize="10sp" />
             </LinearLayout>
