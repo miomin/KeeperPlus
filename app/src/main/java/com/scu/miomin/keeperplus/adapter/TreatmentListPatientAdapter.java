@@ -90,7 +90,8 @@ public class TreatmentListPatientAdapter extends BaseAdapter {
         if (treatmentBean == null)
             return null;
 
-        holder.tvHospital.setText(treatmentBean.getDoctorBean().getHospital().getName());
+        if (treatmentBean.getDoctorBean().getHospital() != null)
+            holder.tvHospital.setText(treatmentBean.getDoctorBean().getHospital().getName());
         holder.tvName.setText(treatmentBean.getDoctorBean().getUsername());
         holder.tvTreatmentReason.setText(treatmentBean.getTreatmentReason());
         holder.tvTreatmentDate.setText(treatmentBean.getDate());

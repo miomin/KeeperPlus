@@ -16,17 +16,17 @@ public class TreatmentFollowup extends BmobObject implements Serializable {
     /**
      * 下面是检查/化验的数据
      */
-    private double HBDH = -1; //乳酸脱氢酶
-    private double ALT = -1; //谷草转氨酶
-    private double AST = -1; //谷丙转氨酶
-    private double CK = -1; //磷酸肌酸激酶
-    private double CKMB = -1; //磷酸肌酸激酶同工酶
-    private double MB = -1; //肌红蛋白
-    private double CTN = -1; //肌钙蛋白
-    private double PBCC = -1; //外周血红细胞总数
-    private double NEU = -1; //中性粒细胞比率
-    private String describeByDoctor; //医生对此次复诊的描述
-    private String describeByPatient; //病人自我感觉的描述
+    private double HBDH = 0; //乳酸脱氢酶
+    private double ALT = 0; //谷草转氨酶
+    private double AST = 0; //谷丙转氨酶
+    private double CK = 0; //磷酸肌酸激酶
+    private double CKMB = 0; //磷酸肌酸激酶同工酶
+    private double MB = 0; //肌红蛋白
+    private double CTN = 0; //肌钙蛋白
+    private double PBCC = 0; //外周血红细胞总数
+    private double NEU = 0; //中性粒细胞比率
+    private String describeByDoctor = "看起来很好"; //医生对此次复诊的描述
+    private String describeByPatient = "看起来很好"; //病人自我感觉的描述
 
     public TreatmentFollowup(String date) {
         this.date = date;

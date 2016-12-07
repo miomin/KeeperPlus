@@ -46,11 +46,26 @@ public class TreatmentListPatientActivity extends BaseToolbarMvpActivity<Treatme
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onStart() {
+        // 创建适配器对象
+        treatmentListPatientAdapter = new TreatmentListPatientAdapter(this, treatmentBeanList);
+        // 将ListView与适配器关联
+        lvTreatmentFollowupList.setAdapter(treatmentListPatientAdapter);
+        mvpPresenter.initTreatmentData();
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
         treatmentListPatientAdapter = null;
         treatmentBeanList.clear();
-        treatmentBeanList = null;
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
         super.onDestroy();
+        treatmentBeanList = null;
     }
 
     @Override
@@ -67,12 +82,7 @@ public class TreatmentListPatientActivity extends BaseToolbarMvpActivity<Treatme
 
     @Override
     protected void setUpData(Bundle savedInstanceState) {
-        // 创建适配器对象
-        treatmentListPatientAdapter = new TreatmentListPatientAdapter(this, treatmentBeanList);
-        // 将ListView与适配器关联
-        lvTreatmentFollowupList.setAdapter(treatmentListPatientAdapter);
 
-        mvpPresenter.initTreatmentData();
     }
 
     public static void startActivity(Context context) {

@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.scu.miomin.menuapp.MainActivity">
     <item
-        android:id="@+id/action_edit_followup"
+        android:id="@+id/action_delete"
         android:orderInCategory="100"
-        android:title="修改"
+        android:title="删除"
         app:showAsAction="always" />
 </menu>

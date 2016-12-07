@@ -112,7 +112,7 @@ public class TreatmentInfoActivity extends BaseToolbarMvpActivity<TreatmentInfoP
         int id = item.getItemId();
 
         if (id == R.id.action_add_followup) {
-            EditFollowupActivity.startActivity(this);
+            EditFollowupActivity.startActivity(this,treatmentBean);
             return true;
         }
 

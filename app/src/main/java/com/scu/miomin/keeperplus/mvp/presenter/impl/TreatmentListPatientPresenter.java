@@ -35,8 +35,10 @@ public class TreatmentListPatientPresenter extends BasePresenter<ITreatmentListP
             public void done(List<TreatmentBean> list, BmobException e) {
                 if (e == null) {
                     for (TreatmentBean treatment : list)
-                        if (treatment != null)
+                        if (treatment != null) {
+                            treatment.setPatientBean(KeeperPlusCache.getInstance().getCurrentUser());
                             mvpView.addTreatment(treatment);
+                        }
                 } else {
                     mvpView.showToast("对不起，您的网络不稳定...");
                 }
