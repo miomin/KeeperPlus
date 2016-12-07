@@ -2,11 +2,11 @@ package com.scu.miomin.keeperplus.mvp.view.impl.fragment;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jph.takephoto.model.TImage;
@@ -14,13 +14,20 @@ import com.jph.takephoto.model.TResult;
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.core.BaseFragment;
 import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
+import com.scu.miomin.keeperplus.mvp.model.Userbean;
+import com.scu.miomin.keeperplus.mvp.view.impl.activity.FindUserActivity;
 import com.scu.miomin.keeperplus.mvp.view.impl.activity.SettingActivity;
 import com.scu.miomin.keeperplus.mvpcore.BaseToolbarMvpActivity;
 import com.scu.miomin.keeperplus.toolbar.ToolbarActivity;
 import com.scu.miomin.keeperplus.util.TakePhotoHelper;
 
+import java.io.File;
 import java.util.ArrayList;
 
+import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.UpdateListener;
+import cn.bmob.v3.listener.UploadFileListener;
 import me.drakeet.materialdialog.MaterialDialog;
 
 /**
@@ -102,7 +109,31 @@ public class HomeMeFragment extends BaseFragment {
                         .setMessage("开发者：莫绪旻，阿里巴巴手机淘宝团队，客户端开发工程师" + "\n"
                                 + "Github：https://github.com/miomin" + "\n"
                                 + "Email：miomin_93@foxmail.com" + "\n")
-                        .setPositiveButton("OK", new View.OnClickListener() {
+                        .setPositiveButton("好的", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mMaterialDialog.dismiss();
+                            }
+                        });
+
+                mMaterialDialog.show();
+            }
+        });
+
+        fragmentView.findViewById(R.id.layout_find_doctor).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FindUserActivity.startActivity(getActivity());
+            }
+        });
+
+        fragmentView.findViewById(R.id.layout_quit).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final MaterialDialog mMaterialDialog = new MaterialDialog(getActivity());
+                mMaterialDialog.setTitle("暂时不要退出哟")
+                        .setMessage("再给其它两位专家看看，您先别退出哟~")
+                        .setPositiveButton("好的", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 mMaterialDialog.dismiss();
@@ -116,7 +147,24 @@ public class HomeMeFragment extends BaseFragment {
         ivHead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TakePhotoHelper.of().selectPhoto(getTakePhoto());
+                final MaterialDialog mMaterialDialog = new MaterialDialog(getActivity());
+                mMaterialDialog.setTitle("提示")
+                        .setMessage("是否打开相册，选择照片上传作为你的头像")
+                        .setPositiveButton("确定", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mMaterialDialog.dismiss();
+                                TakePhotoHelper.of().selectPhoto(getTakePhoto());
+                            }
+                        })
+                        .setNegativeButton("取消", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mMaterialDialog.dismiss();
+                            }
+                        });
+
+                mMaterialDialog.show();
             }
         });
     }
@@ -148,22 +196,53 @@ public class HomeMeFragment extends BaseFragment {
     }
 
     @Override
-    public void takeCancel() {
-        super.takeCancel();
-    }
-
-    @Override
-    public void takeFail(TResult result, String msg) {
-        super.takeFail(result, msg);
-    }
-
-    @Override
     public void takeSuccess(TResult result) {
         super.takeSuccess(result);
-        showImg(result.getImages());
+        uploadHeader(result.getImages());
     }
 
-    private void showImg(ArrayList<TImage> images) {
-        Log.i("miomin", images.toString());
+    private void uploadHeader(ArrayList<TImage> images) {
+        File file = new File(images.get(0).getCompressPath());
+        final BmobFile bmobFile = new BmobFile(file);
+
+        if (bmobFile == null) {
+            Toast.makeText(getContext(), "头像获取失败", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        bmobFile.uploadblock(new UploadFileListener() {
+
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    updateUserHeader(bmobFile.getFileUrl());
+                } else {
+                    Toast.makeText(getContext(), "头像上传失败", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onProgress(Integer value) {
+
+            }
+        });
+    }
+
+    private void updateUserHeader(final String headerUrl) {
+        KeeperPlusCache.getInstance().getCurrentUser().setHeadUrl(headerUrl);
+
+        Userbean userbean = new Userbean();
+        userbean.setHeadUrl(headerUrl);
+        userbean.update(KeeperPlusCache.getInstance().getCurrentUser().getObjectId(), new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    ivHead.setImageURI(Uri.parse(headerUrl));
+                    Toast.makeText(getContext(), "头像上传成功", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "头像上传失败", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
