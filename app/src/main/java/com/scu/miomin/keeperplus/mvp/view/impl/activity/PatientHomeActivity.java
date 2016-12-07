@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationItem;
 import com.luseen.luseenbottomnavigation.BottomNavigation.OnBottomNavigationItemClickListener;
@@ -18,6 +20,8 @@ import com.scu.miomin.keeperplus.mvp.view.impl.fragment.HomeMeFragment;
 import com.scu.miomin.keeperplus.mvp.view.impl.fragment.HomeMsgFragment;
 import com.scu.miomin.keeperplus.mvp.view.interf.IHomeView;
 import com.scu.miomin.keeperplus.mvpcore.BaseToolbarMvpActivity;
+
+import me.drakeet.materialdialog.MaterialDialog;
 
 
 public class PatientHomeActivity extends BaseToolbarMvpActivity<HomePresenter> implements IHomeView {
@@ -145,13 +149,44 @@ public class PatientHomeActivity extends BaseToolbarMvpActivity<HomePresenter> i
             SettingActivity.startActivity(PatientHomeActivity.this);
             return true;
         } else if (id == R.id.action_quit) {
+            final MaterialDialog mMaterialDialog = new MaterialDialog(PatientHomeActivity.this);
+            mMaterialDialog.setTitle("暂时不要退出哟")
+                    .setMessage("再给其它两位专家看看，您先别退出哟~")
+                    .setPositiveButton("好的", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mMaterialDialog.dismiss();
+                        }
+                    });
 
+            mMaterialDialog.show();
             return true;
         } else if (id == R.id.action_find_friend) {
-
+            FindUserActivity.startActivity(PatientHomeActivity.this);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    // 监听到返回键时，退出应用
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            final MaterialDialog mMaterialDialog = new MaterialDialog(PatientHomeActivity.this);
+            mMaterialDialog.setTitle("暂时不要退出哟")
+                    .setMessage("再给其它两位专家看看，您先别退出哟~")
+                    .setPositiveButton("好的", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mMaterialDialog.dismiss();
+                        }
+                    });
+
+            mMaterialDialog.show();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 }
