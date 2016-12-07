@@ -2,8 +2,10 @@ package com.scu.miomin.keeperplus.mvp.presenter.impl;
 
 import com.scu.miomin.keeperplus.adapter.ECGRecordAdapter;
 import com.scu.miomin.keeperplus.core.KeepPlusApp;
+import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
 import com.scu.miomin.keeperplus.mvp.model.ECGRecordBean;
 import com.scu.miomin.keeperplus.mvp.model.HealthyDescribeByPatientBean;
+import com.scu.miomin.keeperplus.mvp.model.Userbean;
 import com.scu.miomin.keeperplus.mvp.presenter.interf.IECGRecordPresenter;
 import com.scu.miomin.keeperplus.mvp.view.interf.IECGRecordView;
 import com.scu.miomin.keeperplus.mvpcore.BasePresenter;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
 /**
@@ -89,7 +92,7 @@ public class ECGRecordPresenter extends BasePresenter<IECGRecordView> implements
     }
 
     @Override
-    public void uploadECGFile(File file) {
+    public void uploadECGFile(File file, final String filename) {
         final BmobFile bmobFile = new BmobFile(file);
 
         if (bmobFile == null) {
@@ -105,6 +108,7 @@ public class ECGRecordPresenter extends BasePresenter<IECGRecordView> implements
                 if (e == null) {
                     //bmobFile.getFileUrl()--返回的上传文件的完整地址
                     mvpView.showToast("上传文件成功:" + bmobFile.getFileUrl());
+                    updateClouldECGRecord(filename);
                 } else {
                     mvpView.showToast("上传文件失败：" + e.getMessage());
                 }
@@ -114,6 +118,22 @@ public class ECGRecordPresenter extends BasePresenter<IECGRecordView> implements
             @Override
             public void onProgress(Integer value) {
                 // 返回的上传进度（百分比）
+            }
+        });
+    }
+
+    private void updateClouldECGRecord(String filename) {
+        if (KeeperPlusCache.getInstance().getCurrentUser().getEcgRecords() == null) {
+            KeeperPlusCache.getInstance().getCurrentUser().setEcgRecords(new ArrayList<String>());
+        }
+        KeeperPlusCache.getInstance().getCurrentUser().getEcgRecords().add(filename);
+
+        Userbean userbean = new Userbean();
+
+        userbean.setEcgRecords(KeeperPlusCache.getInstance().getCurrentUser().getEcgRecords());
+        userbean.update(KeeperPlusCache.getInstance().getCurrentUser().getObjectId(), new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
             }
         });
     }

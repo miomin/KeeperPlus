@@ -66,7 +66,7 @@ public class ECGRecordActivity extends BaseToolbarMvpActivity<ECGRecordPresenter
                             @Override
                             public void onClick(View v) {
                                 mMaterialDialog.dismiss();
-                                mvpPresenter.uploadECGFile(new File(APPString.ECG_DIR + "/" + uploadFilename));
+                                mvpPresenter.uploadECGFile(new File(APPString.ECG_DIR + "/" + uploadFilename), uploadFilename);
                             }
                         })
                         .setNegativeButton("否", new View.OnClickListener() {

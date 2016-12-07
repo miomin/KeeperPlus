@@ -14,5 +14,5 @@ public interface IECGRecordPresenter {
 
     String getClickItemFileName(int index);
 
-    void uploadECGFile(File file);
+    void uploadECGFile(File file, String filename);
 }

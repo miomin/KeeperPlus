@@ -1,6 +1,7 @@
 package com.scu.miomin.keeperplus.mvp.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import cn.bmob.v3.BmobUser;
 
@@ -28,6 +29,8 @@ public class Userbean extends BmobUser implements Serializable {
     private Double pheight;
     // 病人体重
     private Double pweight;
+
+    private ArrayList<String> ecgRecords;
 
     public String getAdministrative() {
         return administrative;
@@ -130,5 +133,13 @@ public class Userbean extends BmobUser implements Serializable {
             return true;
         else
             return false;
+    }
+
+    public ArrayList<String> getEcgRecords() {
+        return ecgRecords;
+    }
+
+    public void setEcgRecords(ArrayList<String> ecgRecords) {
+        this.ecgRecords = ecgRecords;
     }
 }
