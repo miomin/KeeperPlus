@@ -2,18 +2,24 @@ package com.scu.miomin.keeperplus.mvp.view.impl.fragment;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.jph.takephoto.model.TImage;
+import com.jph.takephoto.model.TResult;
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.core.BaseFragment;
 import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
 import com.scu.miomin.keeperplus.mvp.view.impl.activity.SettingActivity;
 import com.scu.miomin.keeperplus.mvpcore.BaseToolbarMvpActivity;
 import com.scu.miomin.keeperplus.toolbar.ToolbarActivity;
+import com.scu.miomin.keeperplus.util.TakePhotoHelper;
+
+import java.util.ArrayList;
 
 import me.drakeet.materialdialog.MaterialDialog;
 
@@ -106,6 +112,13 @@ public class HomeMeFragment extends BaseFragment {
                 mMaterialDialog.show();
             }
         });
+
+        ivHead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TakePhotoHelper.of().selectPhoto(getTakePhoto());
+            }
+        });
     }
 
     @Override
@@ -132,5 +145,25 @@ public class HomeMeFragment extends BaseFragment {
         } else if (getActivity() instanceof BaseToolbarMvpActivity) {
             ((BaseToolbarMvpActivity) getActivity()).hideToolbar();
         }
+    }
+
+    @Override
+    public void takeCancel() {
+        super.takeCancel();
+    }
+
+    @Override
+    public void takeFail(TResult result, String msg) {
+        super.takeFail(result, msg);
+    }
+
+    @Override
+    public void takeSuccess(TResult result) {
+        super.takeSuccess(result);
+        showImg(result.getImages());
+    }
+
+    private void showImg(ArrayList<TImage> images) {
+        Log.i("miomin", images.toString());
     }
 }

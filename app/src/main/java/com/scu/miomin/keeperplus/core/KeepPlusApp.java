@@ -1,11 +1,11 @@
 package com.scu.miomin.keeperplus.core;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Environment;
+import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -15,10 +15,8 @@ import com.netease.nimlib.sdk.StatusBarNotificationConfig;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.uinfo.UserInfoProvider;
-import com.orhanobut.logger.Logger;
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.constants.APPAction;
-import com.scu.miomin.keeperplus.constants.APPString;
 import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
 import com.scu.miomin.keeperplus.splash.SplashActivity;
 import com.scu.miomin.keeperplus.string.LoginString;
@@ -36,7 +34,7 @@ import cn.bmob.v3.BmobConfig;
 /**
  * Created by 莫绪旻 and Stay on 2/2/16.
  */
-public class KeepPlusApp extends Application {
+public class KeepPlusApp extends MultiDexApplication {
 
     private static KeepPlusApp sInstance;
     public boolean AUTOLOGINSUCCEED = false;
@@ -57,7 +55,6 @@ public class KeepPlusApp extends Application {
 
         Fresco.initialize(this);
         registerAppController();
-        Logger.init(APPString.TAG).methodCount(2);
         NIMClient.init(this, null, options()); // SDK初始化（启动后台服务，若已经存在用户登录信息，SDK 将完成自动登录）
         // 创建心电图目录文件
         ECGDirSaveUtil.creatDirFile(this);
