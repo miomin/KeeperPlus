@@ -90,15 +90,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-//    // 监听到返回键时，退出应用
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-//            AppStatusTracker.getInstance(getApplication()).finishAll();
-//            return true;
-//        }
-//        return super.onKeyDown(keyCode, event);
-//    }
 
     public void toast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
