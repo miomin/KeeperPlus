@@ -1,11 +1,14 @@
 package com.scu.miomin.keeperplus.mvp.cache;
 
+import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.scu.miomin.keeperplus.adapter.ConversationAdapter;
 import com.scu.miomin.keeperplus.adapter.RemenDoctorAdapter;
 import com.scu.miomin.keeperplus.mvp.model.Userbean;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by miomin on 16/11/21.
@@ -21,6 +24,8 @@ public class KeeperPlusCache {
     private ConversationAdapter conversationAdapter;
     private RemenDoctorAdapter remenDoctorAdapter;
     private String lastCheckUserPhonenumber;
+
+    public Map<String,IMMessage> lastMsgMap = new HashMap<>();
 
     private KeeperPlusCache() {
 
