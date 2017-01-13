@@ -24,12 +24,14 @@ import com.jph.takephoto.model.TImage;
 import com.jph.takephoto.model.TResult;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
+import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.msg.MessageBuilder;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.MsgServiceObserve;
 import com.netease.nimlib.sdk.msg.attachment.ImageAttachment;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
+import com.netease.nimlib.sdk.msg.model.QueryDirectionEnum;
 import com.scu.miomin.keeperplus.R;
 import com.scu.miomin.keeperplus.adapter.ChatListAdapter;
 import com.scu.miomin.keeperplus.mvp.cache.KeeperPlusCache;
@@ -241,6 +243,7 @@ public class ChatActivity extends TakePhotoActivity {
 
     public void addHistoryMsg(ChatMessageBean msg) {
         chatListAdapter.addHistoryMsg(msg);
+        list_chat.setSelection(chatListAdapter.getCount());
     }
 
     private void setUpData() {
@@ -255,20 +258,24 @@ public class ChatActivity extends TakePhotoActivity {
                         // 处理新收到的消息，为了上传处理方便，SDK 保证参数 messages 全部来自同一个聊天对象。
                         for (int i = 0; i < messages.size(); i++) {
 
-                            if (messages.get(i).getAttachment() != null && messages.get(i).getAttachment() instanceof ImageAttachment) {
-                                ChatMessageBean imgMsg = new ChatMessageBean(messages.get(i).getSessionId(),
-                                        KeeperPlusCache.getInstance().getCurrentUser().getMobilePhoneNumber(),
-                                        "[图片]", DateUtil.transferLongToDate("HH:mm", messages.get(i).getTime()),
-                                        ChatMsgTypeEnum.RECIVE_MSG);
-                                imgMsg.setContentType(ChatMsgTypeEnum.PIC_MSG);
-                                imgMsg.setImgPath(((ImageAttachment) messages.get(i).getAttachment()).getUrl());
-                                addMsg(imgMsg);
-                            } else {
-                                ChatMessageBean textMsg = new ChatMessageBean(messages.get(i).getSessionId(),
-                                        KeeperPlusCache.getInstance().getCurrentUser().getMobilePhoneNumber(),
-                                        messages.get(i).getContent(), DateUtil.transferLongToDate("HH:mm", messages.get(i).getTime()),
-                                        ChatMsgTypeEnum.RECIVE_MSG);
-                                addMsg(textMsg);
+                            if (messages.get(i).getSessionId().equals(chatFriend.getMobilePhoneNumber())) {
+                                if (messages.get(i).getAttachment() != null && messages.get(i).getAttachment() instanceof ImageAttachment) {
+                                    ChatMessageBean imgMsg = new ChatMessageBean(messages.get(i).getSessionId(),
+                                            KeeperPlusCache.getInstance().getCurrentUser().getMobilePhoneNumber(),
+                                            "[图片]", DateUtil.transferLongToDate("HH:mm", messages.get(i).getTime()),
+                                            ChatMsgTypeEnum.RECIVE_MSG);
+                                    imgMsg.setContentType(ChatMsgTypeEnum.PIC_MSG);
+                                    imgMsg.setImgPath(((ImageAttachment) messages.get(i).getAttachment()).getUrl());
+                                    addMsg(imgMsg);
+                                } else {
+                                    ChatMessageBean textMsg = new ChatMessageBean(messages.get(i).getSessionId(),
+                                            KeeperPlusCache.getInstance().getCurrentUser().getMobilePhoneNumber(),
+                                            messages.get(i).getContent(), DateUtil.transferLongToDate("HH:mm", messages.get(i).getTime()),
+                                            ChatMsgTypeEnum.RECIVE_MSG);
+                                    addMsg(textMsg);
+                                }
+
+                                KeeperPlusCache.getInstance().lastMsgMap.put(chatFriend.getMobilePhoneNumber(), messages.get(i));
                             }
                         }
                     }
@@ -278,28 +285,48 @@ public class ChatActivity extends TakePhotoActivity {
         NIMClient.getService(MsgServiceObserve.class)
                 .observeReceiveMessage(incomingMessageObserver, true);
 
+        final IMMessage lastMsg = KeeperPlusCache.getInstance().lastMsgMap.get(chatFriend.getMobilePhoneNumber());
 
-//        NIMClient.getService(MsgService.class).queryMessageListEx(messages.get(messages.size() - 1), QueryDirectionEnum.QUERY_OLD, 50, false)
-//                .setCallback(new RequestCallback<List<IMMessage>>() {
-//                    @Override
-//                    public void onSuccess(List<IMMessage> imMessages) {
-//                        for (IMMessage message : imMessages) {
-//                            ChatMessageBean textMsg = new ChatMessageBean(message.getSessionId(),
-//                                    KeeperPlusCache.getInstance().getCurrentUser().getMobilePhoneNumber(),
-//                                    message.getContent(), DateUtil.transferLongToDate("HH:mm", message.getTime()),
-//                                    ChatMsgTypeEnum.RECIVE_MSG);
-//                            addHistoryMsg(textMsg);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailed(int i) {
-//                    }
-//
-//                    @Override
-//                    public void onException(Throwable throwable) {
-//                    }
-//                });
+        if (lastMsg == null)
+            return;
+
+        NIMClient.getService(MsgService.class).queryMessageListEx(lastMsg,
+                QueryDirectionEnum.QUERY_OLD, 50, false)
+                .setCallback(new RequestCallback<List<IMMessage>>() {
+                    @Override
+                    public void onSuccess(List<IMMessage> imMessages) {
+                        imMessages.add(0, lastMsg);
+                        for (IMMessage message : imMessages) {
+                            int chatMsgType = ChatMsgTypeEnum.RECIVE_MSG;
+                            if (!message.getFromAccount().equals(chatFriend.getMobilePhoneNumber()))
+                                chatMsgType = ChatMsgTypeEnum.SEND_MSG;
+
+                            if (message.getAttachment() != null && message.getAttachment() instanceof ImageAttachment) {
+                                ChatMessageBean imgMsg = new ChatMessageBean(message.getSessionId(),
+                                        KeeperPlusCache.getInstance().getCurrentUser().getMobilePhoneNumber(),
+                                        "[图片]", DateUtil.transferLongToDate("HH:mm", message.getTime()),
+                                        chatMsgType);
+                                imgMsg.setContentType(ChatMsgTypeEnum.PIC_MSG);
+                                imgMsg.setImgPath(((ImageAttachment) message.getAttachment()).getUrl());
+                                addHistoryMsg(imgMsg);
+                            } else {
+                                ChatMessageBean textMsg = new ChatMessageBean(message.getSessionId(),
+                                        KeeperPlusCache.getInstance().getCurrentUser().getMobilePhoneNumber(),
+                                        message.getContent(), DateUtil.transferLongToDate("HH:mm", message.getTime()),
+                                        chatMsgType);
+                                addHistoryMsg(textMsg);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailed(int i) {
+                    }
+
+                    @Override
+                    public void onException(Throwable throwable) {
+                    }
+                });
     }
 
     // 隐藏软键盘
